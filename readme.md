@@ -1,6 +1,7 @@
 # Omniverse sample scripts
 
 This is a collection of sample scripts that run in the script window on NVIDIA Moniverse Create.     
+It is also for learning to write USD using Python.     
 
 Confirmed with Omniverse Create 2021.1.    
 
