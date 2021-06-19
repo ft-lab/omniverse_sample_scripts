@@ -4,14 +4,17 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 stage = omni.usd.get_context().get_stage()
 
 # Create sphere.
-pathName = '/World/sphere'
-sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
+pathName = '/World/cube'
+cubeGeom = UsdGeom.Cube.Define(stage, pathName)
 
-# Set radius.
-sphereGeom.CreateRadiusAttr(5.0)
+# Set cube size.
+cubeGeom.CreateSizeAttr(10.0)
 
 # Set color.
-sphereGeom.CreateDisplayColorAttr([(1.0, 0.0, 0.0)])
+cubeGeom.CreateDisplayColorAttr([(0.0, 1.0, 0.0)])
 
 # Set position.
-UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((0.0, 5.0, 0.0))
+UsdGeom.XformCommonAPI(cubeGeom).SetTranslate((0.0, 5.0, 0.0))
+
+# Set scale.
+UsdGeom.XformCommonAPI(cubeGeom).SetScale((2.0, 1.0, 2.0))

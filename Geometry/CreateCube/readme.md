@@ -7,5 +7,5 @@ Sample of creating a cube.
 ## [CreateCube.py](./CreateCube.py)    
 
 Create a simple cube.     
-![createSphere_img.jpg](./images/createSphere_img.jpg)    
+![createCube.jpg](./images/createCube.jpg)    
 
