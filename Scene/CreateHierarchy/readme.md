@@ -2,9 +2,10 @@
 
 ## Overview
 
-Create a hierarchy.    
+Create the hierarchy.    
 
-## [CreateSphere.py](./CreateSphere.py)    
+## [CreateHierarchy.py](./CreateHierarchy.py)    
 
+![createHierarchy_img.jpg](./images/createHierarchy_img.jpg)    
 
 

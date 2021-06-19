@@ -5,19 +5,31 @@ stage = omni.usd.get_context().get_stage()
 
 # Get default prim.
 defaultPrim = stage.GetDefaultPrim()
-print(defaultPrim.GetName())
+
+# Get root path.
+rootPath = ''
+if defaultPrim.IsValid():
+    rootPath = defaultPrim.GetPath().pathString
 
 # Create empty node(Xform).
+UsdGeom.Xform.Define(stage, rootPath + '/node1')
+
+# Create empty node(Xform).
+UsdGeom.Xform.Define(stage, rootPath + '/node1/node1_2')
 
 # Create sphere.
-pathName = '/World/sphere'
+pathName = rootPath + '/node1/sphere'
 sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
 
 # Set radius.
-sphereGeom.CreateRadiusAttr(5.0)
-
-# Set color.
-sphereGeom.CreateDisplayColorAttr([(1.0, 0.0, 0.0)])
+sphereGeom.CreateRadiusAttr(1.0)
 
 # Set position.
-UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((0.0, 5.0, 0.0))
+UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((-3, 0, 0))
+
+# Create cube.
+pathName = rootPath + '/node1/cube'
+cubeGeom = UsdGeom.Cube.Define(stage, pathName)
+
+# Set position.
+UsdGeom.XformCommonAPI(cubeGeom).SetTranslate((0, 0, 0))
