@@ -30,5 +30,10 @@ print('Hello Omniverse !')
 ## Samples
 
 |Sample|Description|     
-|---|---|    
+|---|---|     
+|[Geometry](./Geometry/readme.md)|Sample for creating geometry.|    
+|[Material](./Material/readme.md)|This is a sample of the material settings.|    
+|[Scene](./Scene/readme.md)|Sample for getting scene information.|    
+|[Physics](./Physics/readme.md)|This is a sample of Physics.|    
+|[UI](./UI/readme.md)|Sample of UI operation.|    
 
