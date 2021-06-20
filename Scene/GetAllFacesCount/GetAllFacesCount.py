@@ -19,8 +19,8 @@ def TraverseHierarchy_number (depth, prim):
 
     # Recursively traverse the hierarchy.
     pChildren = prim.GetChildren()
-    for i in range(len(pChildren)):
-        allCou += TraverseHierarchy_number(depth + 1, pChildren[i])
+    for cPrim in pChildren:
+        allCou += TraverseHierarchy_number(depth + 1, cPrim)
 
     return allCou
 
