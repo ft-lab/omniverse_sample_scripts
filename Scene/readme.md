@@ -3,7 +3,6 @@
 This is a sample of getting scene information.     
 There is a sample that traces the scene hierarchy.     
 
-
 ## Samples
 
 |Sample|Description|     
