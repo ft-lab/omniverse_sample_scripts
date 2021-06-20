@@ -10,3 +10,5 @@ This is a sample for creating geometry.
 |---|---|     
 |[CreateSphere](./CreateSphere/readme.md)|Create simple sphere.|    
 |[CreateCube](./CreateCube/readme.md)|Create simple cube.|    
+|[Visibility](./Visibility/readme.md)|Show/Hide Prim operation.|    
+|[Kind](./Kind/readme.md)|Get/Set the value of Prim's Kind.|    

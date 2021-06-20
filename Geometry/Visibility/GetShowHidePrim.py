@@ -7,7 +7,6 @@ stage = omni.usd.get_context().get_stage()
 selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
-# Toggle show/hide.
 for path in paths:
     # Get prim.
     prim = stage.GetPrimAtPath(path)
