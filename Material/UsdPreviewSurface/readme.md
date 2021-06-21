@@ -1,4 +1,4 @@
-# CreateSphere
+# UsdPreviewSurface
 
 ## Overview
 

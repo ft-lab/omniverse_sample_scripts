@@ -16,6 +16,12 @@ texCoords = meshGeom.CreatePrimvar("st",
 texCoords.Set([(0, 1), (0, 0), (1, 0), (1, 1)])
 meshPrim = stage.GetPrimAtPath(meshPath)
 
+# Create material scope.
+materialScopePath = '/World/Materials'
+scopePrim = stage.GetPrimAtPath(materialScopePath)
+if scopePrim.IsValid() == False:
+    UsdGeom.Scope.Define(stage, materialScopePath)
+    
 # Create material (UsdPreviewSurface).
 materialPath = '/World/Materials/mat1'
 material = UsdShade.Material.Define(stage, materialPath)

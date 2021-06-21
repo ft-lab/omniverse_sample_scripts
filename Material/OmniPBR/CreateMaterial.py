@@ -16,18 +16,29 @@ materialScopePath = '/World/Materials'
 scopePrim = stage.GetPrimAtPath(materialScopePath)
 if scopePrim.IsValid() == False:
     UsdGeom.Scope.Define(stage, materialScopePath)
-    
-# Create material (UsdPreviewSurface).
-materialPath = '/World/Materials/mat1'
-material = UsdShade.Material.Define(stage, materialPath)
-pbrShader = UsdShade.Shader.Define(stage, materialPath + '/PBRShader')
-pbrShader.CreateIdAttr("UsdPreviewSurface")
-pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set((1.0, 0.2, 0.0))
-pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.4)
-pbrShader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
 
-# Connect PBRShader to Material.
-material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
+# Create material (omniPBR).
+materialPath = '/World/Materials/omniPBR_mat1'
+material = UsdShade.Material.Define(stage, materialPath)
+
+shaderPath = materialPath + '/Shader'
+shader = UsdShade.Shader.Define(stage, shaderPath)
+shader.SetSourceAsset('OmniPBR.mdl', 'mdl')
+shader.GetPrim().CreateAttribute('info:mdl:sourceAsset:subIdentifier', Sdf.ValueTypeNames.Token, False, Sdf.VariabilityUniform).Set('OmniPBR')
+
+# Set Diffuse color.
+shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set((1.0, 0.5, 0.4))
+
+# Set Metallic.
+shader.CreateInput('metallic_constant', Sdf.ValueTypeNames.Float).Set(0.0)
+
+# Set Roughness.
+shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.2)
+
+# Connecting Material to Shader.
+mdlOutput = material.CreateSurfaceOutput('mdl')
+mdlOutput.ConnectToSource(shader, 'out')
 
 # Bind material.
 UsdShade.MaterialBindingAPI(spherePrim).Bind(material)
+
