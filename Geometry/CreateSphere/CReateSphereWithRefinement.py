@@ -20,4 +20,3 @@ UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((0.0, 5.0, 0.0))
 objPrim = stage.GetPrimAtPath(pathName)
 objPrim.CreateAttribute('refinementEnableOverride', Sdf.ValueTypeNames.Bool).Set(True)
 objPrim.CreateAttribute('refinementLevel', Sdf.ValueTypeNames.Int).Set(2)
-

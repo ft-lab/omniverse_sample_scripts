@@ -6,3 +6,5 @@ Sample material settings.
 
 |Sample|Description|     
 |---|---|     
+|[UsdPreviewSurface](./UsdPreviewSurface/readme.md)|Create material (UsdPreviewSurface)|     
+

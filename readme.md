@@ -32,6 +32,7 @@ print('Hello Omniverse !')
 |Sample|Description|     
 |---|---|     
 |[Geometry](./Geometry/readme.md)|Sample for creating geometry.|    
+|[Prim](./Prim/readme.md)|Manipulate Prim (Node) in USD.|    
 |[Material](./Material/readme.md)|Sample material settings.|    
 |[Scene](./Scene/readme.md)|Sample for getting scene information.|    
 |[Physics](./Physics/readme.md)|This is a sample of Physics.|    
