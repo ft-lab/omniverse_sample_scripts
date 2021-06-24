@@ -5,11 +5,13 @@ import omni.kit.app
 # Get main window viewport.
 window = omni.ui.Window('Viewport')
 
+# ------------------------------------------.
 async def my_task():
     countV = 0
 
     print('Start task.')
 
+    f = None
     for i in range(10):
         with window.frame:
             with ui.VStack():
@@ -23,6 +25,10 @@ async def my_task():
 
     print('End task.')
 
+    if f != None:
+        f.visible = False
+        f = None
+# ------------------------------------------.
 # Start task.
 asyncio.ensure_future(my_task())
 
