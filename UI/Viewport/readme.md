@@ -2,7 +2,7 @@
 
 ## Overview
 
-Display in a window viewport.    
+Overlay on Viewport.    
 
 ## [DisplayText.py](./DisplayText.py)    
 
