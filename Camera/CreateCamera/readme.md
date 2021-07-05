@@ -18,4 +18,6 @@ viewport = omni.kit.viewport.get_viewport_interface()
 viewport.get_viewport_window().set_active_camera(pathName)
 ```
 
+## [GetCurrentCamera.py](./GetCurrentCamera.py)    
 
+Get active camera.     
