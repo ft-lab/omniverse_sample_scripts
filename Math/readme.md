@@ -12,6 +12,6 @@ Vectors and matrix calculations.
 |[NormalizeVector3.py](./NormalizeVector3.py)|Normalize Vector3.|     
 |[DecomposeTransform.py](./DecomposeTransform.py)|Decompose the transformation matrix into translate, rotation, and scale.|     
 |[QuatToRotation.py](./QuatToRotation.py)|Calculating quaternion and Euler's rotation angles(degree).|     
-
+|[CalcMatrix.py](./CalcMatrix.py)|Calculating with 4x4 matrices.|     
 
 
