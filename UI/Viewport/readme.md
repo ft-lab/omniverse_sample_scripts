@@ -4,16 +4,20 @@
 
 Overlay on Viewport.    
 
-## [DisplayText.py](./DisplayText.py)    
+## [DrawText.py](./DrawText.py)    
 
 Displaying text in a window viewport.    
 ![DisplayText.png](./images/DisplayText.png)    
 
 
-## [DisplayText2.py](./DisplayText2.py)    
+## [DrawText2.py](./DrawText2.py)    
 
 Displaying multiple texts in a window viewport.    
 ![DisplayText2.png](./images/DisplayText2.png)    
+
+## [DrawRandomRect.py](./DrawRandomRect.py)    
+
+Display rectangles randomly.      
 
 ## [UpdateText.py](./UpdateText.py)    
 
