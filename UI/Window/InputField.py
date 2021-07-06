@@ -17,11 +17,11 @@ with my_window.frame:
         uiLabel.text = ""
 
     # Called when a value is changed in a StringField.
-    def onValueChanged (uiField, uiLabel):
-        if not uiField or not uiLabel:
+    def onValueChanged (uiFieldModel, uiLabel):
+        if not uiFieldModel or not uiLabel:
             return
 
-        v = uiField.get_value_as_string()
+        v = uiFieldModel.get_value_as_string()
         uiLabel.text = v
 
     # Create window UI.
@@ -41,6 +41,6 @@ with my_window.frame:
         btn.set_clicked_fn(lambda f = sField, l = sLabel: onReset(f, l))
 
         # Specify a callback when a value is changed in a StringField.
-        sField.model.add_value_changed_fn(lambda f = sField, l = sLabel: onValueChanged(f, l))
+        sField.model.add_value_changed_fn(lambda f, l = sLabel: onValueChanged(f, l))
 
 
