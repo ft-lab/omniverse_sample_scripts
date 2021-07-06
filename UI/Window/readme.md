@@ -27,3 +27,8 @@ imagePath = f"{IMAGE_PATH}/xxxx.png"
 omni.ui.Image(imagePath, width=64, height=64, fill_policy=omni.ui.FillPolicy.PRESERVE_ASPECT_FIT, alignment=omni.ui.Alignment.LEFT_CENTER)
 
 ```
+
+## [InputField.py](./InputField.py)    
+
+A sample input field using omni.ui.StringField.     
+![InputField.png](./images/InputField.png)    
