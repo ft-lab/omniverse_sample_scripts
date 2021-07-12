@@ -26,8 +26,11 @@ m2 = Gf.Matrix4f(rot1, Gf.Vec3f())
 
 rot2 = Gf.Rotation(Gf.Vec3d(0, 1, 0), 30.0)
 m3 = Gf.Matrix4f(rot2, Gf.Vec3f())
-m4 = m2 * m3
+m4 = m2 * m3    # Gf.Matrix4f * Gf.Matrix4f
 print(m4)
+
+rot3 = rot1 * rot2  # Gf.Rotation * Gf.Rotation
+print(Gf.Matrix4f(rot3, Gf.Vec3f()))
 
 # Inverse matrix.
 m4Inv = m4.GetInverse()

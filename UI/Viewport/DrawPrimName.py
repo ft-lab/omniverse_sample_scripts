@@ -77,12 +77,13 @@ def ShowNameOfSelectedPrim ():
     sPosList = []
     nameList = []
 
+    xformCache = UsdGeom.XformCache(0)
+
     for path in paths:
         prim = stage.GetPrimAtPath(path)
         if prim.GetTypeName() == "Xform" or prim.GetTypeName() == "Mesh":
             # Get world Transform.
-            xformable = UsdGeom.Xformable(prim)
-            globalPose = xformable.ComputeLocalToWorldTransform(0)
+            globalPose = xformCache.GetLocalToWorldTransform(prim)
 
             # Decompose transform.
             translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
