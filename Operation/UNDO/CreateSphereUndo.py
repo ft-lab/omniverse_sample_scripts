@@ -9,7 +9,7 @@ stage = omni.usd.get_context().get_stage()
 class MyCreateSphere (omni.kit.commands.Command):
     _path = ""
 
-    def __init__ (self, path):
+    def __init__ (self, path : str):
         self._path = path
 
     def do (self):
