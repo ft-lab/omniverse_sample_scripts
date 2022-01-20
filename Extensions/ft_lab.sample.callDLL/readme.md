@@ -1,10 +1,10 @@
 # ft_lab.sample.callDLL
 
-This is sample of calling function from dll using Python's LoadLibrary.     
+"ft_lab.sample.hello" はExtensionからC言語のDLLを呼び出す簡単なサンプルです。    
 
-## Extension Structure
+## Extensionの構成
 
-"ft_lab.sample.callDLL" Extension.     
+"ft_lab.sample.callDLL" Extensionの構成です。     
 
 ```
 [ft_lab.sample.callDLL]
@@ -35,25 +35,28 @@ This is sample of calling function from dll using Python's LoadLibrary.
         [OmniverseSimpleDLL]  ... DLL source project for VS2017.
 ```
 
+[build]フォルダは説明のために入れていますが、Extensionの構成としては不要な要素です。    
+削除しても問題ありません。      
+
 ## data/icon.png
 
-Icon file(256 x 256 pixel).    
-It is referenced by "config/extension.toml".    
+アイコンファイル(256 x 256 pixel)。    
+"config/extension.toml"から参照されます。    
 
 ## data/preview.png
 
-Image displayed in OVERVIEW in the Extension window.     
-It is referenced by "config/extension.toml".    
+ExtensionウィンドウのOVERVIEWで表示される画像です。      
+"config/extension.toml"から参照されます。    
 
 ## docs
 
-Documents.     
+ドキュメント。     
 
-|File name|Description|     
+|ファイル名|説明|     
 |---|---|     
-|index.rst|A file describing the structure of the document.|     
-|README.md|Description displayed in the OVERVIEW.|     
-|CHANGELOG.md|Description displayed in CHANGELOG.|     
+|index.rst|ドキュメントの構造を記載したファイル。|     
+|README.md|OVERVIEWに表示される内容。|     
+|CHANGELOG.md|CHANGELOGに表示される内容。|     
 
 ### index.rst
 
@@ -69,7 +72,7 @@ ft_lab.sample.callDLL
 ```
 ## config/extension.toml
 
-"extension.toml" is a configuration file.     
+"extension.toml"はExtentionの設定を記載します。     
 
 ```
 [package]
@@ -106,7 +109,6 @@ icon = "data/icon.png"
 
 # We only depend on testing framework currently:
 [dependencies]
-"omni.kit.test" = {}
 
 # Main python module this extension provides.
 [[python.module]]
@@ -117,12 +119,13 @@ name = "ft_lab.sample.callDLL"
 path = "bin/win/x64/OmniverseSimpleDLL.dll"
 ```
 
-Set the path of the dll to be referenced in [[native.library]].     
-
+[[native.library]]にDLLを参照するための相対パスを指定します（DLLファイル名も含む）。     
+上記の場合は、Extension実行時に自動的に"bin/win/x64/"がdllの検索パスとして参照されます。     
 
 ## ft_lab.sample.callDLL
 
-For "ft_lab.sample.callDLL", create a folder for "ft_lab/sample/callDLL".     
+"ft_lab.sample.callDLL"内は、"ft_lab/sample/callDLL"の階層でフォルダを構成します。     
+
 ```
 [ft_lab]
     [sample]
@@ -133,7 +136,7 @@ For "ft_lab.sample.callDLL", create a folder for "ft_lab/sample/callDLL".
 
 ### __init__.py
 
-Import the Main file (callDLL.py).     
+開始するメインファイル (callDLL.py)のインポートを指定します.     
 
 ```
 from .callDLL import *
@@ -141,9 +144,8 @@ from .callDLL import *
 
 ### callDLL.py
 
-Specify the method to call when the Extension starts and ends.     
-Load the dll with "dll = cdll.LoadLibrary(r"OmniverseSimpleDLL.dll")".     
-
+Extensionの開始時と終了時に呼び出すメソッドを指定します。     
+"dll = cdll.LoadLibrary(r"OmniverseSimpleDLL.dll")"の指定によりDLLが読み込まれます。     
 
 ```
 import omni.ext
@@ -177,17 +179,20 @@ class CallDLLExtension(omni.ext.IExt):
         print("[ft_lab.sample.callDLL] HelloExtension shutdown")
 ```
 
-## Install the Extension in Omniverse Create
+"ext_add"、"ext_sub"がDLLに定義されている外部関数になります。     
 
-Let's say you have Omniverse Create installed on "pkg/create-2021.1.1".     
-Extension is stored in "pkg/create-2021.1.1/_build/kit_release/_exts".    
+## Omniverse CreateにExtensionを入れる
 
-Copy the "ft_lab.sample.callDLL" that you created here.     
-You can do this while Omniverse Create is running.     
+Omniverse Createが"pkg/create-2021.3.8"にインストールされているとします。     
+このとき、開発者が作成したExtensionを"pkg/create-2021.3.8/exts"に入れます。     
 
-Select "Window"-"Extensions" from the main menu.     
+作成した"ft_lab.sample.callDLL"をフォルダごと"pkg/create-2021.3.8/exts"に格納します。      
+Omniverse Createを起動したままでもExtensionを所定のフォルダに入れると、自動的にExtensionが認識されます。     
 
-You can find the Extension you created by searching for "sample".     
+メインメニューの"Window"-"Extensions" を選択し、Extensionsウィンドウを表示します。     
+
+Extensionのリストで"Calling function from dll"が存在するのを確認できました。     
+
 ![extension_cap_02.jpg](../images/extension_cap_02.jpg)    
 
 
