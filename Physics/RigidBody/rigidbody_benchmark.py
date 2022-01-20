@@ -46,7 +46,6 @@ def createGround ():
 # @param[in] colorV   color (red, green, blue).
 # --------------------------------------------------------.
 def createSphere(index, radius, wPos, colorV):
-
     # Create sphere.
     name = 'sphere_' + str(index)
     path = g_basePath + '/' + name
@@ -71,34 +70,73 @@ def createSphere(index, radius, wPos, colorV):
     # Rigid body.
     rigidBodyAPI = UsdPhysics.RigidBodyAPI.Apply(objPrim)
 
+# --------------------------------------------------------.
+# Create cube.
+# @param[in] wPos     world position (x, y, z).
+# @param[in] wSize    size (x, y, z).
+# --------------------------------------------------------.
+def createCube (index, wPos, wSize):
+    name = 'cube_' + str(index)
+    path = '/World/' + name
+    cubePrim = UsdGeom.Cube.Define(g_stage, path)
+
+    # Set cube size.
+    cubePrim.CreateSizeAttr(1.0)
+
+    # Set color.
+    cubePrim.CreateDisplayColorAttr([(0.2, 0.2, 0.2)])
+
+    # Set position.
+    UsdGeom.XformCommonAPI(cubePrim).SetTranslate((wPos[0], wPos[1], wPos[2]))
+
+    # Set scale.
+    UsdGeom.XformCommonAPI(cubePrim).SetScale((wSize[0], wSize[1], wSize[2]))
+
+    # Create collider.
+    objPrim = g_stage.GetPrimAtPath(path)
+    UsdPhysics.CollisionAPI.Apply(objPrim)
+
+# --------------------------------------------------------.
+# Create wall.
+# --------------------------------------------------------.
+def createWall ():
+    createCube(0, [-200.0, 25.0,    0.0], [ 10.0, 50.0, 400.0])
+    createCube(1, [ 200.0, 25.0,    0.0], [ 10.0, 50.0, 400.0])
+    createCube(2, [   0.0, 25.0, -200.0], [400.0, 50.0,  10.0])
+    createCube(3, [   0.0, 25.0,  200.0], [400.0, 50.0,  10.0])
+
 # -----------------------------------------------------------.
 # -----------------------------------------------------------.
 
 # Create ground.
 createGround()
 
+# Create wall.
+createWall()
+
 # Create spheres.
-r = 100.0
-sR = 10.0
-rCount = 32
+sR = 5.0
+dd = 15.0
+sCount = 16
+dMin = dd * (float)(sCount) * 0.5
 
-fV = 0.0
-fVD = 2.0 * math.pi / (float)(rCount)
-fy = 50.0
-fyD = 1.0
-for i in range(200):
-    fx = r * math.cos(fV)
-    fz = r * math.sin(fV)
+i = 0
+fy = 30.0
+for y in range(10):
+    fz = -dMin
+    for z in range(sCount):
+        fx = -dMin
+        for x in range(sCount):
+            colR = random.random()
+            colG = random.random()
+            colB = random.random()
+            dx = random.random() * 5.0
+            dz = random.random() * 5.0
 
-    colR = random.random()
-    colG = random.random()
-    colB = random.random()
+            createSphere(i, sR, (fx + dx, fy, fz + dz), (colR, colG, colB))
+            i = i + 1
+            fx += dd
+        fz += dd
+    fy += dd
 
-    createSphere(i, sR, (fx, fy, fz), (colR, colG, colB))
 
-    fV += fVD
-    fy += fyD
-
-    if (i & 15) == 15:
-        r *= 0.9
-        sR *= 0.9

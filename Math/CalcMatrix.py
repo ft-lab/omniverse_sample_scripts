@@ -35,3 +35,17 @@ print(Gf.Matrix4f(rot3, Gf.Vec3f()))
 # Inverse matrix.
 m4Inv = m4.GetInverse()
 print(m4Inv)
+
+# vector3 * matrix4.
+rotV   = Gf.Rotation(Gf.Vec3d(1, 0, 0), 90.0)
+transV = Gf.Vec3f(10, 5, 2.3)
+m5 = Gf.Matrix4f(rotV, transV)
+
+v1 = Gf.Vec3f(1.2, 1.0, 2.5)
+v2 = m5.Transform(v1)
+print(str(v2))
+
+# vector3 * matrix4 (Ignore position).
+v1 = Gf.Vec3f(1.2, 1.0, 2.5)
+v2 = m5.TransformDir(v1)
+print(str(v2))

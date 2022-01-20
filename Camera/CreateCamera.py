@@ -18,6 +18,9 @@ UsdGeom.XformCommonAPI(cameraGeom).SetTranslate((0.0, 20.0, 40.0))
 # Set rotation.
 UsdGeom.XformCommonAPI(cameraGeom).SetRotate((-20, 15.0, 0.0), UsdGeom.XformCommonAPI.RotationOrderXYZ)
 
+# Set scale.
+UsdGeom.XformCommonAPI(cameraGeom).SetScale((1, 1, 1))
+
 # Change active camera.
 viewport = omni.kit.viewport.get_viewport_interface()
 viewport.get_viewport_window().set_active_camera(pathName)

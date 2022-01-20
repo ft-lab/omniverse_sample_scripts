@@ -20,3 +20,4 @@ with window.frame:
             f3 = omni.ui.Label("Line3!")
             f3.visible = True
             f3.set_style({"color": 0xff0000ff, "font_size": 32})
+

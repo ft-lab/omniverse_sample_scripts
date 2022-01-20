@@ -1,9 +1,11 @@
 # Camera
 
-Camera operation.
-     
-## Samples
+カメラ操作を行う。    
 
-|Sample|Description|     
+## サンプル
+
+|サンプル|説明|     
 |---|---|     
-|[CreateCamera](./CreateCamera/readme.md)|Create camera|     
+|[CreateCamera](./CreateCamera.py)|カメラを作成|     
+|[GetCurrentCamera](./GetCurrentCamera.py)|カレントのカメラを情報を取得|     
+|[CalcPanoramaCameraVector](./CalcPanoramaCameraVector.py)|立体視用の2つのカメラを作成|     

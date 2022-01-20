@@ -1,43 +1,72 @@
 # Omniverse sample scripts
 
-This is a collection of sample scripts that run in the script window on NVIDIA Moniverse Create.     
-It is also for learning to write USD using Python.     
+NVIDIA Omniverseは、データ構造としてUSDを使用してます。     
+3Dモデルやシーンのファイルへの保存、読み込みでUSDが使用されるだけでなく、    
+Omniverse CreateやOmniverse MachinimaなどのOmniverseアプリ上のビュー上でもUSDを介して行われます（表示/非表示の切り替えや移動など）。      
 
-Confirmed with Omniverse Create 2021.1.    
+ここでは、OmniverseアプリであるOmniverse CreateのScript Editorで試せるスクリプトのサンプルを用途別に列挙します。     
+Omniverse Create 2021.3.8で確認しました。     
 
-## Overview
+## はじめに
 
-In Omniverse, select [Window] - [Script Editor] from the main menu to display the Script Editor window.     
+Omniverse Createで、メインメニューの [Window] - [Script Editor]を選択して、Script Editorを起動します。     
 
 ![omniverse_script_editor_01.png](./images/omniverse_script_editor_01.png)    
 
-It is written in the Python language.    
+この中でPythonを使用してプログラムを書きます。    
+左下のRunボタンを押すか、[Ctrl] +[Enter]キーを押すことで実行します。      
 
-## Comment
+以下、Pythonの初歩的な説明です。     
 
-Comments are specified with a "#" at the beginning of the line.     
-```
+## コメント
+
+1行のコメントの場合、"#"から行の末尾までがコメントになります。     
+```python
 # comment.
+```
+
+複数行の場合は、""" から """ までがコメントになります。     
+```python
+"""
+comment.
+line2.
+"""
 ```
 
 ## print
 
-The print to be used for debugging is specified as follows.     
-```
+デバッグ用のメッセージはprintで記載します。     
+```python
 print('Hello Omniverse !')
 ```
 
-## Samples
+## 機能説明用のサンプル
 
-|Sample|Description|     
+|サンプル|説明|     
 |---|---|     
-|[Math](./Math/readme.md)|Vectors and matrix calculations.|    
-|[Geometry](./Geometry/readme.md)|Sample for creating geometry.|    
-|[Camera](./Camera/readme.md)|Camera operation.|    
-|[Prim](./Prim/readme.md)|Manipulate Prim (Node) in USD.|    
-|[Material](./Material/readme.md)|Sample material settings.|    
-|[Scene](./Scene/readme.md)|Sample for getting scene information.|    
-|[Physics](./Physics/readme.md)|This is a sample of Physics.|    
-|[UI](./UI/readme.md)|Sample of UI operation.|    
-|[Operation](./Operation/readme.md)|Ominverse operations.|    
-|[Event](./Event/readme.md)|Get the event.|    
+|[Camera](./Camera/readme.md)|カメラ操作|    
+|[Event](./Event/readme.md)|イベント処理|    
+|[Geometry](./Geometry/readme.md)|ジオメトリの作成|    
+|[Material](./Material/readme.md)|マテリアルの割り当て|    
+|[Math](./Math/readme.md)|ベクトル/行列計算関連|    
+|[omni.kit.pip_archive](./omni.kit.pip_archive/readme.md)|Pythonのよく使われるライブラリの使用|    
+|[Operation](./Rendering/readme.md)|Ominverseの操作|    
+|[Physics](./Physics/readme.md)|Physics(物理)処理|    
+|[Prim](./Prim/readme.md)|USDのPrim(ノード)の操作|    
+|[Rendering](./Prim/readme.md)|レンダリング画像の操作|    
+|[Scene](./Scene/readme.md)|シーン情報の取得|    
+|[Settings](./Settings/readme.md)|設定の取得|    
+|[System](./System/readme.md)|システム関連情報の取得|    
+|[UI](./UI/readme.md)|UI操作|    
+
+## ツール的なサンプル
+
+|サンプル|説明|     
+|---|---|     
+|[Samples](./Samples/readme.md)|サンプルスクリプト|    
+
+## Extension
+
+|サンプル|説明|     
+|---|---|     
+|[Extension](./Extension/readme.md)|サンプルExtension|    

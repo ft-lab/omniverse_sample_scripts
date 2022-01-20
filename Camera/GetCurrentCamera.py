@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, CameraUtil, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, CameraUtil, UsdShade, Sdf, Gf, Tf
 import omni.kit
 
 # Get viewport.
@@ -22,10 +22,21 @@ if cameraPrim.IsValid():
     print("Aspect : " + str(cameraV.aspectRatio))
     print("fov(H) : " + str(cameraV.GetFieldOfView(Gf.Camera.FOVHorizontal)))
     print("fov(V) : " + str(cameraV.GetFieldOfView(Gf.Camera.FOVVertical)))
+    print("FocalLength : " + str(cameraV.focalLength))
     print("World to camera matrix : " + str(cameraV.transform))
 
     viewMatrix = cameraV.frustum.ComputeViewMatrix()
     print("View matrix : " + str(viewMatrix))
+
+    viewInv = viewMatrix.GetInverse()
+
+    # Camera position(World).
+    cameraPos = viewInv.Transform(Gf.Vec3f(0, 0, 0))
+    print("Camera position(World) : " + str(cameraPos))
+
+    # Camera vector(World).
+    cameraVector = viewInv.TransformDir(Gf.Vec3f(0, 0, -1))
+    print("Camera vector(World) : " + str(cameraVector))
 
     projectionMatrix = cameraV.frustum.ComputeProjectionMatrix()
     print("Projection matrix : " + str(projectionMatrix))
