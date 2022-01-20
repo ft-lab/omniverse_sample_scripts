@@ -69,4 +69,4 @@ print('Hello Omniverse !')
 
 |サンプル|説明|     
 |---|---|     
-|[Extension](./Extension/readme.md)|サンプルExtension|    
+|[Extensions](./Extensions/readme.md)|サンプルExtension|    

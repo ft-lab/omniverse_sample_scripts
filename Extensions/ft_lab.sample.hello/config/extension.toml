@@ -6,8 +6,8 @@ version = "0.0.1"
 authors = ["ft-lab"]
 
 # The title and description fields are primarily for displaying extension info in UI
-title = "Calling function from dll"
-description="This is sample of calling function from dll using Python's LoadLibrary."
+title = "Python Extension Example"
+description="Very simple extension."
 
 # Path (relative to the root) or content of readme markdown file for UI.
 readme  = "docs/README.md"
@@ -34,12 +34,8 @@ icon = "data/icon.png"
 
 # We only depend on testing framework currently:
 [dependencies]
-"omni.kit.test" = {}
 
 # Main python module this extension provides.
 [[python.module]]
-name = "ft_lab.sample.callDLL"
+name = "ft_lab.sample.hello"
 
-# Load native library.
-[[native.library]]
-path = "bin/win/x64/OmniverseSimpleDLL.dll"

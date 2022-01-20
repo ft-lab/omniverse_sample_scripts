@@ -1,14 +1,12 @@
 # Selection
 
-## Overview
-
-Getting the selection event.    
+選択イベントを取得します。       
 
 ## [EventSelection.py](./EventSelection.py)    
 
-Get the selection change event and print the selection Prim name.     
+選択変更イベントを取得し、選択されたPrim名を表示します。     
 
 ## [EventSelection_showFacesCount.py](./EventSelection_showFacesCount.py)    
 
-Get the selection change event and display the name and number of faces of the selected Prim in the Viewport.     
+選択されたPrim名、子要素も含めたMeshの面数をビューポートに表示します。       
 ![EventSelection_showFacesCount.jpg](./images/EventSelection_showFacesCount.jpg)    

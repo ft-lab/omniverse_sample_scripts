@@ -1,9 +1,10 @@
-# Camera
+# Event
 
-Get the event.
-     
-## Samples
+イベント処理を行います。     
 
-|Sample|Description|     
+## サンプル
+
+|サンプル|説明|     
 |---|---|     
-|[Selection](./Selection/readme.md)|Selection event.|     
+|[Selection](./Selection/readme.md)|選択イベント|     
+
