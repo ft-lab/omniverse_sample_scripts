@@ -1,13 +1,15 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, UsdSkel, Sdf, Gf, Tf
+
+xformCache = UsdGeom.XformCache(0)
 
 # ---------------------------------------.
-# Dump mesh data.
+# Dump sphere data.
 # ---------------------------------------.
-def DumpMeshData (prim):
+def DumpSphereData (prim):
     typeName = prim.GetTypeName()
 
-    if typeName == 'Mesh':
-        m = UsdGeom.Mesh(prim)
+    if typeName == 'Sphere':
+        sphereGeom = UsdGeom.Sphere(prim)
 
         # Get prim name.
         name = prim.GetName()
@@ -16,32 +18,22 @@ def DumpMeshData (prim):
         path = prim.GetPath().pathString
 
         # Get show/hide.
-        showF = (m.ComputeVisibility() == 'inherited')
+        showF = (sphereGeom.ComputeVisibility() == 'inherited')
 
-        # Get the number of faces of Mesh.
-        facesCou = len(m.GetFaceVertexCountsAttr().Get())
+        # Decompose transform.
+        globalPose = xformCache.GetLocalToWorldTransform(prim)
+        translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
 
-        # Total number of vertices.
-        versCou = len(m.GetPointsAttr().Get())
-
-        # Get UV.
-        uvlayersCou = 0
-        primvars = m.GetPrimvars()
-        for primvar in primvars:
-            if str(primvar.GetTypeName().arrayType) == 'float2[]':
-                # 'st'
-                pName = primvar.GetPrimvarName()
-                uvlayersCou += 1
+        # Get radius.
+        r = sphereGeom.GetRadiusAttr().Get()
 
         # Get Material.
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
         pathList = rel.GetTargets()
 
         print("[ " + name + " ]  " + path)
-        print("Show   : " + str(showF))
-        print("Points : " + str(versCou))
-        print("Faces  : " + str(facesCou))
-        print("UV sets : " + str(uvlayersCou))
+        print("Show    : " + str(showF))
+        print ("Radius : " + str(r * scale[0]) + " , " + str(r * scale[1]) + " , " + str(r * scale[2]))
 
         if len(pathList) > 0:
             print("Material : ")
@@ -54,7 +46,7 @@ def DumpMeshData (prim):
 # Traverse the hierarchy.
 # ---------------------------------------.
 def TraverseHierarchy (prim):
-    DumpMeshData(prim)
+    DumpSphereData(prim)
 
     # Recursively traverse the hierarchy.
     pChildren = prim.GetChildren()

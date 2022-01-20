@@ -1,11 +1,7 @@
 # CreateCube
 
-## Overview
-
-Sample of creating a cube.    
-
 ## [CreateCube.py](./CreateCube.py)    
 
-Create a simple cube.     
+直方体を作成します。     
 ![createCube.jpg](./images/createCube.jpg)    
 
