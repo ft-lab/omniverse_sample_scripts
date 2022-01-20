@@ -1,11 +1,9 @@
 # TraverseHierarchy
 
-## Overview
-
-Traverse the hierarchy.    
+シーンの階層構造をたどる。    
 
 ## [TraverseHierarchy.py](./TraverseHierarchy.py)    
 
-Follow the hierarchical structure of the scene to display the Prim name.    
-In the case of Mesh, the number of faces is displayed.     
+シーンの階層構造をたどってPrim名を表示。     
+Meshの場合はMeshの面数も表示します。     
 

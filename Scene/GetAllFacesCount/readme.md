@@ -2,11 +2,11 @@
 
 ## Overview
 
-Get the number of faces of all Primes(Meshes) in the scene.    
+シーン内のすべてのMeshの面数を合計して表示。       
 
 ## [GetAllFacesCount.py](./GetAllFacesCount.py)    
 
-Get the number of faces of all Primes(Mesh/PointInstancer) in the scene.    
-     
+シーン内のすべてのMeshの面数を合計して表示。       
+対象はMesh/PointInstancer。     
 
 

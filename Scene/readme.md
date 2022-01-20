@@ -1,13 +1,12 @@
 # Scene
 
-This is a sample of getting scene information.     
-There is a sample that traces the scene hierarchy.     
+シーン(Stage)の情報を取得します。     
 
-## Samples
+## サンプル
 
-|Sample|Description|     
+|サンプル|説明|     
 |---|---|     
-|[StageUpAxis](./StageUpAxis/readme.md)|Get/Set the Stage's Up Vector.|    
+|[StageUpAxis](./StageUpAxis/readme.md)|Stageのアップベクトルの取得/設定|    
 |[CreateHierarchy](./CreateHierarchy/readme.md)|Create the hierarchy.|    
 |[GetAllFacesCount](./GetAllFacesCount/readme.md)|Get the number of faces of all Primes(Meshes) in the scene.|    
 |[TraverseHierarchy](./TraverseHierarchy/readme.md)|Traverse the hierarchy.|    

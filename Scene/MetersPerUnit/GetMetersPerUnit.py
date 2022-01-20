@@ -5,8 +5,10 @@ stage = omni.usd.get_context().get_stage()
 
 # Get metersPerUnit (default : 0.01).
 metersPerUnit = UsdGeom.GetStageMetersPerUnit(stage)
-print(metersPerUnit)
+print("MetersPerUnit : " + str(metersPerUnit))
 
 # Set metersPerUnit.
-UsdGeom.SetStageMetersPerUnit(stage, 0.01)
-
+try:
+    UsdGeom.SetStageMetersPerUnit(stage, 0.01)
+except Exception as e:
+    print(e)

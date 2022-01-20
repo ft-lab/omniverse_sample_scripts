@@ -9,6 +9,8 @@ import omni.ui
 import omni.kit.app
 import omni.syntheticdata  # Use omni.syntheticdata extension.
 import numpy as np
+from PIL import Image
+import OpenEXR
 
 # Get main window viewport.
 window = omni.ui.Window('Viewport')
@@ -33,8 +35,11 @@ for sensorD in sensor_list:
 
         print(str(wid) + " " + str(hei))
 
-# Save the Viewport image as a file.
-#filePath = "K:/temp/output.png"
-#renderer = omni.renderer_capture.acquire_renderer_capture_interface()
-#renderer.capture_next_frame_rp_resource(filePath, viewport_ldr)
+        # Save the Viewport image as a file.
+        # The path should be rewritten to match your environment.
+        filePath = "K:/temp/output_depth.png"
+
+        # Create new image (with PIL).
+        #im = Image.new("RGBA", (wid, hei), (0, 0, 0, 0))
+        #im.save(filePath, quality=95)
 

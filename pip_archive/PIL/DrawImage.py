@@ -36,8 +36,8 @@ try:
     basePath = "K:/fonts"
     fontPath = basePath + "/SourceHanSansJP-Bold.otf"
     font = ImageFont.truetype(fontPath, 48)
-except:
-    pass
+except Exception as e:
+    print(e)    
 
 # Draw text.
 if font != None:

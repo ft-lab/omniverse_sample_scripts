@@ -1,11 +1,9 @@
 # GetMetersPerUnit
 
-## Overview
-
-Get/Set the value of metersPerUnit.    
+metersPerUnitの取得/設定。    
 
 ## [GetMetersPerUnit.py](./GetMetersPerUnit.py)    
 
-Get/Set the value of metersPerUnit.    
+metersPerUnitの取得/設定。    
 
 

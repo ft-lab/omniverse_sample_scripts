@@ -14,5 +14,8 @@ elif upAxis == UsdGeom.Tokens.z:
     print("UpAxis : Z")
 
 # Set UpAxis (Y-Up).
-UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+try:
+    UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+except Exception as e:
+    print(e)
 

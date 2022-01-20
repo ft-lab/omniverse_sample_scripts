@@ -1,11 +1,8 @@
 # StageUpAxis
 
-## Overview
-
-Get/Set the Stage's Up Vector.    
+Stageのアップベクトルの取得/設定。    
 
 ## [StageUpAxis.py](./StageUpAxis.py)    
 
-Get/Set the Stage's Up Vector.    
-     
+Stageのアップベクトルの取得/設定。    
 

@@ -18,6 +18,6 @@ try:
     # Get mode (RGB, RGBA, etc.).
     print("Mode : " + str(im.mode))
 
-except:
-    print("Failed to load.")
+except Exception as e:
+    print(e)
 

@@ -11,6 +11,7 @@ vWindow = viewportI.get_viewport_window(None)
 viewport_ldr = vWindow.get_drawable_ldr_resource()
 
 # Save the Viewport image as a file.
+# The path should be rewritten to match your environment.
 filePath = "K:/temp/output.png"
 renderer = omni.renderer_capture.acquire_renderer_capture_interface()
 renderer.capture_next_frame_rp_resource(filePath, viewport_ldr)
