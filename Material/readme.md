@@ -1,10 +1,12 @@
 # Material
 
-Sample material settings.     
+マテリアルの割り当て/取得。     
+なお、テクスチャファイルについては「[textures](./textures)」をローカルの相対パスの位置に配置してご使用くださいませ。
 
-## Samples
+## サンプル
 
-|Sample|Description|     
+|サンプル|説明|     
 |---|---|     
-|[UsdPreviewSurface](./UsdPreviewSurface/readme.md)|Create material (UsdPreviewSurface)|     
-|[OmniPBR](./OmniPBR/readme.md)|Create material (OmniPBR)|     
+|[GetMaterial](./GetMaterial/readme.md)|マテリアルを取得 
+|[UsdPreviewSurface](./UsdPreviewSurface/readme.md)|マテリアルの割り当て (UsdPreviewSurface)|     
+|[OmniPBR](./OmniPBR/readme.md)|マテリアルの割り当て (OmniPBR)|     
