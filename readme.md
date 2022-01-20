@@ -49,9 +49,9 @@ print('Hello Omniverse !')
 |[Geometry](./Geometry/readme.md)|ジオメトリの作成|    
 |[Material](./Material/readme.md)|マテリアルの割り当て|    
 |[Math](./Math/readme.md)|ベクトル/行列計算関連|    
-|[omni.kit.pip_archive](./omni.kit.pip_archive/readme.md)|Pythonのよく使われるライブラリの使用|    
 |[Operation](./Rendering/readme.md)|Ominverseの操作|    
 |[Physics](./Physics/readme.md)|Physics(物理)処理|    
+|[pip_archive](./pip_archive/readme.md)|Pythonのよく使われるモジュールの使用|    
 |[Prim](./Prim/readme.md)|USDのPrim(ノード)の操作|    
 |[Rendering](./Prim/readme.md)|レンダリング画像の操作|    
 |[Scene](./Scene/readme.md)|シーン情報の取得|    

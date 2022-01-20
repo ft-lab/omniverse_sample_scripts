@@ -29,13 +29,20 @@ draw.polygon(vers, outline=(128, 0, 0))
 vers = ((240, 20), (340, 120), (380, 60))
 draw.polygon(vers, fill=(128, 128, 0))
 
-# text.
-basePath = "K:/NVIDIA_omniverse/ov/pkg/create-2021.3.0/kit/resources/fonts"
-#fontPath = basePath + "/OpenSans-SemiBold.ttf"
-fontPath = basePath + "/SourceHanSansJP-Bold.otf"
+# Font.
+font = None
+try:
+    # The ttf font path should be replaced according to your environment.
+    basePath = "K:/fonts"
+    fontPath = basePath + "/SourceHanSansJP-Bold.otf"
+    font = ImageFont.truetype(fontPath, 48)
+except:
+    pass
 
-font = ImageFont.truetype(fontPath, 48)
-draw.multiline_text((16, 40), '漢字を表示', fill=(0, 128, 0), font=font)
+# Draw text.
+if font != None:
+    draw.multiline_text((16, 40), 'Draw Text!', fill=(0, 128, 0))
 
 # Save image.
-im.save("K:/NVIDIA_omniverse/images/out.png", quality=95)
+# Rewrite it to any file path and uncomment the following.
+#im.save("K:/NVIDIA_omniverse/images/out.png", quality=95)
