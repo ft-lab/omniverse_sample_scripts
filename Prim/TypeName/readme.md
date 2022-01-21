@@ -1,11 +1,10 @@
-# Kind
+# TypeName
 
-## Overview
+PrimのTypeName(Xform/Mesh/DistantLightなど)を取得。    
 
-Get the TypeName of Prim.    
+|ファイル|説明|    
+|---|---|    
+|[GetTypeName.py](./GetTypeName.py)|PrimのTypeNameを取得|    
 
-## [GetTypeName.py](./GetTypeName.py)    
-
-Get the TypeName of Prim     
 
 

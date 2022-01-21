@@ -1,4 +1,5 @@
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, UsdSkel, Sdf, Gf, Tf
+import omni.kit
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -9,24 +10,11 @@ paths = selection.get_selected_prim_paths()
 
 xformCache = UsdGeom.XformCache(0)
 
-# Get skeleton.
-def getSkeleton (prim):
-    if prim.IsValid() == False:
-        return None
-    
-
 for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid():
         # Get world Transform.
-        # TODO : For Skeleton Joints, use UsdSkel.SkeletonQuery.GetJointWorldBindTransforms.
-        globalPose = None
-        if prim.GetType() == "SkelJoint":
-            skeletonPrim = getSkeleton(prim)
-            
-        else:
-            globalPose = xformCache.GetLocalToWorldTransform(prim)
-
+        globalPose = xformCache.GetLocalToWorldTransform(prim)
         print(globalPose)
 
         # Decompose transform.

@@ -1,20 +1,11 @@
 # Transform
 
-## Overview
+Transform(scale/rotate/translate)情報の取得/設定。    
 
-Get/Set transform(scale/rotate/translate).    
-
-## [GetTransform.py](./GetTransform.py)    
-
-Gets the Transform element of the selected shape and prints it.     
-
-## [SetTransform.py](./SetTransform.py)    
-
-Create a cube and set the transformation.     
-![SetTransform.jpg](./images/SetTransform.jpg)    
-
-## [GetWorldTransform.py](./GetWorldTransform.py)    
-
-Get the world transformation matrix of the selected Prim.    
+|ファイル|説明|    
+|---|---|    
+|[GetTransform.py](./GetTransform.py)|選択された形状のTransform要素を取得|    
+|[SetTransform.py](./SetTransform.py)|Cubeを作成し、Transformを指定|    
+|[GetWorldTransform.py](./GetWorldTransform.py)|選択形状のTransformをワールド変換して表示|    
 
 
