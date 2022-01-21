@@ -18,7 +18,7 @@ Omniverse Createで、メインメニューの [Window] - [Script Editor]を選�
 
 以下、Pythonの初歩的な説明です。     
 
-## コメント
+### コメント
 
 1行のコメントの場合、"#"から行の末尾までがコメントになります。     
 ```python
@@ -33,12 +33,16 @@ line2.
 """
 ```
 
-## print
+### print
 
 デバッグ用のメッセージはprintで記載します。     
 ```python
 print('Hello Omniverse !')
 ```
+
+### 学習のための知識
+
+* [Omniverseのスクリプトを追う手順](./knowledge/dev_info.md)
 
 ## 機能説明用のサンプル
 
