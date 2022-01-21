@@ -1,16 +1,12 @@
 # UNDO
 
-## Overview
+UNDO処理。    
+特にSkeleton情報を変更する場合、UNDOに対応しないと正常に動作しないケースがありました。     
+Omniverse Kitのドキュメントの"Bundled Extensions/omni.kit.commands"が参考になります。     
 
-UNDO process.    
-In some cases, especially when changing skeleton information, it did not work properly without UNDO support.     
+|ファイル|説明|     
+|---|---|     
+|[simpleClassUNDO.py](./simpleClassUNDO.py)|classを使用してUNDO対応。|     
+|[CreateSphereUndo.py](./CreateSphereUndo.py)|球を生成する処理でUNDO対応して位置|     
 
-## [simpleClassUNDO.py](./simpleClassUNDO.py)    
-
-UNDO support using the class.    
-From "Bundled Extensions/omni.kit.commands" in Omniverse Kit documentation.     
-
-## [CreateSphereUndo.py](./CreateSphereUndo.py)    
-
-Process to create an UNDO-enabled sphere.     
 

@@ -50,11 +50,10 @@ print('Hello Omniverse !')
 |サンプル|説明|     
 |---|---|     
 |[Camera](./Camera/readme.md)|カメラ操作|    
-|[Event](./Event/readme.md)|イベント処理|    
 |[Geometry](./Geometry/readme.md)|ジオメトリの作成|    
 |[Material](./Material/readme.md)|マテリアルの割り当て|    
 |[Math](./Math/readme.md)|ベクトル/行列計算関連|    
-|[Operation](./Rendering/readme.md)|Ominverseの操作|    
+|[Operation](./Rendering/readme.md)|Ominverseの操作情報を取得/イベント処理|    
 |[Physics](./Physics/readme.md)|Physics(物理)処理|    
 |[pip_archive](./pip_archive/readme.md)|Pythonのよく使われるモジュールの使用|    
 |[Prim](./Prim/readme.md)|USDのPrim(ノード)の操作|    
