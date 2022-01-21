@@ -92,4 +92,9 @@ Physicsのドキュメントは、メインメニューの[Window]-[Physics]-[Ph
 このドキュメントはPhysicsに絞っているため、USDの使い方も合わせて分かりやすいと思います。     
 Physics自体はOmniverseの機能というわけではなく、USDのAPIとして「UsdPhysics」でアクセスできるようになっています。     
 
+### Extensionを読む
+
+難易度はありますが、既存ExtensionはPythonで書かれているためそれを解読して作法を学ぶというのもよさそうです。     
+"kit/exts"や"kit/extscore"にExtensionが格納されています。      
+
 

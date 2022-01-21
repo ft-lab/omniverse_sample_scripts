@@ -57,7 +57,7 @@ print('Hello Omniverse !')
 |[Physics](./Physics/readme.md)|Physics(物理)処理|    
 |[pip_archive](./pip_archive/readme.md)|Pythonのよく使われるモジュールの使用|    
 |[Prim](./Prim/readme.md)|USDのPrim(ノード)の操作|    
-|[Rendering](./Rendering/readme.md)|レンダリング画像の操作|    
+|[Rendering](./Rendering/readme.md)|レンダリング画像の取得|    
 |[Scene](./Scene/readme.md)|シーン情報の取得|    
 |[Settings](./Settings/readme.md)|設定の取得|    
 |[System](./System/readme.md)|システム関連情報の取得|    
