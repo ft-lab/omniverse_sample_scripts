@@ -10,8 +10,6 @@ Physicsを使用する場合のスクリプトの書き方が書かれていま�
 これらの情報はかなり詳しく書かれており分かりやすいですので、PhysicsについてはOmniverse Createから学習するほうが理解が深まると思います。      
 
 
-## サンプル
-
 |サンプル|説明|     
 |---|---|     
 |[simpleJoint01.py](./Joint/simpleJoint01.py)|2つのCubeをつなぐ簡単なジョイント<br>![physics_joint_01.jpg](./images/physics_joint_01.jpg)|     

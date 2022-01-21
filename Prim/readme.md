@@ -2,8 +2,6 @@
 
 USDのPrim(ノード相当)を操作します。     
      
-## サンプル
-
 |サンプル|説明|     
 |---|---|     
 |[Visibility](./Visibility/readme.md)|Primの表示/非表示|    

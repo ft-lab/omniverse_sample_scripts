@@ -2,8 +2,6 @@
 
 Ominverseの操作/イベント処理を行います。    
 
-## サンプル
-
 |サンプル|説明|     
 |---|---|     
 |[Selection](./Selection/readme.md)|Stageウィンドウでの選択を取得|     

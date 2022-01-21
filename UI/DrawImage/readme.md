@@ -5,8 +5,6 @@
 そのため、おそらく以下に列挙した描画実装は将来的には不要になると思われます。     
 
 
-## サンプル
-
 |ファイル|説明|     
 |---|---|     
 |[drawImage.py](./drawImage.py)|omni.ui.ByteImageProviderを使用して、RGBAバッファに描画したイメージをビューポートにオーバレイ<br>![ui_draw_image_00.png](./images/ui_draw_image_00.png)|     

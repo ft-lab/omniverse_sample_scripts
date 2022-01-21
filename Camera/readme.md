@@ -2,8 +2,6 @@
 
 カメラ操作を行う。    
 
-## サンプル
-
 |ファイル|説明|     
 |---|---|     
 |[CreateCamera.py](./CreateCamera.py)|カメラを作成|     

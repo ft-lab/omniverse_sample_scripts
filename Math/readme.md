@@ -4,8 +4,6 @@
 USDのベクトル/行列計算は、"Gf"にまとまっているためそれを使用します。      
 numpyを経由しなくても計算できます。     
 
-## サンプル
-
 |ファイル|説明|     
 |---|---|     
 |[CalcDotCrossProduct.py](./CalcDotCrossProduct.py)|ベクトルの内積/外積計算|     

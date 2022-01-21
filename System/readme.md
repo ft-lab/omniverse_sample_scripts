@@ -2,8 +2,6 @@
 
 システムの情報を取得します。     
 
-## サンプル
-
 |ファイル|説明|     
 |---|---|     
 |[GetPythonVersion.py](./GetPythonVersion.py)|Pythonのバージョンを取得|     
