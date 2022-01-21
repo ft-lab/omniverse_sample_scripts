@@ -1,11 +1,12 @@
 # Prim
 
-Manipulate Prim (Node) in USD.
+USDのPrim(ノード相当)を操作します。     
      
-## Samples
+## サンプル
 
-|Sample|Description|     
+|サンプル|説明|     
 |---|---|     
-|[Visibility](./Visibility/readme.md)|Show/Hide Prim operation.|    
-|[Kind](./Kind/readme.md)|Get/Set the value of Prim's Kind.|    
-|[Transform](./Transform/readme.md)|Get/Set transform(scale/rotate/translate).|    
+|[Visibility](./Visibility/readme.md)|Primの表示/非表示|    
+|[Kind](./Kind/readme.md)|PrimのKindを取得/設定|    
+|[Transform](./Transform/readme.md)|Transform(scale/rotate/translate)の取得/設定|    
+|[TypeName](./TypeName/readme.md)|PrimのTypeNameを取得|    

@@ -2,10 +2,8 @@
 
 Perform image processing(PIL)を使用して、2D画像の操作を行います。    
 
-## [LoadImage.py](./LoadImage.py)    
+|ファイル|説明|     
+|---|---|     
+|[LoadImage.py](./LoadImage.py) |画像の読み込み|     
+|[DrawImage.py](./DrawImage.py) |画像の描画と出力|     
 
-画像の読み込み。      
-
-## [DrawImage.py](./DrawImage.py)    
-
-画像の描画と出力。     

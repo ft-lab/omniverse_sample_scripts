@@ -5,7 +5,7 @@ carb.settingsより、設定を取得します。
 
 ## サンプル
 
-|サンプル|説明|     
+|ファイル|説明|     
 |---|---|     
 |[GetKitVersion.py](./GetKitVersion.py)|Omniverse Kitのバージョンを取得|     
 |[GetRenderingSize.py](./GetRenderingSize.py)|レンダリングサイズを取得|     

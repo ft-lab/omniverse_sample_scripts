@@ -1,14 +1,11 @@
 # Kind
 
-## Overview
+PrimのKindを取得/設定。    
 
-Get/Set the value of Prim's Kind.    
+|ファイル|説明|    
+|---|---|    
+|[SetComponent.py](./SetComponent.py)|選択PrimのKindをComponentに変更|    
+|[GetKind.py](./GetKind.py)|選択PrimのKindを取得|    
 
-## [SetComponent.py](./SetComponent.py)    
 
-Specify component as the selected Prim.     
-
-## [GetKind.py](./GetKind.py)    
-
-Get the value of Kind for the selected Prim.     
 

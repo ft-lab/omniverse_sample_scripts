@@ -4,7 +4,7 @@
 
 ## サンプル
 
-|サンプル|説明|     
+|ファイル|説明|     
 |---|---|     
 |[GetPythonVersion.py](./GetPythonVersion.py)|Pythonのバージョンを取得|     
 |[GetSysPath.py](./GetSysPath.py)|Pythonの検索パスの取得と追加|     

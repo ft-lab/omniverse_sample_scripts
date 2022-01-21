@@ -6,7 +6,7 @@ numpyを経由しなくても計算できます。
 
 ## サンプル
 
-|サンプル|説明|     
+|ファイル|説明|     
 |---|---|     
 |[CalcDotCrossProduct.py](./CalcDotCrossProduct.py)|ベクトルの内積/外積計算|     
 |[CalcMatrix.py](./CalcMatrix.py)|4x4行列の計算|     

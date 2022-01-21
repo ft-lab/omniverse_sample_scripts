@@ -1,14 +1,10 @@
 # Visibility
 
-## Overview
+Primの表示/非表示。    
 
-Show/Hide Prim operation.    
+|ファイル|説明|    
+|---|---|    
+|[GetShowHidePrim.py](./GetShowHidePrim.py)|選択Primの表示/非表示を取得|    
+|[ShowHidePrim.py](./ShowHidePrim.py)|選択Primの表示/非表示を切り替え|    
 
-## [GetShowHidePrim.py](./GetShowHidePrim.py)    
-
-Get Prim's Show/Hide.     
-
-## [ShowHidePrim.py](./ShowHidePrim.py)    
-
-Toggle Show/Hide Prim.     
 
