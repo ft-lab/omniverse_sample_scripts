@@ -19,7 +19,7 @@ Omniverse上でのマテリアル表現は、USD標準のUsdPreviewSurface、Omn
 これらでもかなりのマテリアル表現ができますが、
 MDL(Material Definition Language : マテリアル定義言語)を使うことで、よりマテリアルを自由にカスタマイズすることができるようになります。    
 
-MDLについては、「NVIDIA MDL SDK - Get Started」にかなり詳しく情報があります。      
+MDLについては、「NVIDIA MDL SDK - Get Started」に詳しい情報があります。      
 
 https://developer.nvidia.com/mdl-sdk
 
