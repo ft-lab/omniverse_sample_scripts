@@ -1,10 +1,9 @@
 # DragAndDrop
 
-## Overview
+UI間のドラッグ＆ドロップ。    
 
-Drag and drop on UI.    
+|ファイル|説明|     
+|---|---|     
+|[dropTest.py](./dropTest.py)|Primをウィンドウ内のテキスト領域にドラッグすると、パスが表示される。<br>![dropTest.png](./images/dropTest.png)|     
 
-## [dropTest.py](./dropTest.py)    
 
-Drag Prim to show the Prim path.    
-![dropTest.png](./images/dropTest.png)    

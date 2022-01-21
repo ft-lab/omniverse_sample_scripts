@@ -24,5 +24,5 @@ MDLについては、「NVIDIA MDL SDK - Get Started」にかなり詳しく情�
 https://developer.nvidia.com/mdl-sdk
 
 このような感じで、Omniverseはあらゆる個所をカスタマイズしていくことができるようになっています。      
-それぞれは範囲が膨大になるため、まずはOmniverse CreateのScript Editor上でスクリプトを使ってシーンを制御できるようになる、が入口としてちょうどよいかと思います。     
+それぞれは範囲が膨大になるため、まずはOmniverse CreateのScript Editor上でスクリプトを使ってシーンを制御できるようになる、というのが入口としてちょうどよさそうです。     
 

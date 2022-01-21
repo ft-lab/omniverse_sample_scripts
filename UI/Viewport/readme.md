@@ -1,8 +1,6 @@
-# CreateHierarchy
+# Viewport
 
-## Overview
-
-Overlay on Viewport.    
+ビューポート上の表示。    
 
 ## [DrawText.py](./DrawText.py)    
 
