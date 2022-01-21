@@ -40,9 +40,10 @@ line2.
 print('Hello Omniverse !')
 ```
 
-### 学習のための知識
+## 学習のための知識
 
-* [Omniverseのスクリプトを追う手順](./knowledge/dev_info.md)
+* [Omniverseでの開発手段](./knowledge/dev_method.md)
+* [Omniverseのスクリプトの学習手順](./knowledge/dev_info.md)
 
 ## 機能説明用のサンプル
 
