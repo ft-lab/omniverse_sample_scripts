@@ -62,28 +62,28 @@ print('Hello Omniverse !')
 
 |サンプル|説明|     
 |---|---|     
-|[Camera](./Camera/readme.md)|カメラ操作|    
-|[Geometry](./Geometry/readme.md)|ジオメトリの作成|    
-|[Material](./Material/readme.md)|マテリアルの割り当て|    
-|[Math](./Math/readme.md)|ベクトル/行列計算関連|    
-|[Operation](./Operation/readme.md)|Ominverseの操作情報を取得/イベント処理|    
-|[Physics](./Physics/readme.md)|Physics(物理)処理|    
-|[pip_archive](./pip_archive/readme.md)|Pythonのよく使われるモジュールの使用|    
-|[Prim](./Prim/readme.md)|USDのPrim(ノード)の操作|    
-|[Rendering](./Rendering/readme.md)|レンダリング画像の取得|    
-|[Scene](./Scene/readme.md)|シーン情報の取得|    
-|[Settings](./Settings/readme.md)|設定の取得|    
-|[System](./System/readme.md)|システム関連情報の取得|    
-|[UI](./UI/readme.md)|UI操作|    
+|[Camera](./Camera)|カメラ操作|    
+|[Geometry](./Geometry)|ジオメトリの作成|    
+|[Material](./Material)|マテリアルの割り当て|    
+|[Math](./Math)|ベクトル/行列計算関連|    
+|[Operation](./Operation)|Ominverseの操作情報を取得/イベント処理|    
+|[Physics](./Physics)|Physics(物理)処理|    
+|[pip_archive](./pip_archive)|Pythonのよく使われるモジュールの使用|    
+|[Prim](./Prim)|USDのPrim(ノード)の操作|    
+|[Rendering](./Rendering)|レンダリング画像の取得|    
+|[Scene](./Scene)|シーン情報の取得|    
+|[Settings](./Settings)|設定の取得|    
+|[System](./System)|システム関連情報の取得|    
+|[UI](./UI)|UI操作|    
 
 ## ツール的なサンプル
 
 |サンプル|説明|     
 |---|---|     
-|[Samples](./Samples/readme.md)|サンプルスクリプト|    
+|[Samples](./Samples)|サンプルスクリプト|    
 
 ## Extension
 
 |サンプル|説明|     
 |---|---|     
-|[Extensions](./Extensions/readme.md)|サンプルExtension|    
+|[Extensions](./Extensions)|サンプルExtension|    
