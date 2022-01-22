@@ -15,4 +15,5 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 |---|---|     
 |[ft_lab.sample.hello](./ft_lab.sample.hello)|開始(startup)/破棄(shutdown)のみの簡単なExtension|     
 |[ft_lab.sample.callDLL](./ft_lab.sample.callDLL)|C言語のDLLより関数を読み込む|     
+|[ft_lab.sample.menu](./ft_lab.sample.menu)|メニューを追加。<br>![extension_menu_01.png](./images/extension_menu_01.png)|     
 

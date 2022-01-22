@@ -147,7 +147,7 @@ from .callDLL import *
 Extensionの開始時と終了時に呼び出すメソッドを指定します。     
 "dll = cdll.LoadLibrary(r"OmniverseSimpleDLL.dll")"の指定によりDLLが読み込まれます。     
 
-```
+```python
 import omni.ext
 
 from ctypes import *

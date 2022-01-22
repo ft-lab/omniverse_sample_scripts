@@ -127,7 +127,7 @@ from .hello import *
 ### hello.py
 
 Extensionの開始時と終了時に呼び出すメソッドを指定します。     
-```
+```python
 import omni.ext
 
 class HelloExtension(omni.ext.IExt):
