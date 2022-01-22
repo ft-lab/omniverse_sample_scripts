@@ -1,6 +1,7 @@
 # Physics
 
 Physicsのサンプルです。     
+Physicsの計算はGPU上で行われます。    
 
 ## Physicsデモ
 
@@ -9,6 +10,13 @@ Physicsのデモは、Omniverse Createのメインメニューの「Window」-�
 Physicsを使用する場合の説明がされています。     
 これらの情報はかなり詳しく書かれており分かりやすいですので、PhysicsについてはOmniverse Create上のPhysicsデモから学習するほうが理解が深まると思います。      
 
+## Physicsのアニメーションが遅い場合
+
+デフォルトでは、Physicsの剛体を配置してアニメーション再生すると重いです。      
+これは、アニメーション時にフレームごとにUSDを更新する書き込みが走るのが原因になります。     
+Extensionの「omni.physx.flatcache」をExtensionsウィンドウで検索し有効にすることで、この速度低下は解決します。      
+
+## サンプル
 
 |サンプル|説明|     
 |---|---|     

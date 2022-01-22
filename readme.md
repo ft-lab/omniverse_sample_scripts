@@ -1,11 +1,24 @@
 # Omniverse sample scripts
 
-NVIDIA Omniverseは、データ構造としてUSDを使用してます。     
+ここでは、NVIDIA Omniverse ( https://www.nvidia.com/ja-jp/omniverse/ ) のスクリプトのサンプルを貯めていってます。       
+Omniverseは、データ構造としてUSDを使用してます。     
 3Dモデルやシーンのファイルへの保存、読み込みでUSDが使用されるだけでなく、    
-Omniverse CreateやOmniverse MachinimaなどのOmniverseアプリ上のビュー上でもUSDを介して行われます（表示/非表示の切り替えや移動など）。      
+Omniverse CreateやOmniverse ViewなどのOmniverseアプリのビュー上の制御もUSDを介して行われます（形状の表示/非表示の切り替えや移動など）。      
 
 ここでは、OmniverseアプリであるOmniverse CreateのScript Editorで試せるスクリプトのサンプルを用途別に列挙します。     
 Omniverse Create 2021.3.8で確認しました。     
+
+## 開発の参考サイト
+
+Omniverseの情報は、Omniverse Launcherがポータルになっています。      
+ここのLEARNにチュートリアル動画やドキュメントなどが列挙されています。     
+
+### NVIDIA Omniverse Developer Resource Center     
+
+https://developer.nvidia.com/nvidia-omniverse-developer-resource-center
+
+Omniverse開発の入口となるサイトです。     
+全体的に何ができて何が重要か、というのは俯瞰して見ることができます。      
 
 ## はじめに
 

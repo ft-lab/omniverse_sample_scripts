@@ -18,11 +18,13 @@ USD SDKでは、Pythonのモジュール/メソッドと、C/C++言語のクラ�
 Omniverse上でのマテリアル表現は、USD標準のUsdPreviewSurface、OmniPBR、OmniSurfaceが使用されます。     
 これらでもかなりのマテリアル表現ができますが、
 MDL(Material Definition Language : マテリアル定義言語)を使うことで、よりマテリアルを自由にカスタマイズすることができるようになります。    
+OmniPBR、OmniSurfaceも固定(プリセット)のMDLで実装されている構成になります。       
+MDLは他の3DCGエンジンで言う「Shader」に近い存在です。       
 
 MDLについては、「NVIDIA MDL SDK - Get Started」に詳しい情報があります。      
 
 https://developer.nvidia.com/mdl-sdk
 
 このような感じで、Omniverseはあらゆる個所をカスタマイズしていくことができるようになっています。      
-それぞれは範囲が膨大になるため、まずはOmniverse CreateのScript Editor上でスクリプトを使ってシーンを制御できるようになる、というのが入口としてちょうどよさそうです。     
+それぞれは範囲が膨大になるため、まずはOmniverse CreateのScript Editor上でスクリプトを使ってシーンを制御できるようになる、というのが入口としてちょうどよいかもしれません。     
 
