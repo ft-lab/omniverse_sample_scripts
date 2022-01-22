@@ -42,7 +42,7 @@ sphereGeom.CreateRadiusAttr(5.0)
 ```
 
 上記の場合は「omni.usd.get_context().get_stage()」は、「OmniverseからStage情報を取得」する機能となり、これはUSDではなくOmniverseへのアクセス（問い合わせ）になります。     
-「UsdGeom」「UsdPhysics」「Gf」などがUSDのモジュールごとの機能です。     
+「UsdGeom」「UsdPhysics」「Gf」などがUSDのモジュールです。     
 
 どの部分がUSDでどの部分がOmniverseが提供するのものか、というのはこのモジュールの名称で判断できそうです。      
 
