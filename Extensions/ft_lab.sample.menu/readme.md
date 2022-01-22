@@ -217,3 +217,4 @@ Extensionのリストで"Python Extension Example"が存在するのを確認で
 ![extension_menu_01.png](../images/extension_menu_01.png)    
 
 Offにした場合"MenuTest"内は空になりますが、トップメニューの"MenuTest"は残ってしまうようです (Omniverse Create 2021.3.8で確認)。     
+Omniverse Code 2022.1.0ではこの問題は起きなかったため、この現象は将来Kit側で修正されるものと思われます。     
