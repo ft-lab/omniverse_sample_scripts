@@ -4,6 +4,13 @@
 Extensionはモジュール的にOmniverse(Kit)を使ったアプリを拡張します。      
 ExtensionはベースはPythonとして記載し、別途C言語(動的ライブラリとして関数呼び出し)で外部機能を実装することができます。      
 
+## Extensionの詳しいドキュメント
+
+Extensionは構成のルールがあります。      
+Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメントの「Extensions」で詳しく解説されています。    
+
+## サンプル
+
 |Extension|説明|     
 |---|---|     
 |[ft_lab.sample.hello](./ft_lab.sample.hello/readme.md)|開始(startup)/破棄(shutdown)のみの簡単なExtension|     
