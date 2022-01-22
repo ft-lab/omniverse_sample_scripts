@@ -4,4 +4,4 @@
 
 |サンプル|説明|     
 |---|---|     
-|[CreateSimpleCurve](./CreateSimpleCurve/readme.md)|複数のSphereをつなぐチューブ形状を生成|    
+|[CreateSimpleCurve](./CreateSimpleCurve)|複数のSphereをつなぐチューブ形状を生成|    

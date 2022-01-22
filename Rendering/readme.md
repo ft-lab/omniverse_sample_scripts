@@ -5,4 +5,4 @@
 
 |サンプル|説明|     
 |---|---|     
-|[Capture](./Capture/readme.md)|レンダリング画像を取得|     
+|[Capture](./Capture)|レンダリング画像を取得|     

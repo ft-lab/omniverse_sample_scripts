@@ -6,6 +6,6 @@
 
 |サンプル|説明|     
 |---|---|     
-|[GetMaterial](./GetMaterial/readme.md)|マテリアルを取得 
-|[UsdPreviewSurface](./UsdPreviewSurface/readme.md)|マテリアルの割り当て (UsdPreviewSurface)|     
-|[OmniPBR](./OmniPBR/readme.md)|マテリアルの割り当て (OmniPBR)|     
+|[GetMaterial](./GetMaterial)|マテリアルを取得 
+|[UsdPreviewSurface](./UsdPreviewSurface)|マテリアルの割り当て (UsdPreviewSurface)|     
+|[OmniPBR](./OmniPBR)|マテリアルの割り当て (OmniPBR)|     

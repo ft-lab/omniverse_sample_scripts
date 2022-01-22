@@ -6,8 +6,8 @@ UIについては生成と破棄はセットになるためExtensionで実装す
 
 |サンプル|説明|     
 |---|---|     
-|[DebugDraw](./DebugDraw/readme.md)|3Dの座標指定で、Depthによる遮蔽を考慮したラインを描画 (omni.debugdrawを使用)|     
-|[DragAndDrop](./DragAndDrop/readme.md)|UIでのドラッグ＆ドロップ|     
-|[DrawImage](./DrawImage/readme.md)|スクリーンにイメージをオーバーレイして描画|     
-|[Viewport](./Viewport/readme.md)|ビューポートにオーバレイして表示|     
-|[Window](./Window/readme.md)|新しいウィンドウを表示|     
+|[DebugDraw](./DebugDraw)|3Dの座標指定で、Depthによる遮蔽を考慮したラインを描画 (omni.debugdrawを使用)|     
+|[DragAndDrop](./DragAndDrop)|UIでのドラッグ＆ドロップ|     
+|[DrawImage](./DrawImage)|スクリーンにイメージをオーバーレイして描画|     
+|[Viewport](./Viewport)|ビューポートにオーバレイして表示|     
+|[Window](./Window)|新しいウィンドウを表示|     

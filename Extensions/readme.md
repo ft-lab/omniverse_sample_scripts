@@ -13,6 +13,6 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 
 |Extension|説明|     
 |---|---|     
-|[ft_lab.sample.hello](./ft_lab.sample.hello/readme.md)|開始(startup)/破棄(shutdown)のみの簡単なExtension|     
-|[ft_lab.sample.callDLL](./ft_lab.sample.callDLL/readme.md)|C言語のDLLより関数を読み込む|     
+|[ft_lab.sample.hello](./ft_lab.sample.hello)|開始(startup)/破棄(shutdown)のみの簡単なExtension|     
+|[ft_lab.sample.callDLL](./ft_lab.sample.callDLL)|C言語のDLLより関数を読み込む|     
 
