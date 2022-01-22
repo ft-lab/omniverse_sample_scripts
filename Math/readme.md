@@ -7,7 +7,7 @@ numpyを経由しなくても計算できます。
 |ファイル|説明|     
 |---|---|     
 |[CalcDotCrossProduct.py](./CalcDotCrossProduct.py)|ベクトルの内積/外積計算|     
-|[CalcMatrix.py](./CalcMatrix.py)|4x4行列の計算|     
+|[CalcMatrix.py](./CalcMatrix.py)|4x4行列の計算。行列とベクトルの乗算|     
 |[CalcVector3.py](./CalcVector3.py)|Vector3の計算.|     
 |[DecomposeTransform.py](./DecomposeTransform.py)|行列を移動(translate), 回転(rotation), スケール(scale)に変換|     
 |[GetVector3Length.py](./GetVector3Length.py)|Vector3の長さを計算|     
