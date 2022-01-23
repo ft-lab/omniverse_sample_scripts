@@ -1,7 +1,12 @@
 # Prim
 
 USDのPrim(ノード相当)を操作します。     
-     
+
+|ファイル|説明|     
+|---|---|     
+|[IsValid.py](./IsValid.py)|指定のパスのPrimが存在するかチェック(IsValid)|     
+|[GetPrimNamePath.py](./GetPrimNamePath.py)|指定のPrimの名前とパスを取得|     
+
 |サンプル|説明|     
 |---|---|     
 |[Visibility](./Visibility)|Primの表示/非表示|    
@@ -9,3 +14,4 @@ USDのPrim(ノード相当)を操作します。
 |[Transform](./Transform)|Transform(scale/rotate/translate)の取得/設定|    
 |[TypeName](./TypeName)|PrimのTypeName(Xform/Mesh/DistantLightなど)を取得|    
 |[Skeleton](./Skeleton)|Skeletonでの情報を取得|    
+
