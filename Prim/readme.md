@@ -6,6 +6,8 @@ USDのPrim(ノード相当)を操作します。
 |---|---|     
 |[IsValid.py](./IsValid.py)|指定のパスのPrimが存在するかチェック(IsValid)|     
 |[GetPrimNamePath.py](./GetPrimNamePath.py)|指定のPrimの名前とパスを取得|     
+|[GetDefaultPrim.py](./GetDefaultPrim.py)|StageのルートとなるPrim(DefaultPrim)を取得|     
+|[CreateXform.py](./CreateXform.py)|空のノード（Nullノード相当）を作成。<br>USDではこれを"Xform"と呼んでいます。|     
 
 |サンプル|説明|     
 |---|---|     
