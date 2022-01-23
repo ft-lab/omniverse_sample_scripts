@@ -7,10 +7,11 @@ stage = omni.usd.get_context().get_stage()
 orgPath = "/World/defaultLight"
 prim = stage.GetPrimAtPath(orgPath)
 
-# Get Prim name.
-name = prim.GetName()
-print("Name : " + str(name))
+if prim.IsValid():
+    # Get Prim name.
+    name = prim.GetName()
+    print("Name : " + str(name))
 
-# Get Prim path.
-path = prim.GetPath()
-print("Path : " + str(path))
+    # Get Prim path.
+    path = prim.GetPath()
+    print("Path : " + str(path))
