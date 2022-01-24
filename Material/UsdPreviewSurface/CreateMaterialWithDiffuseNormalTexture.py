@@ -39,8 +39,8 @@ diffuseTextureSampler = UsdShade.Shader.Define(stage, materialPath + '/diffuseTe
 diffuseTextureSampler.CreateIdAttr('UsdUVTexture')
 
 # Note : Texture files should be specified in the path where they exist.
-#diffuseTextureFilePath = 'K:/NVIDIA_omniverse/images/stone_01_diffuse.png'
-diffuseTextureFilePath = '../textures/stone_01_diffuse.png'
+#diffuseTextureFilePath = '../textures/stone_01_diffuse.png'
+diffuseTextureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/stone_01_diffuse.png'
 diffuseTextureSampler.CreateInput('file', Sdf.ValueTypeNames.Asset).Set(diffuseTextureFilePath)
 
 diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(stReader.ConnectableAPI(), 'result')
@@ -52,8 +52,8 @@ normalTextureSampler = UsdShade.Shader.Define(stage, materialPath + '/normalText
 normalTextureSampler.CreateIdAttr('UsdUVTexture')
 
 # Note : Texture files should be specified in the path where they exist.
-#normalTextureFilePath = 'K:/NVIDIA_omniverse/images/stone_01_normal.png'
-normalTextureFilePath = '../textures/stone_01_normal.png'
+#normalTextureFilePath = '../textures/stone_01_normal.png'
+normalTextureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/stone_01_normal.png'
 normalTextureSampler.CreateInput('file', Sdf.ValueTypeNames.Asset).Set(normalTextureFilePath)
 
 normalTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(stReader.ConnectableAPI(), 'result')

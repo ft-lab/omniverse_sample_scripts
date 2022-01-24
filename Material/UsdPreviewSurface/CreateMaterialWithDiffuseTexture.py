@@ -39,8 +39,8 @@ diffuseTextureSampler = UsdShade.Shader.Define(stage, materialPath + '/diffuseTe
 diffuseTextureSampler.CreateIdAttr('UsdUVTexture')
 
 # Note : Texture files should be specified in the path where they exist.
-#textureFilePath = 'K:/NVIDIA_omniverse/images/tile_image.png'
-textureFilePath = '../textures/tile_image.png'
+#textureFilePath = '../textures/tile_image.png'
+textureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/tile_image.png'
 diffuseTextureSampler.CreateInput('file', Sdf.ValueTypeNames.Asset).Set(textureFilePath)
 
 diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(stReader.ConnectableAPI(), 'result')

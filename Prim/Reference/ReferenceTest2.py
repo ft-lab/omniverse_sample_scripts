@@ -16,6 +16,6 @@ prim = stage.GetPrimAtPath(path)
 prim.GetReferences().ClearReferences()
 
 # Add a reference.
-#usdPath = "./sphere.usda"
-usdPath = "https://ft-lab.github.io/usd/omniverse/usd/sphere.usda"
+#usdPath = "./cyawan/cyawan.usdc"
+usdPath = "https://ft-lab.github.io/usd/omniverse/usd/cyawan/cyawan.usdc"
 prim.GetReferences().AddReference(usdPath)

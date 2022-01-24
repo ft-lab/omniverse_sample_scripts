@@ -42,8 +42,8 @@ shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Se
 
 # Set Diffuse texture.
 # Note : Texture files should be specified in the path where they exist.
-#diffuseTextureFilePath = 'K:/NVIDIA_omniverse/images/stone_01_diffuse.png'
-diffuseTextureFilePath = '../textures/stone_01_diffuse.png'
+#diffuseTextureFilePath = '../textures/stone_01_diffuse.png'
+diffuseTextureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/stone_01_diffuse.png'
 diffTexIn = shader.CreateInput('diffuse_texture', Sdf.ValueTypeNames.Asset)
 diffTexIn.Set(diffuseTextureFilePath)
 diffTexIn.GetAttr().SetColorSpace('sRGB')
@@ -54,8 +54,8 @@ diffTintIn.Set((0.9, 0.9, 0.9))
 
 # Set normal texture.
 # Note : Texture files should be specified in the path where they exist.
-#normalTextureFilePath = 'K:/NVIDIA_omniverse/images/stone_01_normal.png'
-normalTextureFilePath = '../textures/stone_01_normal.png'
+#normalTextureFilePath = '../textures/stone_01_normal.png'
+normalTextureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/stone_01_normal.png'
 normalTexIn = shader.CreateInput('normalmap_texture', Sdf.ValueTypeNames.Asset)
 normalTexIn.Set(normalTextureFilePath)
 

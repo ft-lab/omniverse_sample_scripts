@@ -42,8 +42,8 @@ shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Se
 
 # Set Diffuse texture.
 # Note : Texture files should be specified in the path where they exist.
-#textureFilePath = 'K:/NVIDIA_omniverse/images/tile_image.png'
-textureFilePath = '../textures/tile_image.png'
+#textureFilePath = '../textures/tile_image.png'
+textureFilePath = 'https://ft-lab.github.io/usd/omniverse/textures/tile_image.png'
 diffTexIn = shader.CreateInput('diffuse_texture', Sdf.ValueTypeNames.Asset)
 diffTexIn.Set(textureFilePath)
 diffTexIn.GetAttr().SetColorSpace('sRGB')
