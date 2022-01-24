@@ -46,7 +46,30 @@ def Type名 "Prim名"
 Omniverse上では以下のように表示されました。     
 ![knowledge_dev_usd_01.png](./images/knowledge_dev_usd_01.png)    
 
-このときのPrim名は記載ルールがあります。     
+このとき、"/World/sphere"が「Path」として表現されます。Stage上での絶対パス指定になります。      
+このPathはUSD内で重複はできません。     
+もし、同一Pathで形状を作成した場合は上書きされます。     
+たとえば以下のようにSphereを生成し、そのあとに同一パスでCubeを生成すると、SphereはCubeに置き換えられます。     
+```python
+from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+
+# Get stage.
+stage = omni.usd.get_context().get_stage()
+
+# Create sphere.
+pathName = '/World/xxx'
+sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
+
+# Create Cube.
+cubeGeom = UsdGeom.Cube.Define(stage, pathName)
+
+# Set cube size.
+cubeGeom.CreateSizeAttr(10.0)
+```
+
+## Primの名前
+
+Prim名は記載ルールがあります。     
 
 * ASCIIの英数字、アンダーバーで構成 (日本語は使用できません)
 * 先頭の文字は、数値を指定できません。
