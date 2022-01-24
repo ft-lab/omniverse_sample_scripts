@@ -49,7 +49,9 @@ Omniverse上では以下のように表示されました。
 このとき、"/World/sphere"が「Path」として表現されます。Stage上での絶対パス指定になります。      
 このPathはUSD内で重複はできません。     
 もし、同一Pathで形状を作成した場合は上書きされます。     
-たとえば以下のようにSphereを生成し、そのあとに同一パスでCubeを生成すると、SphereはCubeに置き換えられます。     
+
+たとえば以下のようにPythonを書いてみました。     
+Sphereを生成しそのあとに同一パスでCubeを生成すると、SphereはCubeに置き換えられます。     
 ```python
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 
