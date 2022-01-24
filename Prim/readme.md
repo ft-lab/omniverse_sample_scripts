@@ -16,4 +16,5 @@ USDのPrim(ノード相当)を操作します。
 |[Transform](./Transform)|Transform(scale/rotate/translate)の取得/設定|    
 |[TypeName](./TypeName)|PrimのTypeName(Xform/Mesh/DistantLightなど)を取得|    
 |[Skeleton](./Skeleton)|Skeletonでの情報を取得|    
+|[Reference](./Reference)|参照(Reference)を使った複製|    
 
