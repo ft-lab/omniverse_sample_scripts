@@ -36,7 +36,7 @@ prim.GetReferences().ClearReferences()
 usdPath = "https://ft-lab.github.io/usd/omniverse/usd/simpleTree.usda"
 prim.GetReferences().AddReference(usdPath)
 
-# Information on points.
+# Points data.
 positions = []
 scales = []
 protoIndices = []
@@ -47,7 +47,7 @@ for i in range(treesCou):
     px = random.random() * areaSize - (areaSize * 0.5)
     pz = random.random() * areaSize - (areaSize * 0.5)
     scale = random.random() * 0.5 + 0.8
-    
+
     positions.append(Gf.Vec3f(px, 0.0, pz))        # Position.
     orientations.append(Gf.Quath())                # Rotation.
     scales.append(Gf.Vec3f(scale, scale, scale))   # Scale.
