@@ -8,4 +8,4 @@ Pythonでよく使用するモジュールは、"pip_archive"として用意さ�
 |サンプル|説明|     
 |---|---|     
 |[numpy](./numpy)|ベクトル・行列計算を行う|     
-|[PIL](./PIL)|2D画像操作を行う : Perform image processing(PIL).|     
+|[PIL](./PIL)|2D画像操作を行う : Pillow(Python Imaging Library(PIL)).|     

@@ -1,6 +1,6 @@
-# PIL
+# Pillow(PIL)
 
-Perform image processing(PIL)を使用して、2D画像の操作を行います。    
+Pillow(PIL)を使用して、2D画像の操作を行います。    
 
 |ファイル|説明|     
 |---|---|     

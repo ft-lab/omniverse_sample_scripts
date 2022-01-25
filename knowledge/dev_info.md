@@ -2,7 +2,7 @@
 
 Omniverseのスクリプトでは、大きく3つのアクセス先があるように思います。      
 
-* Pythonの既存モジュール (numpy/scipy/PILなど)
+* Pythonの既存モジュール (numpy/scipy/Pillow(PIL)など)
 * USDへのアクセス
 * Omniverseへのアクセス
 

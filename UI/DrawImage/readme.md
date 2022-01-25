@@ -8,6 +8,6 @@
 |ファイル|説明|     
 |---|---|     
 |[drawImage.py](./drawImage.py)|omni.ui.ByteImageProviderを使用して、RGBAバッファに描画したイメージをビューポートにオーバレイ<br>![ui_draw_image_00.png](./images/ui_draw_image_00.png)|     
-|[drawImageWithPIL.py](./drawImageWithPIL.py)|omni.ui.ByteImageProviderを使用して、PILでの描画をRGBAバッファに送りビューポートにオーバレイ<br>![ui_draw_image_01.png](./images/ui_draw_image_01.png)|     
+|[drawImageWithPIL.py](./drawImageWithPIL.py)|omni.ui.ByteImageProviderを使用して、Pillow(PIL)での描画をRGBAバッファに送りビューポートにオーバレイ<br>![ui_draw_image_01.png](./images/ui_draw_image_01.png)|     
 
 
