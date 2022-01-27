@@ -1,6 +1,7 @@
 # Camera
 
-カメラ操作を行う。    
+カメラ操作を行います。    
+カメラはUsdGeom.Camera ( https://graphics.pixar.com/usd/release/api/class_usd_geom_camera.html ) を使用します。      
 
 |ファイル|説明|     
 |---|---|     
