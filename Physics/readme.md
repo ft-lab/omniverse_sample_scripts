@@ -3,6 +3,8 @@
 Physicsのサンプルです。     
 Physicsの計算はGPU上で行われます。    
 
+PhysicsはUSDのUsdPhysics ( https://graphics.pixar.com/usd/release/api/usd_physics_page_front.html ) が使用されます。     
+
 ## Physicsデモ
 
 Physicsのデモは、Omniverse Createのメインメニューの「Window」-「Physics」-「Demo Scenes」から確認でき、Extensionとしてのソースはすべて公開されているため参考になります。     

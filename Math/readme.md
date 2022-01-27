@@ -4,6 +4,13 @@
 USDのベクトル/行列計算は、"Gf"にまとまっているためそれを使用します。      
 numpyを経由しなくても計算できます。     
 
+ベクトルはfloat型のGf.Vec3f ( https://graphics.pixar.com/usd/release/api/class_gf_vec3f.html )、
+double型のGf.Vec3d ( https://graphics.pixar.com/usd/release/api/class_gf_vec3d.html )が使用されます。    
+
+行列はfloat型のGf.Matrix4f ( https://graphics.pixar.com/usd/release/api/class_gf_matrix4f.html )、
+double型のGf.Matrix4d ( https://graphics.pixar.com/usd/release/api/class_gf_matrix4d.html )が使用されます。    
+
+
 |ファイル|説明|     
 |---|---|     
 |[CalcDotCrossProduct.py](./CalcDotCrossProduct.py)|ベクトルの内積/外積計算|     
