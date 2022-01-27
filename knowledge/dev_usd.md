@@ -1,5 +1,24 @@
 # USDについての情報
 
+USD(Universal Scene Description )はPixar社が提供している3Dのシーンを管理するファイルフォーマットです。     
+オープンソースとして公開されています。     
+
+https://graphics.pixar.com/usd/release/index.html
+
+API Documentation :     
+https://graphics.pixar.com/usd/release/api/index.html    
+
+DCCツール間で3Dモデルやシーンをやりとりする中間ファイルとしての使用、大規模シーンの管理に向いています。      
+PythonやC++のAPIやビュワー（usdview）、usdファイル変換を行うコマンドラインツールなどが用意されており、アプリケーションに組み込むための機能が豊富にあります。     
+USDはファイルフォーマットとしてだけでなく、データ構造を表現するシステムとして大きな存在になっています。     
+iOS/iPadOSのAR(AR Quick LookやReality Composer)でも使用されています。     
+Omniverseではアセットやシーンすべての標準ファイルフォーマットとしてUSDを使用されています。    
+
+USDを使った開発については以下にもまとめ中です。    
+
+https://github.com/ft-lab/Documents_USD
+
+
 ## USDファイルの種類
 
 USDファイルは、以下のものが存在します。     
