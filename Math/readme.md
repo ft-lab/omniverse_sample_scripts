@@ -18,7 +18,7 @@ double型のGf.Matrix4d ( https://graphics.pixar.com/usd/release/api/class_gf_ma
 |[CalcVector3.py](./CalcVector3.py)|Vector3の計算.|     
 |[DecomposeTransform.py](./DecomposeTransform.py)|行列を移動(translate), 回転(rotation), スケール(scale)に変換|     
 |[GetVector3Length.py](./GetVector3Length.py)|Vector3の長さを計算|     
-|[LookAt.py](./LookAt.py)|指定のベクトルをXYZ軸回転の角度（度数）に変換|     
+|[VectorToRotationAngle.py](./VectorToRotationAngle.py)|指定のベクトルをXYZ軸回転の角度（度数）に変換|     
 |[NormalizeVector3.py](./NormalizeVector3.py)|Vector3の正規化|     
 |[QuatToRotation.py](./QuatToRotation.py)|クォータニオンと回転角度（度数）の変換|     
 
