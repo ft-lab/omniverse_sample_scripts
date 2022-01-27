@@ -1,6 +1,6 @@
 # USDについての情報
 
-USD(Universal Scene Description )はPixar社が提供している3Dのシーンを管理するファイルフォーマットです。     
+USD(Universal Scene Description )はPixar社が提供している3Dのシーンを管理するファイルフォーマット/プラットフォームです。     
 オープンソースとして公開されています。     
 
 https://graphics.pixar.com/usd/release/index.html
