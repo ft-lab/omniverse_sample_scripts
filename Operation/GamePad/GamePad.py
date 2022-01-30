@@ -127,13 +127,32 @@ class InputGamePad:
             print("A")
         if gamepad_desc.input_val[carb.input.GamepadInput.B] != 0.0:
             print("B")
-        if gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_SHOULDER] != 0.0:
-            print("Right shoulder")
+        if gamepad_desc.input_val[carb.input.GamepadInput.X] != 0.0:
+            print("X")
+        if gamepad_desc.input_val[carb.input.GamepadInput.Y] != 0.0:
+            print("Y")
+        if gamepad_desc.input_val[carb.input.GamepadInput.MENU1] != 0.0:
+            print("Back")
         if gamepad_desc.input_val[carb.input.GamepadInput.MENU2] != 0.0:
             print("Start")
 
+        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_SHOULDER] != 0.0:
+            print("Left shoulder")
+        if gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_SHOULDER] != 0.0:
+            print("Right shoulder")
+
         if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK] != 0.0:
             print("Push Left stick")
+        if gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_STICK] != 0.0:
+            print("Push Right stick")
+
+        v = gamepad_desc.input_val[carb.input.GamepadInput.LEFT_TRIGGER]
+        if v != 0.0:
+            print("Left trigger : " + str(v))
+
+        v = gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_TRIGGER]
+        if v != 0.0:
+            print("Right trigger : " + str(v))
 
     def startup (self):
         self._gamepads = []
