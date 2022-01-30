@@ -19,4 +19,6 @@ USDのPrim(ノード相当)を操作します。
 |[Skeleton](./Skeleton)|Skeletonでの情報を取得|    
 |[Reference](./Reference)|参照(Reference)を使った複製|    
 |[PointInstancer](./PointInstancer)|アセット(USDで指定)を複数の位置/回転/スケールで複製配置(PointInstancer)|    
+|[Variant](./Variant)|Variantを使ったPrimの切り替え|    
+
 
