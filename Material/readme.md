@@ -14,6 +14,10 @@ UsdShade.Shader ( https://graphics.pixar.com/usd/release/api/class_usd_shade_sha
 このShaderは、USD標準のUsdPreviewSurfaceを使用するほか、独自のShaderを割り当てることができます。    
 Omniverseの場合は、MDL ( https://www.nvidia.com/ja-jp/design-visualization/technologies/material-definition-language/ )としてマテリアルを表現します。     
 
+|ファイル|説明|     
+|---|---|     
+|[UnbindMaterial.py](./UnbindMaterial.py)|選択Primに割り当てられているマテリアルのバインドをクリア|     
+
 |サンプル|説明|     
 |---|---|     
 |[GetMaterial](./GetMaterial)|マテリアルを取得 
