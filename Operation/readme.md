@@ -6,5 +6,6 @@ Ominverseの操作/イベント処理を行います。
 |---|---|     
 |[Selection](./Selection)|Stageウィンドウでの選択を取得|     
 |[GamePad](./GamePad)|GamePadの入力イベント取得|     
+|[Keyboard](./Keyboard)|Keyboardの入力イベント取得|     
 |[UNDO](./UNDO)|UNDO処理|     
 
