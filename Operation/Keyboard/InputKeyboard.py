@@ -33,7 +33,8 @@ class InputKeyboard:
 
     def shutdown (self):
         # Release keyboard event.
-        self._input.unsubscribe_to_keyboard_events(self._keyboard, self._keyboard_subs)
+        if self._input != None:
+            self._input.unsubscribe_to_keyboard_events(self._keyboard, self._keyboard_subs)
 
         self._keyboard_subs = None
         self._keyboard      = None

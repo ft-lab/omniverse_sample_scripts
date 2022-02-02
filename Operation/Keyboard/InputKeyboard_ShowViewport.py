@@ -54,10 +54,12 @@ class InputKeyboard:
 
     def shutdown (self):
         # Release update event.
-        self._update_subs.unsubscribe()
+        if self._update_subs != None:
+            self._update_subs.unsubscribe()
 
         # Release keyboard event.
-        self._input.unsubscribe_to_keyboard_events(self._keyboard, self._keyboard_subs)
+        if self._input != None:
+            self._input.unsubscribe_to_keyboard_events(self._keyboard, self._keyboard_subs)
 
         self._keyboard_subs = None
         self._keyboard      = None
