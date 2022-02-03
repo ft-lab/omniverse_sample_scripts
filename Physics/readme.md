@@ -20,6 +20,10 @@ Extensionの「omni.physx.flatcache」をExtensionsウィンドウで検索し�
 
 ## サンプル
 
+|ファイル|説明|     
+|---|---|     
+|[RayCast.py](./RayCast.py)|Collisionの形状を配置し、レイの始点と向きを指定して衝突判定します。<br>このRayCastはアニメーション再生中に機能します。<br>![physics_raycast_01.jpg](./images/physics_raycast_01.jpg)|
+
 |サンプル|説明|     
 |---|---|     
 |[simpleJoint01.py](./Joint/simpleJoint01.py)|2つのCubeをつなぐ簡単なジョイント<br>![physics_joint_01.jpg](./images/physics_joint_01.jpg)|     
