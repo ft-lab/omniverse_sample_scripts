@@ -16,7 +16,7 @@ for path in paths:
         # Order of Transform elements.
         transformOrder = prim.GetAttribute('xformOpOrder')
 
-        if transformOrder.IsValid():
+        if transformOrder.IsValid() and transformOrder.Get() != None:
             print('    TransformOrder : ' + str(transformOrder.Get()))
 
             for transV in transformOrder.Get():
