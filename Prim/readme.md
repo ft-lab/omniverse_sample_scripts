@@ -10,6 +10,7 @@ USDのPrim(ノード相当)を操作します。
 |[SetDefaultPrim.py](./SetDefaultPrim.py)|StageのルートとなるPrim(DefaultPrim)を指定|     
 |[CreateXform.py](./CreateXform.py)|空のノード（Nullノード相当）を作成。<br>USDではこれを"Xform"と呼んでいます。<br>UsdGeom.Xform ( https://graphics.pixar.com/usd/release/api/class_usd_geom_xform.html )を使用します。|     
 |[CreateScope.py](./CreateScope.py)|Scopeを作成。<br>Scopeは移動/回転/スケール要素を持ちません。単純なグルーピング向けです。<br>UsdGeom.Scope ( https://graphics.pixar.com/usd/release/api/class_usd_geom_scope.html )を使用します。|     
+|[GetDoubleSided.py](./GetDoubleSided.py)|ジオメトリでのDoubleSided指定の取得、設定|     
 
 |サンプル|説明|     
 |---|---|     
