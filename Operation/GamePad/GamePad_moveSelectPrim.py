@@ -57,7 +57,6 @@ class GamepadDesc:
 # ------------------------------------------.
 class InputGamePad:
     _gamepads = None
-    _gamepads_to_toggle = None
     _input = None
     _input_provider = None
     _gamepad_connection_subs = None
@@ -166,7 +165,6 @@ class InputGamePad:
 
     def startup (self):
         self._gamepads = []
-        self._gamepads_to_toggle = []
         self._input = carb.input.acquire_input_interface()
         self._input_provider = carb.input.acquire_input_provider()
         self._gamepad_connection_subs = self._input.subscribe_to_gamepad_connection_events(self._gamepad_connection_event)
@@ -184,7 +182,6 @@ class InputGamePad:
     def shutdown (self):
         self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
 
-        self._gamepads_to_toggle = None
         self._gamepad_connection_subs = None
         self._gamepad_inputs = None
         self._gamepads = None
