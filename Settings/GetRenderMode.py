@@ -1,4 +1,6 @@
+import omni.kit
 import carb.settings
+import asyncio
 
 # Get Render Mode.
 # However, it seems that iray cannot be identified.
@@ -13,8 +15,15 @@ else:
     else:
         print("Render Mode : " + renderMode)
 
+# Set Render mode.
+# It is safe to wait for one frame in the coroutine to change the RenderMode.
+async def SetRenderMode (modeName : str):
+    await omni.kit.app.get_app().next_update_async()
+    settings.set('/rtx/rendermode', modeName)
+
 # Set "RTX Real-time"
-settings.set('/rtx/rendermode', 'RaytracedLighting')
+asyncio.ensure_future(SetRenderMode('RaytracedLighting'))
 
 # Set "RTX Path-traced"
-settings.set('/rtx/rendermode', 'PathTracing')
+asyncio.ensure_future(SetRenderMode('PathTracing'))
+
