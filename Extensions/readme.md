@@ -9,6 +9,10 @@ ExtensionはベースはPythonとして記載し、別途C言語(動的ライブ
 Extensionは構成のルールがあります。      
 Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメントの「Extensions」で詳しく解説されています。    
 
+## Extension作成に関する情報
+
+* [extension.tomlでの記述内容](./knowledge/config_info.md)
+
 ## サンプル
 
 |Extension|説明|     
