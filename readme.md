@@ -63,6 +63,7 @@ print('Hello Omniverse !')
 
 |サンプル|説明|     
 |---|---|     
+|[Audio](./Audio)|Audioの再生|    
 |[Camera](./Camera)|カメラ操作|    
 |[Geometry](./Geometry)|ジオメトリの作成|    
 |[Material](./Material)|マテリアルの割り当て|    
