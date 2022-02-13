@@ -19,6 +19,7 @@
 [[python.module]]
 name = "omni.audioplayer"
 ```
+ここで記載しているExtensionがOnになっていない場合は、対象のExtensionを起動した時に自動的にOnになります。     
 
 ## 外部のC/C++モジュールを呼び出す
 
