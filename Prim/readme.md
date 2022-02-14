@@ -2,6 +2,9 @@
 
 USDのPrim(ノード相当)を操作します。     
 
+Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利に使用できます。     
+
+
 |ファイル|説明|     
 |---|---|     
 |[IsValid.py](./IsValid.py)|指定のパスのPrimが存在するかチェック(IsValid)|     
