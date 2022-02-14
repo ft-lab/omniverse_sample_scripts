@@ -6,15 +6,10 @@ stage = omni.usd.get_context().get_stage()
 
 # Get selection.
 selection = omni.usd.get_context().get_selection()
-paths = selection.get_selected_prim_paths()
-
-# Store select path.
-pathList = []
-for path in paths:
-    pathList.append(path)
+selectedPaths = selection.get_selected_prim_paths()
 
 newPrimPathList = []
-for path in pathList:
+for path in selectedPaths:
     # Duplicate Prim from specified path.
     omni.kit.commands.execute("CopyPrim", path_from=path)
 
