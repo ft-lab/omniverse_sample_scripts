@@ -8,4 +8,4 @@ omni.kit.commandsを使用して、Omniverseのコマンドを実行します。
 |---|---|     
 |[GetCommandsList.py](./GetCommandsList.py)|コマンドのリストを一覧。|     
 |[SelectNone.py](./SelectNone.py)|Stageウィンドウでの選択を解除|     
-
+|[CopyPrim.py](./CopyPrim.py)|選択されたPrimの複製を作成|     
