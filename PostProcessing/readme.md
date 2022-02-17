@@ -32,4 +32,4 @@ omni.kit.commands.execute("ChangeSetting", path="rtx/post/lensFlares/flareScale"
 
 |ファイル|説明|     
 |---|---|     
-|[ChangePostProcessing.py](./ChangePostProcessing.py)|Post Processingの"FFT Bloom"のパラメータを変更します。|
+|[ChangePostProcessing.py](./ChangePostProcessing.py)|Post Processingの"FTT Bloom"のパラメータを変更します。|

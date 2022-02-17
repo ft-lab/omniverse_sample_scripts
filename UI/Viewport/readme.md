@@ -2,6 +2,25 @@
 
 ビューポート上のオーバレイ表示。    
 
+## ビューポートの位置とサイズ
+
+以下のように実行すると、ビューポートの矩形情報を取得できます。     
+```python
+import omni.kit
+
+viewportI = omni.kit.viewport.acquire_viewport_interface()
+vWindow = viewportI.get_viewport_window(None)
+
+vwRec = vWindow.get_viewport_rect()
+```
+このときの「vwRec」をビューポートの矩形とします。    
+メインメニューの左上を(0, 0)として原点とし、相対位置として
+(vwRec[0], vwRec[1]) - (vwRec[2], vwRec[3]) がビューポートの左上と右下の座標となります。      
+![viewport_rect.jpg](./images/viewport_rect.jpg)      
+
+
+## サンプル
+
 |ファイル|説明|     
 |---|---|     
 |[DrawText.py](./DrawText.py)|ビューポートにテキストを描画<br>![DisplayText.png](./images/DisplayText.png)|     
