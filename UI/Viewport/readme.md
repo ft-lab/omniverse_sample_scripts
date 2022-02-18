@@ -1,8 +1,13 @@
 # Viewport
 
 ビューポート上のオーバレイ表示。    
+Omniverse Kit Ver.102での内容になります。     
+
+なお、Omniverse Kit Ver.103ではビューポート周りはより扱いやすく整理されているため、このあたりは今後使わなくなるのかもしれません。    
 
 ## ビューポートの位置とサイズ
+
+※ Omniverse Kit Ver.102までで使えます。Ver.103では使用できませんでした。    
 
 以下のように実行すると、ビューポートの矩形情報を取得できます。     
 ```python
@@ -18,6 +23,23 @@ vwRec = vWindow.get_viewport_rect()
 (vwRec[0], vwRec[1]) - (vwRec[2], vwRec[3]) がビューポートの左上と右下の座標となります。      
 ![viewport_rect.jpg](./images/viewport_rect.jpg)      
 
+## omni.ui.Workspaceでの位置とサイズ
+
+※ Omniverse Kit Ver.102までで使えます。Ver.103では使用できませんでした。    
+
+「omni.ui.Workspace」からビューポートを取得した場合、ビューポートウィンドウ全体（上部のキャプション部も含む）の位置を(position_x, position_y)、ウィンドウサイズを(width, height)で取得できます。    
+この場合も、メインメニューの左上を(0, 0)とした相対位置になります。    
+
+```python
+import omni.ui
+
+uiViewportWindow = omni.ui.Workspace.get_window("Viewport")
+wid = uiViewportWindow.width
+hei = uiViewportWindow.height
+posX = uiViewportWindow.position_x
+posY = uiViewportWindow.position_y
+```
+![viewport_rect_02.jpg](./images/viewport_rect_02.jpg)      
 
 ## サンプル
 

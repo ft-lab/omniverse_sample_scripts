@@ -11,3 +11,14 @@ viewportSize = (viewportRect[2] - viewportRect[0], viewportRect[3] - viewportRec
 print(viewportRect)
 print(viewportSize)
 
+# Get Viewport window rect.
+uiViewportWindow = omni.ui.Workspace.get_window("Viewport")
+wid = uiViewportWindow.width
+hei = uiViewportWindow.height
+posX = uiViewportWindow.position_x
+posY = uiViewportWindow.position_y
+print("wid = " + str(wid))
+print("hei = " + str(hei))
+print("posX = " + str(posX))
+print("posY = " + str(posY))
+

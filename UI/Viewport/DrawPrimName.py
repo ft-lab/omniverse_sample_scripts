@@ -13,6 +13,7 @@ vWindow = viewportI.get_viewport_window(None)
 viewportRect = None
 viewportSize = None
 cameraAspect = 0.0
+viewportUIOriginPos = None
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -23,22 +24,16 @@ time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.Ge
 # Get Screen position(rendering) to viewport position(pixel).
 # ------------------------------------------.
 def getScreenToViewportPos (screenPos):
-    global viewportRect
     global viewportSize
     global cameraAspect
+    global viewportUIOriginPos
 
     aspect = viewportSize[0] / viewportSize[1]
-
-    marginX = marginY = 0.0
-    if viewportRect[0] > viewportRect[1]:
-        marginX = viewportRect[0] - viewportRect[1]
-    else:
-        marginY = viewportRect[1] - viewportRect[0]
 
     sx = viewportSize[0] * 0.5 * (1.0 + screenPos[0])
     sy = viewportSize[1] * 0.5 * (1.0 - screenPos[1] / (cameraAspect / aspect))
 
-    rPos = Gf.Vec2f(sx + marginX, sy + marginY)
+    rPos = Gf.Vec2f(sx + viewportUIOriginPos[0], sy + viewportUIOriginPos[1])
 
     return rPos
 
@@ -49,6 +44,7 @@ def ShowNameOfSelectedPrim ():
     global viewportRect
     global viewportSize
     global cameraAspect
+    global viewportUIOriginPos
 
     # Get active camera.
     aCamera = vWindow.get_active_camera()
@@ -73,6 +69,17 @@ def ShowNameOfSelectedPrim ():
     # Get viewport rect.
     viewportRect = vWindow.get_viewport_rect()
     viewportSize = (viewportRect[2] - viewportRect[0], viewportRect[3] - viewportRect[1])
+
+    captionHeight = 24  # Height of the caption in the Viewport window.
+    margin = 2          # frame size.
+
+    # Get Viewport window (UI).
+    uiViewportWindow = omni.ui.Workspace.get_window("Viewport")
+
+    # Calculate the origin of the viewport as UI.
+    mX = (uiViewportWindow.width - margin * 2.0  - viewportSize[0]) * 0.5
+    mY = (uiViewportWindow.height - margin * 2.0 - captionHeight - viewportSize[1]) * 0.5
+    viewportUIOriginPos = (mX, mY)
 
     sPosList = []
     nameList = []
