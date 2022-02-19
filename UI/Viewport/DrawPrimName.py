@@ -71,7 +71,7 @@ def ShowNameOfSelectedPrim ():
     viewportSize = (viewportRect[2] - viewportRect[0], viewportRect[3] - viewportRect[1])
 
     captionHeight = 24  # Height of the caption in the Viewport window.
-    margin = 2          # frame size.
+    margin = 4          # frame size.
 
     # Get Viewport window (UI).
     uiViewportWindow = omni.ui.Workspace.get_window("Viewport")

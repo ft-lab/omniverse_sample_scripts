@@ -50,6 +50,7 @@ posY = uiViewportWindow.position_y
 |[DrawRandomRect.py](./DrawRandomRect.py)|ビューポートにランダムに小さい矩形を描画<br>![DrawRandomRect.png](./images/DrawRandomRect.png)|     
 |[UpdateText.py](./UpdateText.py)|ビューポートに10秒間カウントアップするテキストを描画。<br>asyncio.ensure_future()でタスクを起動。<br>await asyncio.sleep(1) で待つ<br>![UpdateText.png](./images/UpdateText.png)|     
 |[UpdateText2.py](./UpdateText2.py)|ビューポートにカウントアップするテキストを描画。<br>time.time()で1秒の間隔ごとに更新。<br>![UpdateText2.png](./images/UpdateText2.png)|     
+|[UpdateDrawImage.py](./UpdateDrawImage.py)|"omni.ui.ImageWithProvider"を使用して、ファイルから読み込んだ画像をビューポートに表示します。<br>"omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop"使用時は omni.ui.Imageでの描画がうまく反映されないようなのでそれの変わりです。|   
 |[GetViewportRect.py](./GetViewportRect.py)|ビューポートの矩形情報を取得|     
 |[DrawPrimName.py](./DrawPrimName.py)|選択形状の中央にPrim名を表示。<br>選択されたPrimのワールドポジションをスクリーン座標に変換。<br>ビューポート上の座標に変換して"omni.ui.Label"でテキストを描画しています。<br>![DrawPrimName.png](./images/DrawPrimName.png)|     
 
