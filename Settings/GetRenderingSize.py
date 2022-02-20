@@ -8,3 +8,7 @@ width  = settings.get('/app/renderer/resolution/width')
 height = settings.get('/app/renderer/resolution/height')
 
 print("Rendering size : " + str(width) + " x " + str(height))
+
+# Set rendering size.
+#settings.set('/app/renderer/resolution/width', 1280)
+#settings.set('/app/renderer/resolution/height', 720)
