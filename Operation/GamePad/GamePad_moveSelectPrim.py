@@ -106,11 +106,13 @@ class InputGamePad:
 
     # gamepad update event.
     def _update_gamepads_data(self, event):
+        gamepad_descD = None
         for gamepad_desc in self._gamepads:
+            gamepad_descD = gamepad_desc
             for gamepad_input in self._gamepad_inputs:
                 # Store value.
-                val = self._input.get_gamepad_value(gamepad_desc.gamepad_device, gamepad_input)
-                gamepad_desc.input_val[gamepad_input] = float(val)
+                val = self._input.get_gamepad_value(gamepad_descD.gamepad_device, gamepad_input)
+                gamepad_descD.input_val[gamepad_input] = float(val)
 
                 # gamepad_input : DPAD (0.0 or 1.0).
                 #   carb.input.GamepadInput.DPAD_DOWN
@@ -148,6 +150,9 @@ class InputGamePad:
                 #   carb.input.GamepadInput.LEFT_SHOULDER 
                 #   carb.input.GamepadInput.RIGHT_SHOULDER 
 
+        if gamepad_descD == None:
+            return
+            
         # Move the selected Prim.
         mV = Gf.Vec3f(0, 0, 0)
         scaleV = 2.0
