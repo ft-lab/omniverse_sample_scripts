@@ -69,6 +69,7 @@ print('Hello Omniverse !')
 |[Material](./Material)|マテリアルの割り当て|    
 |[Math](./Math)|ベクトル/行列計算関連|    
 |[Operation](./Operation)|Ominverseの操作/イベント処理|    
+|[Event](./Event)|イベント処理|    
 |[Physics](./Physics)|Physics(物理)処理|    
 |[pip_archive](./pip_archive)|Pythonのよく使われるモジュールの使用|    
 |[Prim](./Prim)|USDのPrim(ノード)の操作|    
