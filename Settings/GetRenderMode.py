@@ -3,17 +3,22 @@ import carb.settings
 import asyncio
 
 # Get Render Mode.
-# However, it seems that iray cannot be identified.
 settings = carb.settings.get_settings()
 renderMode = settings.get('/rtx/rendermode')
 
-if renderMode == 'RaytracedLighting':
-    print("Render Mode : RTX Real-time")
+# rtx, iray
+activeRender = settings.get('/renderer/active')
+
+if activeRender == 'iray':
+    print("Render Mode : Iray")
 else:
-    if renderMode == 'PathTracing':
-        print("Render Mode : RTX Path-traced")
+    if renderMode == 'RaytracedLighting':
+        print("Render Mode : RTX Real-time")
     else:
-        print("Render Mode : " + renderMode)
+        if renderMode == 'PathTracing':
+            print("Render Mode : RTX Path-traced")
+        else:
+            print("Render Mode : " + renderMode)
 
 # Set Render mode.
 # It is safe to wait for one frame in the coroutine to change the RenderMode.
