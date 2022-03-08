@@ -59,6 +59,12 @@ print('Hello Omniverse !')
 * [Omniverseのスクリプトの学習手順](./knowledge/dev_info.md)
 * [USDについての情報](./knowledge/dev_usd.md)
 
+## Pythonの基礎的なこと
+
+|サンプル|説明|     
+|---|---|     
+|[Python](./Python)|Pythonの文字列処理やクラスなど|    
+
 ## 機能説明用のサンプル
 
 |サンプル|説明|     
