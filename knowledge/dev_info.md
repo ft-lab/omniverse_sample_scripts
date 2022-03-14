@@ -106,3 +106,11 @@ Physics自体はOmniverseの機能というわけではなく、USDのAPIとし�
 "kit/exts"や"kit/extscore"にExtensionが格納されています。      
 サンプルExtensionも用意されています。    
 
+### Omniverse Kitのドキュメントを読む
+
+Omniverse Kitのドキュメントは、ある程度Omniverseの開発(Python/Extension)に慣れてくると理解が進むように思います。     
+
+https://docs.omniverse.nvidia.com/py/kit/index.html
+
+どちらかというと、Kitのシステム的な側面から見たリファレンスという感じ。      
+ExtensionやOmni.Graphについてかなり詳しい情報があります。     
