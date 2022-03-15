@@ -6,23 +6,6 @@ import omni.ui
 stage = omni.usd.get_context().get_stage()
 
 # -------------------------------------------------------.
-## Teste create sphere.
-# -------------------------------------------------------.
-def CreateSphere (index : int, p : Gf.Vec3d, r : float):
-    pathName = '/World/spheres'
-
-    prim = stage.GetPrimAtPath(pathName)
-    if prim.IsValid() == False:
-        UsdGeom.Xform.Define(stage, pathName)
-        prim = stage.GetPrimAtPath(pathName)
-
-    pathName2 = pathName + '/sphere_' + str(index)
-    sphereGeom = UsdGeom.Sphere.Define(stage, pathName2)
-    sphereGeom.CreateRadiusAttr(r)
-    sphereGeom.CreateDisplayColorAttr([(1.0, 0.0, 0.0)])
-    UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((p[0], p[1], p[2]))    
-
-# -------------------------------------------------------.
 # Calculate normal.
 # -------------------------------------------------------.
 def calcTriangleNormal (v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
@@ -130,10 +113,9 @@ def AttachThickness (primPath : str, thickness : float):
         faceVCouList2[i] = faceVCouList[i]
         faceVCouList2[i + faceCou] = faceVCouList[i]
 
-    # TODO : faceVIList2[i + faceVICou]への格納は、面ごとにインデックスを入れ替えること.
     for i in range(faceVICou):
         faceVIList2[i] = faceVIList[i]
-        faceVIList2[i + faceVICou] = faceVIList[i] + versCou
+        faceVIList2[i + faceVICou] = faceVIList[faceVICou - i - 1] + versCou
 
     for i in range(normalsCou):
         normalsList2[i] = normalsList[i]
@@ -247,8 +229,16 @@ def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : flo
 
         aV += angle
 
+    # Get default prim.
+    defaultPrim = stage.GetDefaultPrim()
+
+    # Get root path.
+    rootPath = '/'
+    if defaultPrim.IsValid():
+        rootPath = defaultPrim.GetPath().pathString
+
     # Create mesh.
-    pathName = '/World/gears'
+    pathName = rootPath + '/gears'
     prim = stage.GetPrimAtPath(pathName)
     if prim.IsValid() == False:
         UsdGeom.Xform.Define(stage, pathName)
