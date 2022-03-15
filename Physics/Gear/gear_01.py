@@ -372,7 +372,7 @@ revolute1_path = gear_basePath + "/revoluteJoint_1"
 revolute2_path = gear_basePath + "/revoluteJoint_2"
 
 # gear joint (0-1)
-gearJoint = PhysxSchema.PhysxPhysicsGearJoint.Define(g_stage, "/gearJoint_0_1")
+gearJoint = PhysxSchema.PhysxPhysicsGearJoint.Define(g_stage, gear_basePath+"/gearJoint_0_1")
 
 gearJoint.CreateBody0Rel().SetTargets([gear1_path])
 gearJoint.CreateBody1Rel().SetTargets([gear2_path])
@@ -382,7 +382,7 @@ gearJoint.CreateHinge0Rel().SetTargets([revolute0_path])
 gearJoint.CreateHinge1Rel().SetTargets([revolute1_path])
 
 # gear joint (0-2)
-gearJoint2 = PhysxSchema.PhysxPhysicsGearJoint.Define(g_stage, "/gearJoint_0_2")
+gearJoint2 = PhysxSchema.PhysxPhysicsGearJoint.Define(g_stage, gear_basePath+"/gearJoint_0_2")
 
 gearJoint2.CreateBody0Rel().SetTargets([gear1_path])
 gearJoint2.CreateBody1Rel().SetTargets([gear3_path])
