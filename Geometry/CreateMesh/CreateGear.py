@@ -277,11 +277,14 @@ def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : flo
     # Set face vertex indices.
     meshGeom.CreateFaceVertexIndicesAttr(faceIndexList)
 
-    # Set transform.
-    prim = stage.GetPrimAtPath(pathMeshName)
-    prim.CreateAttribute("xformOp:translate", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(0, 0, 0))
-    prim.CreateAttribute("xformOp:scale", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(1, 1, 1))
-    prim.CreateAttribute("xformOp:rotateXYZ", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(0, 0, 0))
+    # Set position.
+    UsdGeom.XformCommonAPI(meshGeom).SetTranslate((0.0, 0.0, 0.0))
+
+    # Set rotation.
+    UsdGeom.XformCommonAPI(meshGeom).SetRotate((0.0, 0.0, 0.0), UsdGeom.XformCommonAPI.RotationOrderXYZ)
+
+    # Set scale.
+    UsdGeom.XformCommonAPI(meshGeom).SetScale((1.0, 1.0, 1.0))
 
     # Attach thickness.
     if gearWidth > 0.0:
