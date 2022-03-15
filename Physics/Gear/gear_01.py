@@ -316,7 +316,10 @@ def SetRigidBodyOnGear (primPath : str, index : int):
     physicsAPI = UsdPhysics.RigidBodyAPI.Apply(prim)
     UsdPhysics.MassAPI.Apply(prim)
 
+    # Create collider.
     UsdPhysics.CollisionAPI.Apply(prim)
+    UsdPhysics.MeshCollisionAPI(prim).CreateApproximationAttr("convexHull")
+    UsdPhysics.MeshCollisionAPI.Apply(prim)
 
     pos = GetPrimCenter(primPath)
 
