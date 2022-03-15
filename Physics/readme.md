@@ -30,4 +30,5 @@ Extensionの「omni.physx.flatcache」をExtensionsウィンドウで検索し�
 |[simpleJoint02.py](./Joint/simpleJoint02.py)|3つのCubeをつなぐ簡単なジョイント<br>![physics_joint_02.jpg](./images/physics_joint_02.jpg)|     
 |[rigidBody_01.py](./RigidBody/rigidBody_01.py)|RigidBodyによる簡単な自由落下<br>![physics_rigidbody_00.jpg](./images/physics_rigidbody_00.jpg)|     
 |[rigidbody_benchmark.py](./RigidBody/rigidbody_benchmark.py)|RigidBodyによる球の自由落下。<br>たくさんの球を配置。<br>![physics_rigidbody_01.jpg](./images/physics_rigidbody_01.jpg)|     
+|[gear_01.py](./Gear/gear_01.py)|歯車の回転。<br>アニメーション再生中に、歯車を回転させると連動します。<br>![physics_gears_01.jpg](./images/physics_gears_01.jpg)|     
 
