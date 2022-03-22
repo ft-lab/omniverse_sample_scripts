@@ -1,4 +1,4 @@
-# Kind
+# PointInstancer
 
 指定のアセット(USDファイルで指定)をPointInstancerを使って、位置/回転/スケールを指定して複製。    
 UsdGeom.PointInstancer ( https://graphics.pixar.com/usd/release/api/class_usd_geom_point_instancer.html ) を使用します。    

@@ -1,0 +1,9 @@
+
+# Mac OS X
+*.DS_Store
+
+# VSCode
+.vscode
+
+# Affinity Photo
+*.afphoto
