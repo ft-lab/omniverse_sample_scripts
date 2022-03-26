@@ -11,6 +11,8 @@ for path in paths:
     if prim.GetTypeName() != "Material":
         continue
 
+    print("[" + prim.GetPath().pathString + "]")
+
     # Get Shader of Material and input parameters.
     pChildren = prim.GetChildren()
     for cPrim in pChildren:
@@ -20,18 +22,18 @@ for path in paths:
             # In the case of UsdPreviewSurface, ImplementationSource is "id".
             # In the case of MDL, the ImplementationSource is "sourceAsset".
             sourceV = shaderPrim.GetImplementationSource()
-            print("implementationSource : " + sourceV)
+            print("  " + "implementationSource : " + sourceV)
             if sourceV == "id":
                 attr = shaderPrim.GetIdAttr()
                 idValue = attr.Get()    # "UsdPreviewSurface"
-                print(attr.GetName() + " : " + idValue)
+                print("  " + attr.GetName() + " : " + idValue)
 
             # Get MDL information.
             if sourceV == "sourceAsset":
                 assetPath = shaderPrim.GetSourceAsset("mdl")
-                print("assetPath : " + assetPath.path)
+                print("  assetPath : " + assetPath.path)
 
                 subIdentifier = shaderPrim.GetSourceAssetSubIdentifier("mdl")
-                print("sourceAsset:subIdentifier : " + subIdentifier)
+                print("  sourceAsset:subIdentifier : " + subIdentifier)
 
 
