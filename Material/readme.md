@@ -20,6 +20,6 @@ Omniverseの場合は、MDL ( https://www.nvidia.com/ja-jp/design-visualization/
 
 |サンプル|説明|     
 |---|---|     
-|[GetMaterial](./GetMaterial)|マテリアルを取得 
+|[GetMaterial](./GetMaterial)|マテリアル情報を取得|     
 |[UsdPreviewSurface](./UsdPreviewSurface)|マテリアルの割り当て (UsdPreviewSurface)|     
 |[OmniPBR](./OmniPBR)|マテリアルの割り当て (OmniPBR)|     
