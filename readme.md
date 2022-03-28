@@ -80,7 +80,7 @@ print('Hello Omniverse !')
 |[pip_archive](./pip_archive)|Pythonのよく使われるモジュールの使用|    
 |[Prim](./Prim)|USDのPrim(ノード)の操作|    
 |[Rendering](./Rendering)|レンダリング画像の取得|    
-|[Scene](./Scene)|シーン情報の取得|    
+|[Scene](./Scene)|シーン(Stage)情報の取得/読み込みなど|    
 |[Settings](./Settings)|設定の取得|    
 |[System](./System)|システム関連情報の取得|    
 |[UI](./UI)|UI操作|    
