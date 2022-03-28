@@ -11,4 +11,5 @@
 |[TraverseHierarchy.py](./TraverseHierarchy.py)|シーンの階層構造をたどってPrim名を表示。<br>Meshの場合はMeshの面数も表示。|     
 |[GetMetersPerUnit.py](./GetMetersPerUnit.py)|metersPerUnitの取得/設定|     
 |[NewStage.py](./NewStage.py)|何も配置されていない新しいStageを作成します。<br>なお、直前のStageの変更は保存されません。|     
-
+|[CloseStage.py](./CloseStage.py)|現在のStageを閉じます。<br>なお、直前のStageの変更は保存されません。|     
+|[OpenUSDFile.py](./OpenUSDFile.py)|指定のUSDファイルを開きます。<br>なお、直前のStageの変更は保存されません。|     
