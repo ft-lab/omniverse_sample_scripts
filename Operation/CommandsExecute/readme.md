@@ -11,3 +11,4 @@ omni.kit.commandsを使用して、Omniverseのコマンドを実行します。
 |[CopyPrim.py](./CopyPrim.py)|選択されたPrimの複製を作成|     
 |[DeletePrims.py](./DeletePrims.py)|選択されたPrimを削除|     
 |[MovePrim.py](./MovePrim.py)|選択されたPrimのパスを変更。<br>/World/Xform 内に選択されたPrimを移動する。|     
+|[RenamePrim.py](./RenamePrim.py)|選択されたPrimの名前を変更。<br>"MovePrim"でPrimの名前変更できる。|     
