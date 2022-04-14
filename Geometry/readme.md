@@ -14,5 +14,6 @@
 |ファイル|説明|     
 |---|---|     
 |[GetMeshPrimvars.py](./GetMeshPrimvars.py)|選択Meshの「primvars:xxx」の情報を取得。|    
+|[SetMeshPrimvars.py](./SetMeshPrimvars.py)|選択Meshにprimvarを追加/削除。|    
 
 

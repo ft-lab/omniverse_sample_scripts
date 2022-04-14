@@ -71,7 +71,7 @@ print('Hello Omniverse !')
 |---|---|     
 |[Audio](./Audio)|Audioの再生|    
 |[Camera](./Camera)|カメラ操作|    
-|[Geometry](./Geometry)|ジオメトリの作成|    
+|[Geometry](./Geometry)|ジオメトリの作成/情報取得|    
 |[Material](./Material)|マテリアルの割り当て|    
 |[Math](./Math)|ベクトル/行列計算関連|    
 |[Operation](./Operation)|Ominverseの操作/イベント処理|    
