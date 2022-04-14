@@ -13,6 +13,6 @@
 
 |ファイル|説明|     
 |---|---|     
-|[GetMeshPrimvars.py](./GetMeshPrimvars.py)|Meshの「primvars:xxx」の情報を取得。|    
+|[GetMeshPrimvars.py](./GetMeshPrimvars.py)|選択Meshの「primvars:xxx」の情報を取得。|    
 
 
