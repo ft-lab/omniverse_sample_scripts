@@ -15,6 +15,8 @@ Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利�
 |[CreateScope.py](./CreateScope.py)|Scopeを作成。<br>Scopeは移動/回転/スケール要素を持ちません。単純なグルーピング向けです。<br>UsdGeom.Scope ( https://graphics.pixar.com/usd/release/api/class_usd_geom_scope.html )を使用します。|     
 |[GetDoubleSided.py](./GetDoubleSided.py)|ジオメトリでのDoubleSided指定の取得、設定|     
 |[GetSingleSided.py](./GetSingleSided.py)|ジオメトリでのSingleSided指定の取得、設定<br>これはOmniverseでの独自の属性|     
+|[GetParent.py](./GetParent.py)|選択パスの親のPrimを取得|     
+|[GetChildren.py](./GetChildren.py)|選択パスの子のPrimを取得|     
 
 |サンプル|説明|     
 |---|---|     
