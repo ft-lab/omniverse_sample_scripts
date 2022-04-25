@@ -22,5 +22,7 @@ double型のGf.Matrix4d ( https://graphics.pixar.com/usd/release/api/class_gf_ma
 |[NormalizeVector3.py](./NormalizeVector3.py)|Vector3の正規化|     
 |[QuatToRotation.py](./QuatToRotation.py)|クォータニオンと回転角度（度数）の変換|     
 |[TransRotationFrom2Vec.py](./TransRotationFrom2Vec.py)|ベクトルAをベクトルBに変換する回転を計算。|     
+|[ConvRGB2SRGB.py](./ConvRGB2SRGB.py)|色のsRGBとRGBの相互変換。|     
+
 
 
