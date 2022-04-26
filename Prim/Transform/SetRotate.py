@@ -9,6 +9,8 @@ stage = omni.usd.get_context().get_stage()
 selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
+time_code = Usd.TimeCode.Default()
+
 for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
