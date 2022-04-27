@@ -14,3 +14,4 @@ Transform(scale/rotate/translate)情報の取得/設定。
 |[SetScale.py](./SetScale.py)|選択形状のスケールを指定。存在しなければxformOpOrderも考慮して追加|    
 |[SetRotate.py](./SetRotate.py)|選択形状の回転を指定。存在しなければxformOpOrderも考慮して追加|
 |[SetPivot.py](./SetPivot.py)|選択形状のPivotを指定。存在しなければxformOpOrderも考慮して追加|
+|[DeletePivot.py](./DeletePivot.py)|選択形状のPivotを削除。一部 omni.kit.commands.execute('RemoveProperty') を使用|
