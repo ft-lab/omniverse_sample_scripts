@@ -17,6 +17,8 @@ Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利�
 |[GetSingleSided.py](./GetSingleSided.py)|ジオメトリでのSingleSided指定の取得、設定<br>これはOmniverseでの独自の属性|     
 |[GetParent.py](./GetParent.py)|選択パスの親のPrimを取得|     
 |[GetChildren.py](./GetChildren.py)|選択パスの子のPrimを取得|     
+|[CalcWorldBoundingBox.py](./CalcWorldBoundingBox.py)|選択形状のワールド座標でのバウンディングボックスを計算|     
+
 
 |サンプル|説明|     
 |---|---|     
