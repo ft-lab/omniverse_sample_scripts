@@ -25,7 +25,7 @@ Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利�
 |[Transform](./Transform)|Transform(scale/rotate/translate)の取得/設定|    
 |[TypeName](./TypeName)|PrimのTypeName(Xform/Mesh/DistantLightなど)を取得|    
 |[Skeleton](./Skeleton)|Skeletonでの情報を取得|    
-|[Reference](./Reference)|参照(Reference)を使った複製|    
+|[Reference](./Reference)|参照(Reference)を使った複製/参照のチェック|    
 |[PointInstancer](./PointInstancer)|アセット(USDで指定)を複数の位置/回転/スケールで複製配置(PointInstancer)|    
 |[Variant](./Variant)|Variantを使ったPrimの切り替え|    
 

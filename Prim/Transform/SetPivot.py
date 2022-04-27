@@ -26,6 +26,19 @@ for path in paths:
                 prim.GetAttribute("xformOp:translate:pivot").Set(Gf.Vec3d(pV))
         else:
             # xformOpOrder is also updated.
-            xformAPI = UsdGeom.XformCommonAPI(prim)
-            xformAPI.SetPivot(Gf.Vec3f(pV))
+            # ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+            # The following do not work correctly?
+            #xformAPI = UsdGeom.XformCommonAPI(prim)
+            #xformAPI.SetPivot(Gf.Vec3f(pV))
+
+            prim.CreateAttribute("xformOp:translate:pivot", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(pV))
+
+            # ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:translate:pivot", "!invert!xformOp:translate:pivot"]
+            transformOrder = prim.GetAttribute("xformOpOrder").Get()
+            orderList = []
+            for sV in transformOrder:
+                orderList.append(sV)
+            orderList.append("xformOp:translate:pivot")
+            orderList.append("!invert!xformOp:translate:pivot")
+            prim.GetAttribute("xformOpOrder").Set(orderList)
 
