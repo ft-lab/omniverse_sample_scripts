@@ -36,10 +36,15 @@ Omniverse Createを起動し、新規Stageを作成します。
 このLOD1のみの都市データは、Omniverse Createで約15GBくらいのメモリを消費します。      
 OSのメモリは32GBあれば足ります。     
 
+### 東京23区の地形と建物(LOD1)を読み込み + 地形のテクスチャを反映
+
 
 ## ファイル
 
 |ファイル|説明|     
 |---|---|     
 |[import_PLATEAU_tokyo23ku_all_obj_lod1.py](./import_PLATEAU_tokyo23ku_all_obj_lod1.py)|東京23区のPLATEAUのobjファイルより、LOD1の都市モデルをOmniverseにインポートします。<br>dem/bldg(LOD1)を読み込み。<br>テクスチャは反映していません。|
+|[divide_GeoTiff_images.py](./divide_GeoTiff_images.py)|東京23区のPLATEAUのGeoTIFFファイルを10x10分割して、jpeg形式で指定のフォルダに出力します。|
+
+
 

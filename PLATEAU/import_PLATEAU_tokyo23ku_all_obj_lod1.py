@@ -5,7 +5,6 @@
 
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.usd
-import omni.kit.commands
 import glob
 import os
 
@@ -95,23 +94,37 @@ def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
 
 # --------------------------------------.
 # Create new Material (OmniPBR).
+# @param[in] materialPrimPath   Prim path of Material
+# @param[in] targetPrimPath     Prim path to bind Material.
 # --------------------------------------.
-def createMaterialOmniPBR ():
-    # Create new material.
-    omni.kit.commands.execute('CreateAndBindMdlMaterialFromLibrary', mdl_name='OmniPBR.mdl',
-        mtl_name='OmniPBR', mtl_created_list=['/World/Looks/OmniPBR'])
+def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str):
+    material = UsdShade.Material.Define(stage, materialPrimPath)
 
-    # Get selection.
-    selection = omni.usd.get_context().get_selection()
-    selectedPaths = selection.get_selected_prim_paths()
+    shaderPath = materialPrimPath + '/Shader'
+    shader = UsdShade.Shader.Define(stage, shaderPath)
+    shader.SetSourceAsset('OmniPBR.mdl', 'mdl')
+    shader.GetPrim().CreateAttribute('info:mdl:sourceAsset:subIdentifier', Sdf.ValueTypeNames.Token, False, Sdf.VariabilityUniform).Set('OmniPBR')
 
-    # Path of the added material.
-    selectPrimPath = ""
-    for path in selectedPaths:
-        selectPrimPath = path
-        break
+    # Set Diffuse color.
+    shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set((0.2, 0.2, 0.2))
 
-    return selectPrimPath
+    # Set Metallic.
+    shader.CreateInput('metallic_constant', Sdf.ValueTypeNames.Float).Set(0.0)
+
+    # Set Roughness.
+    shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.5)
+
+    # Connecting Material to Shader.
+    mdlOutput = material.CreateSurfaceOutput('mdl')
+    mdlOutput.ConnectToSource(shader, 'out')
+
+    # Bind material.
+    if targetPrimPath != "":
+        tPrim = stage.GetPrimAtPath(targetPrimPath)
+        if tPrim.IsValid():
+            UsdShade.MaterialBindingAPI(tPrim).Bind(material)
+
+    return materialPrimPath
 
 # --------------------------------------.
 # Create Xform (e.g. map_533946).
@@ -228,7 +241,12 @@ def load_PLATEAU ():
         return
 
     # Create OmniPBR material.
-    defaultMaterialPath = createMaterialOmniPBR()
+    materialLooksPath = "/World/Looks"
+    prim = stage.GetPrimAtPath(materialLooksPath)
+    if prim.IsValid() == False:
+        UsdGeom.Scope.Define(stage, materialLooksPath)
+
+    defaultMaterialPath = createMaterialOmniPBR(materialLooksPath + "/defaultMaterial", "")
 
     for mapIndex in mapIndexList:
         loadDem(mapIndex, defaultMaterialPath)
