@@ -1,8 +1,10 @@
 # ---------------------------------------------------------------------.
 # Import PLATEAU obj for Tokyo23-ku in LOD1.
 #   Specify the path where the local "13100_tokyo23-ku_2020_obj_3_op.zip" was extracted in in_plateau_obj_path.
+#
+# It also assigns textures created from GeoTIFF to dem.
+# Please use "divide_GeoTiff_images.py" to convert GeoTIFF into jpeg images by dividing them into 10x10 segments in advance.
 # ---------------------------------------------------------------------.
-
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.usd
 import glob
@@ -14,6 +16,8 @@ stage = omni.usd.get_context().get_stage()
 # Get default prim.
 defaultPrim = stage.GetDefaultPrim()
 defaultPrimPath = defaultPrim.GetPath().pathString
+if defaultPrimPath == "":
+    defaultPrimPath = "/World"
 
 # --------------------------------------.
 # Input Parameters.
@@ -21,8 +25,15 @@ defaultPrimPath = defaultPrim.GetPath().pathString
 # Source path (Root path with PLATEAU obj).
 in_plateau_obj_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_obj_3_op"
 
+# dem textures path.
+# See : divide_GeoTiff_images.py
+in_dem_textures_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_ortho_2_op\\divide_images"
+
 # Load LOD2.
 in_load_lod2 = False
+
+# Assign texture to dem.
+in_assign_dem_texture = True
 
 # Load map area.
 mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
@@ -96,8 +107,9 @@ def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
 # Create new Material (OmniPBR).
 # @param[in] materialPrimPath   Prim path of Material
 # @param[in] targetPrimPath     Prim path to bind Material.
+# @param[in] textureFilePath    File path of Diffuse texture.
 # --------------------------------------.
-def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str):
+def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", textureFilePath : str = ""):
     material = UsdShade.Material.Define(stage, materialPrimPath)
 
     shaderPath = materialPrimPath + '/Shader'
@@ -112,7 +124,13 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str):
     shader.CreateInput('metallic_constant', Sdf.ValueTypeNames.Float).Set(0.0)
 
     # Set Roughness.
-    shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.5)
+    shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.8)
+
+    # Set texture.
+    if textureFilePath != "":
+        diffTexIn = shader.CreateInput('diffuse_texture', Sdf.ValueTypeNames.Asset)
+        diffTexIn.Set(textureFilePath)
+        diffTexIn.GetAttr().SetColorSpace('sRGB')
 
     # Connecting Material to Shader.
     mdlOutput = material.CreateSurfaceOutput('mdl')
@@ -123,7 +141,7 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str):
         tPrim = stage.GetPrimAtPath(targetPrimPath)
         if tPrim.IsValid():
             UsdShade.MaterialBindingAPI(tPrim).Bind(material)
-
+ 
     return materialPrimPath
 
 # --------------------------------------.
@@ -158,9 +176,24 @@ def loadDem (mapIndex : int, materialPath : str):
     demPrimPath = mapPrimPath + "/dem"
     UsdGeom.Xform.Define(stage, demPrimPath)
 
+    # Scope specifying the Material.
+    materialPrimPath = ""
+    if in_assign_dem_texture:
+        materialPrimPath = defaultPrimPath + "/Looks/map_" + str(mapIndex)
+        prim = stage.GetPrimAtPath(materialPrimPath)
+        if prim.IsValid() == False:
+            UsdGeom.Scope.Define(stage, materialPrimPath)
+     
+
     for path in glob.glob(dem_path + "/" + str(mapIndex) + "*.obj"):
 
         fName = os.path.basename(path)
+
+        # Get map index from file name.
+        mapIndex = 0
+        p1 = fName.find('_')
+        if p1 > 0:
+            mapIndex = int(fName[0:p1])
 
         # Convert Prim name.
         primName = convFileNameToUSDPrimName(fName)
@@ -177,6 +210,15 @@ def loadDem (mapIndex : int, materialPath : str):
         prim.GetReferences().AddReference(path)
 
         setRotate(prim, -90.0, 0.0, 0.0)
+
+        # Assign texture.
+        if in_assign_dem_texture and mapIndex > 0:
+            mapFilePath = in_dem_textures_path + "/" + str(mapIndex) + ".jpg"
+            if os.path.exists(mapFilePath):
+                # Create material.
+                materialName = "mat_dem_" + str(mapIndex)
+                matPath = materialPrimPath + "/" + materialName
+                createMaterialOmniPBR(matPath, newPath, mapFilePath)
 
 # --------------------------------------.
 # load building.
@@ -241,12 +283,12 @@ def load_PLATEAU ():
         return
 
     # Create OmniPBR material.
-    materialLooksPath = "/World/Looks"
+    materialLooksPath = defaultPrimPath + "/Looks"
     prim = stage.GetPrimAtPath(materialLooksPath)
     if prim.IsValid() == False:
         UsdGeom.Scope.Define(stage, materialLooksPath)
 
-    defaultMaterialPath = createMaterialOmniPBR(materialLooksPath + "/defaultMaterial", "")
+    defaultMaterialPath = createMaterialOmniPBR(materialLooksPath + "/defaultMaterial")
 
     for mapIndex in mapIndexList:
         loadDem(mapIndex, defaultMaterialPath)
