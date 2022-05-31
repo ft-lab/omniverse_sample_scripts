@@ -24,5 +24,5 @@ for path in paths:
                 tV = prim.GetAttribute(transV)
 
                 if tV.IsValid():
-                    print('    ' + transV + ' : ' + str(tV.Get()))
+                    print("    " + transV + " ( " + str(tV.GetTypeName()) + " ) : " + str(tV.Get()))
 
