@@ -9,6 +9,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.usd
 import glob
 import os
+import asyncio
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -54,6 +55,12 @@ bridge_path = in_plateau_obj_path + "/brid"
 
 # tran.
 tran_path = in_plateau_obj_path + "/tran"
+
+# ----------------------------------------------------.
+# Pass the process to Omniverse.
+# ----------------------------------------------------.
+async def _omniverse_sync_wait():
+    await omni.kit.app.get_app().next_update_async()
 
 # ----------------------------------------------------.
 # Convert file name to a string that can be used in USD Prim name.
@@ -220,6 +227,10 @@ def loadDem (mapIndex : int, materialPath : str):
                 matPath = materialPrimPath + "/" + materialName
                 createMaterialOmniPBR(matPath, newPath, mapFilePath)
 
+        # Pass the process to Omniverse.
+        asyncio.ensure_future(_omniverse_sync_wait())
+
+
 # --------------------------------------.
 # load building.
 # @param[in] mapIndex       map index. 
@@ -274,6 +285,10 @@ def loadBuilding (mapIndex : int, useLOD2 : bool, materialPath : str):
         prim.GetReferences().AddReference(path)
 
         setRotate(prim, -90.0, 0.0, 0.0)
+
+        # Pass the process to Omniverse.
+        asyncio.ensure_future(_omniverse_sync_wait())
+
 
 # --------------------------------------.
 # load PLATEAU data.
