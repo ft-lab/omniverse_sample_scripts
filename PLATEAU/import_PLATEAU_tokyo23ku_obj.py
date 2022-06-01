@@ -36,6 +36,9 @@ in_load_lod2 = False
 # Assign texture to dem.
 in_assign_dem_texture = True
 
+# Load bridge.
+in_load_bridge = False
+
 # Load map area.
 mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
 
@@ -289,6 +292,41 @@ def loadBuilding (mapIndex : int, useLOD2 : bool, materialPath : str):
         # Pass the process to Omniverse.
         asyncio.ensure_future(_omniverse_sync_wait())
 
+# --------------------------------------.
+# load bridge.
+# @param[in] mapIndex       map index. 
+# @param[in] materialPath   material prim path.
+# --------------------------------------.
+def loadBridge (mapIndex : int, materialPath : str):
+    if os.path.exists(bridge_path) == False:
+        return
+
+    mapPrimPath = createXfrom_mapIndex(mapIndex, materialPath)
+    bridgePath = mapPrimPath + "/bridge"
+    UsdGeom.Xform.Define(stage, bridgePath)
+
+    # Search subdirectories.
+    for path in glob.glob(bridge_path + "/**/" + str(mapIndex) + "*.obj", recursive=True):
+        fName = os.path.basename(path)
+
+        # Conv Prim name.
+        primName = convFileNameToUSDPrimName(fName)
+
+        # Create Xform.
+        newPath = bridgePath + "/" + primName
+        UsdGeom.Xform.Define(stage, newPath)
+        prim = stage.GetPrimAtPath(newPath)
+
+        # Remove references.
+        prim.GetReferences().ClearReferences()
+
+        # Add a reference.
+        prim.GetReferences().AddReference(path)
+
+        setRotate(prim, -90.0, 0.0, 0.0)
+
+        # Pass the process to Omniverse.
+        asyncio.ensure_future(_omniverse_sync_wait())
 
 # --------------------------------------.
 # load PLATEAU data.
@@ -308,6 +346,10 @@ def load_PLATEAU ():
     for mapIndex in mapIndexList:
         loadDem(mapIndex, defaultMaterialPath)
         loadBuilding(mapIndex, in_load_lod2, defaultMaterialPath)
+
+        if in_load_bridge and in_load_lod2:
+            loadBridge(mapIndex, defaultMaterialPath)
+
 
 # --------------------------------------.
 # --------------------------------------.
