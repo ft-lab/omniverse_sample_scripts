@@ -37,15 +37,15 @@ def load_divideImage (filePath : str, savePath : str):
         hei = srcImage.size[1]
 
         # 10x10 division.
-        wid_10 = (int)((float)(wid) / 10.0) 
-        hei_10 = (int)((float)(hei) / 10.0)
+        wid_10 = (float)(wid) / 10.0 
+        hei_10 = (float)(hei) / 10.0
 
         index = 0
-        iy1 = hei_10 * 9
+        fy1 = hei_10 * 9.0
         for y in range(10):
-            ix1 = 0
+            fx1 = 0.0
             for x in range(10):
-                img = srcImage.crop((ix1, iy1, ix1 + wid_10, iy1 + hei_10))
+                img = srcImage.crop(((int)(fx1 + 0.5), (int)(fy1 + 0.5), (int)(fx1 + wid_10 + 0.5), (int)(fy1 + hei_10 + 0.5)))
 
                 # Save file name ('533925' + '02' ==> '53392502.jpg').
                 dstName = fName2 + str(index).zfill(2) + ".jpg"
@@ -54,9 +54,8 @@ def load_divideImage (filePath : str, savePath : str):
                 img.save(dstPath)
 
                 index += 1
-                ix1 += wid_10
-            iy1 -= hei_10
-
+                fx1 += wid_10
+            fy1 -= hei_10
     
     except Exception as e:
         pass
