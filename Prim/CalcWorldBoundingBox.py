@@ -30,3 +30,8 @@ for path in paths:
     print("[ " + str(prim.GetName()) + "] ")
     bbMin, bbMax = _calcWorldBoundingBox(prim)
     print("  BoundingBox : " + str(bbMin) + " - " + str(bbMax))
+
+    sx = bbMax[0] - bbMin[0]
+    sy = bbMax[1] - bbMin[1]
+    sz = bbMax[2] - bbMin[2]
+    print("  BoundingBoxSize : " + str(sx) + " x " + str(sy) + " x " + str(sz))

@@ -114,6 +114,18 @@ def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
             prim.CreateAttribute("xformOp:orient", Sdf.ValueTypeNames.Quatf, False).Set(q)
 
 # --------------------------------------.
+# Set scale.
+# @param[in] prim           target prim.
+# @param[in] (sx, sy, sz)   Scale.
+# --------------------------------------.
+def setScale (prim : Usd.Prim, sx : float, sy : float, sz : float):
+    if prim.IsValid():
+        tV = prim.GetAttribute("xformOp:scale")
+        if tV.IsValid():
+            prim.CreateAttribute("xformOp:scale", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(sx, sy, sz))
+
+
+# --------------------------------------.
 # Create new Material (OmniPBR).
 # @param[in] materialPrimPath   Prim path of Material
 # @param[in] targetPrimPath     Prim path to bind Material.
@@ -220,6 +232,7 @@ def loadDem (mapIndex : int, materialPath : str):
         prim.GetReferences().AddReference(path)
 
         setRotate(prim, -90.0, 0.0, 0.0)
+        setScale(prim, 100.0, 100.0, 100.0)
 
         # Assign texture.
         if in_assign_dem_texture and mapIndex > 0:
@@ -288,6 +301,7 @@ def loadBuilding (mapIndex : int, useLOD2 : bool, materialPath : str):
         prim.GetReferences().AddReference(path)
 
         setRotate(prim, -90.0, 0.0, 0.0)
+        setScale(prim, 100.0, 100.0, 100.0)
 
         # Pass the process to Omniverse.
         asyncio.ensure_future(_omniverse_sync_wait())
@@ -324,6 +338,7 @@ def loadBridge (mapIndex : int, materialPath : str):
         prim.GetReferences().AddReference(path)
 
         setRotate(prim, -90.0, 0.0, 0.0)
+        setScale(prim, 100.0, 100.0, 100.0)
 
         # Pass the process to Omniverse.
         asyncio.ensure_future(_omniverse_sync_wait())
