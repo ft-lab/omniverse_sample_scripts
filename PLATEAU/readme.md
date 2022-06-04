@@ -199,5 +199,6 @@ LOD2で橋を追加するとさらにメモリ消費は増加することにな�
 |---|---|     
 |[divide_GeoTiff_images.py](./divide_GeoTiff_images.py)|東京23区のPLATEAUのGeoTIFFファイルを10x10分割して、jpeg形式で指定のフォルダに出力します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 |[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)|東京23区のPLATEAUのobjファイルより、都市モデルをOmniverseにインポートします。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
+|[calcDistance.py](./calcDistance.py)|選択された2つの形状の直線距離を計算します。|
 
 
