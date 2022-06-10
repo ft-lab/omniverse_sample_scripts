@@ -202,7 +202,7 @@ LOD2で橋を追加するとさらにメモリ消費は増加することにな�
 [calcLatLongToOmniverse.py](./calcLatLongToOmniverse.py)     
 これはスクリプトのみの計算になります。      
 スクリプトの(in_lat, in_longi)に緯度経度を指定すると平面直角座標での位置を計算、Omniverse(USD)の座標系（Y-Up/右手系/cm単位）に変換します。     
--Z方向が北向きとします。      
+Omniverse上の-Z方向が北向きとします。      
 
 以下は地理院地図( https://maps.gsi.go.jp/ )での東京タワー前。    
 ![plateau_calc_lat_longi_01.jpg](./images/plateau_calc_lat_longi_01.jpg)    
