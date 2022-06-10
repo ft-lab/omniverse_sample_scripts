@@ -35,3 +35,12 @@ texCoords.Set([(0, 1), (0, 0), (1, 0), (1, 1)])
 
 # Subdivision is set to none.
 meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+
+# Set position.
+UsdGeom.XformCommonAPI(meshGeom).SetTranslate((0.0, 0.0, 0.0))
+
+# Set rotation.
+UsdGeom.XformCommonAPI(meshGeom).SetRotate((0.0, 0.0, 0.0), UsdGeom.XformCommonAPI.RotationOrderXYZ)
+
+# Set scale.
+UsdGeom.XformCommonAPI(meshGeom).SetScale((1.0, 1.0, 1.0))
