@@ -195,6 +195,28 @@ LOD2で橋を追加するとさらにメモリ消費は増加することにな�
 
 いくつか緯度経度計算を行う際の確認用スクリプトを作成しました。     
 
+### 緯度経度を指定し、平面直角座標/Omniverse上のXZ位置に変換
+
+地理院地図の「平面直角座標への換算」( https://vldb.gsi.go.jp/sokuchi/surveycalc/surveycalc/bl2xyf.html )をPythonスクリプトに置き換えました。
+
+[calcLatLongToOmniverse.py](./calcLatLongToOmniverse.py)     
+これはスクリプトのみの計算になります。      
+スクリプトの(in_lat, in_longi)に緯度経度を指定すると平面直角座標での位置を計算、Omniverse(USD)の座標系（Y-Up/右手系/cm単位）に変換します。     
+-Z方向が北向きとします。      
+
+以下は地理院地図( https://maps.gsi.go.jp/ )での東京タワー前。    
+![plateau_calc_lat_longi_01.jpg](./images/plateau_calc_lat_longi_01.jpg)    
+緯度 : 35.658310      
+経度 : 139.745243      
+
+これをこのスクリプトで計算すると、Omniverse上のXZ位置は以下のように計算できました。      
+x = -797587.3075871967 (cm)      
+z = 3790513.4729016027 (cm)      
+
+この位置に赤いマテリアルを与えたSphereを配置すると以下のようになりました。     
+![plateau_calc_lat_longi_02.jpg](./images/plateau_calc_lat_longi_02.jpg)    
+
+
 ### 2点間の距離を計算（単純な直線距離）
 
 [calcDistance.py](./calcDistance.py)    
@@ -220,6 +242,7 @@ cmとm単位の距離をConsoleに出力します。
 |[divide_GeoTiff_images.py](./divide_GeoTiff_images.py)|東京23区のPLATEAUのGeoTIFFファイルを10x10分割して、jpeg形式で指定のフォルダに出力します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 |[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)|東京23区のPLATEAUのobjファイルより、都市モデルをOmniverseにインポートします。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 |[calcDistance.py](./calcDistance.py)|選択された2つの形状の直線距離を計算します。|
-|[calcDistanceWithLatLong.py](./calcDistanceWithLatLong.py)|2つの緯度経度を指定して距離を計算します。|
+|[calcDistanceWithLatLong.py](./calcDistanceWithLatLong.py)|2つの緯度経度を指定して距離を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
+|[calcLatLongToOmniverse.py](./calcLatLongToOmniverse.py)|緯度経度から平面直角座標上の位置を計算、Omniverse上のXZ位置を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 
 
