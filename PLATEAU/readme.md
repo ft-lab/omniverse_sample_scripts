@@ -191,6 +191,26 @@ mapIndexList = [533935]
 LOD2で橋を追加するとさらにメモリ消費は増加することになります。      
 ですが、建物に比べて橋は数が少ないです。     
 
+## スクリプトを使った緯度経度の確認
+
+いくつか緯度経度計算を行う際の確認用スクリプトを作成しました。     
+
+### 2点間の距離を計算（単純な直線距離）
+
+[calcDistance.py](./calcDistance.py)    
+選択された2つの形状の中心位置の距離を単純計算します。     
+cmとm単位の距離をConsoleに出力します。     
+![plateau_calc_dist_01.jpg](./images/plateau_calc_dist_01.jpg)    
+
+### 2つの緯度経度を指定して距離を計算
+
+地理院地図の「距離と方位角の計算」( https://vldb.gsi.go.jp/sokuchi/surveycalc/surveycalc/bl2stf.html )をPythonスクリプトに置き換えました。     
+
+[calcDistanceWithLatLong.py](./calcDistanceWithLatLong.py)      
+これはスクリプトのみの計算になります。      
+スクリプトの(in_lat1, in_longi1)に開始位置の緯度経度を指定、(in_lat2, in_longi2)に終了位置の緯度経度を指定します。     
+この2つの緯度経度の距離をmとkm単位でConsoleに出力します。     
+
 ----
 
 ## ファイル
