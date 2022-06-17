@@ -110,8 +110,10 @@ def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
             rotY = Gf.Rotation(Gf.Vec3d(0, 1, 0), ry)
             rotZ = Gf.Rotation(Gf.Vec3d(0, 0, 1), rz)
             rotXYZ = rotZ * rotY * rotX
-            q = Gf.Quatf(rotXYZ.GetQuat())
-            prim.CreateAttribute("xformOp:orient", Sdf.ValueTypeNames.Quatf, False).Set(q)
+            if type(tV.Get()) == Gf.Quatd:
+                tV.Set(rotXYZ.GetQuat())
+            elif type(tV.Get()) == Gf.Quatf:
+                tV.Set(Gf.Quatf(rotXYZ.GetQuat()))
 
 # --------------------------------------.
 # Set scale.
