@@ -12,6 +12,16 @@ def progress_callback (current_step: int, total: int):
 async def convert_asset_to_usd (input_asset: str, output_usd: str):
    # Input options are defaults.
    converter_context = omni.kit.asset_converter.AssetConverterContext()
+   #converter_context.keep_all_materials = True
+   #converter_context.export_preview_surface = False
+   #converter_context.ignore_animations = False
+   #converter_context.ignore_camera = False
+   #converter_context.ignore_light = False
+   #converter_context.smooth_normals = True
+   #converter_context.use_meter_as_world_unit = False
+   #converter_context.create_world_as_default_root_prim = True
+   #converter_context.merge_all_meshes = False
+
    instance = omni.kit.asset_converter.get_instance()
    task = instance.create_converter_task(input_asset, output_usd, progress_callback, converter_context)
 
