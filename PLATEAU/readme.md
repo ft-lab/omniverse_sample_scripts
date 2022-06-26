@@ -274,7 +274,7 @@ Omniverse Create 2022.1.3で確認。
 「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を使って都市データを読み込む場合、
 Omniverse CreateのステータスバーでLoading Materialと出てプログレスバーのパーセントが進まない場合がありました。        
 ![plateau_03_00.jpg](./images/plateau_03_00.jpg)    
-これを回避するため、読み込みが完全に完了するのを待って何回かに分けてスクリプトを複数回実行するようにしています。      
+これを回避するため、読み込みが完全に完了するのを待って何回かに分けてスクリプトを複数回実行するようにします。      
 LOD1だけの読み込みの場合は、地域メッシュ全部(14個分)を読み込む場合でも停止することはありませんでした。      
 LOD2を含む場合、マップを1つまたは2つずつ読み込まないとフリーズします。     
 
@@ -298,10 +298,10 @@ LOD2を含む場合、マップを1つまたは2つずつ読み込まないと�
 ### objファイルをReferenceした状態で保存すると、再読み込み時にテクスチャが消える
 
 「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を使って都市データを読み込む場合に「in_convert_to_usd」をFalseにすると、      
-PLATEAUのobjを直接Referenceで参照するモードになります。      
+PLATEAUのobjを直接Referenceで参照します。      
 「in_convert_to_usd」をTrueにするとobjからusdに変換してそれを参照します。      
 
-東京23区全体(LOD2)を読み込んで保存後、usdを閉じます。      
+東京23区全体(LOD2)を読み込んで保存後usdを閉じ、
 再度同じシーンを開いた場合、テクスチャが消えてしまう場合があります。      
 これはobjで読み込んだ場合のキャッシュ（objの場合、Omniverseで作業ディレクトリに格納される）によるものと思われます。    
 
