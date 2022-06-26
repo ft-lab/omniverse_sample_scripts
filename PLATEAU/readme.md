@@ -239,6 +239,18 @@ cmとm単位の距離をConsoleに出力します。
 スクリプトの(in_lat1, in_longi1)に開始位置の緯度経度を指定、(in_lat2, in_longi2)に終了位置の緯度経度を指定します。     
 この2つの緯度経度の距離をmとkm単位でConsoleに出力します。     
 
+## USDファイル変換について
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を実行する際、PLATEAUのobjファイルをusdファイルに変換します。     
+変換されたUSDファイルは「in_plateau_obj_path + "/output_usd"」に格納されます。     
+東京23区全体でusdと関連テクスチャファイルは全体で4GBほどのファイル容量になりました。      
+また、objからusdに変換する処理は時間がかかります。      
+
+2回目以降、すでにusdファイルが存在する場合はこのusdファイル変換処理はスキップされます。     
+もし、改めてobjからusd変換する場合は「in_plateau_obj_path + "/output_usd"」ファイルを削除するようにしてください。        
+
+Omniverseではobj/fbxファイルを直接Referenceできますが、できるだけusdに変換して扱うほうがよいと思われます。    
+
 ----
 
 ## ファイル
@@ -250,6 +262,53 @@ cmとm単位の距離をConsoleに出力します。
 |[calcDistance.py](./calcDistance.py)|選択された2つの形状の直線距離を計算します。|
 |[calcDistanceWithLatLong.py](./calcDistanceWithLatLong.py)|2つの緯度経度を指定して距離を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 |[calcLatLongToOmniverse.py](./calcLatLongToOmniverse.py)|緯度経度から平面直角座標上の位置を計算、Omniverse上のXZ位置を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
+
+## 現状の既知問題点
+
+Omniverse Create 2022.1.3で確認。     
+
+### 大量のusdをReferenceする際にプログレスバーが止まる
+
+※ 開発にレポート済み。      
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を使って都市データを読み込む場合、
+Omniverse CreateのステータスバーでLoading Materialと出てプログレスバーのパーセントが進まない場合がありました。        
+![plateau_03_00.jpg](./images/plateau_03_00.jpg)    
+これを回避するため、読み込みが完全に完了するのを待って何回かに分けてスクリプトを複数回実行するようにしています。      
+LOD1だけの読み込みの場合は、地域メッシュ全部(14個分)を読み込む場合でも停止することはありませんでした。      
+LOD2を含む場合、マップを1つまたは2つずつ読み込まないとフリーズします。     
+
+### 作成されたusdファイルを保存する際にSaving layersで進まない
+
+※ 開発にレポート済み。      
+
+東京23区全体を読み込んで保存する場合、Saving layersでずっと進まない場合がありました。     
+数時間待てば処理が完了します。     
+回避策として、マップを1つだけ読み込んでその段階でいったん保存。    
+マップを追加読み込んで保存、とすると時間がかからないようでした。     
+
+### 保存したusdファイルを読み込む場合にプログレスバーが止まる
+
+※ 開発にレポート済み。      
+
+東京23区全体(LOD2)を読み込んで保存後、いったんOmniverse Createを再起動してusdを読み込みます。     
+この際、Loading Materialと出てプログレスバーのパーセントが進まない場合がありました。    
+おそらく１つめの「大量のusdをReferenceする際にプログレスバーが止まる」と同じ現象と思われます。      
+
+### objファイルをReferenceした状態で保存すると、再読み込み時にテクスチャが消える
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を使って都市データを読み込む場合に「in_convert_to_usd」をFalseにすると、      
+PLATEAUのobjを直接Referenceで参照するモードになります。      
+「in_convert_to_usd」をTrueにするとobjからusdに変換してそれを参照します。      
+
+東京23区全体(LOD2)を読み込んで保存後、usdを閉じます。      
+再度同じシーンを開いた場合、テクスチャが消えてしまう場合があります。      
+これはobjで読み込んだ場合のキャッシュ（objの場合、Omniverseで作業ディレクトリに格納される）によるものと思われます。    
+
+また、「Collect Asset」( https://docs.omniverse.nvidia.com/app_create/prod_extensions/ext_collect.html )を行ってNucleusにusd一式をアップロードする場合、    
+objを使っているとマテリアルのmtlやテクスチャを渡してくれないようでした。     
+
+そのため、OmniverseではStageはすべてusdを使用するほうがよさそうです。      
 
 ## 更新履歴
 
