@@ -7,6 +7,8 @@ OBJ形式のデータを使用しています。
 
 また、地形のテクスチャについてはGeoTIFFを分割して使用しました。     
 
+2022/06/26 : objからusdに変換して読み込むようにしました。     
+
 ## 使い方
 
 ### 「東京都23区」のobjファイル一式をダウンロード
@@ -75,6 +77,10 @@ Omniverse Createを起動し、新規Stageを作成します。
 
 このLOD1のみの都市データは、Omniverse Createで約12GBくらいのメモリを消費します。      
 OSのメモリは32GBあれば足ります。     
+
+2022/06/26    
+すべてのデータをobjからusdに変換して読み込むようにしました。    
+変換されたusdは、in_plateau_obj_pathの"output_usd"フォルダに格納されます。     
 
 ### 例2 : 東京23区の地形と建物(LOD1)を読み込み + 地形のテクスチャを反映
 
@@ -245,4 +251,12 @@ cmとm単位の距離をConsoleに出力します。
 |[calcDistanceWithLatLong.py](./calcDistanceWithLatLong.py)|2つの緯度経度を指定して距離を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 |[calcLatLongToOmniverse.py](./calcLatLongToOmniverse.py)|緯度経度から平面直角座標上の位置を計算、Omniverse上のXZ位置を計算します。<br>コード内の「in_xxx」の指定を環境に合わせて書き換えるようにしてください。|
 
+## 更新履歴
 
+### 2022/06/26
+
+* [import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)でUSDに変換してインポートするようにした
+
+### 2022/06/10
+
+* 初回バージョン
