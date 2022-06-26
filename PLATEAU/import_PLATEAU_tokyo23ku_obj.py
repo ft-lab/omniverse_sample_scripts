@@ -8,8 +8,10 @@
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.usd
 import glob
+import carb
 import os
 import asyncio
+import omni.kit.asset_converter
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -30,6 +32,13 @@ in_plateau_obj_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_
 # See : divide_GeoTiff_images.py
 in_dem_textures_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_ortho_2_op\\divide_images"
 
+# Convert obj to USD (Skipped if already converted to USD).
+in_convert_to_usd = True
+
+# Folder to store output USD.
+# If not specified, in_plateau_obj_path + "\\output_usd"
+in_output_usd_folder = ""
+
 # Load LOD2.
 in_load_lod2 = False
 
@@ -40,7 +49,8 @@ in_assign_dem_texture = True
 in_load_bridge = False
 
 # Load map area.
-mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
+#mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
+mapIndexList = [533925]
 
 # --------------------------------------.
 # Path of PLATEAU data.
@@ -189,28 +199,40 @@ def createXfrom_mapIndex (mapIndex : int, materialPath : str):
 
 # --------------------------------------.
 # load dem.
-# @param[in] mapIndex       map index. 
-# @param[in] materialPath   material prim path.
+# @param[in] _mapIndex       map index. 
+# @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadDem (mapIndex : int, materialPath : str):
+def loadDem (_mapIndex : int, _materialPath : str):
     if os.path.exists(dem_path) == False:
         return
 
-    mapPrimPath = createXfrom_mapIndex(mapIndex, materialPath)
+    mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
     demPrimPath = mapPrimPath + "/dem"
     UsdGeom.Xform.Define(stage, demPrimPath)
 
     # Scope specifying the Material.
     materialPrimPath = ""
     if in_assign_dem_texture:
-        materialPrimPath = defaultPrimPath + "/Looks/map_" + str(mapIndex)
+        materialPrimPath = defaultPrimPath + "/Looks/map_" + str(_mapIndex)
         prim = stage.GetPrimAtPath(materialPrimPath)
         if prim.IsValid() == False:
             UsdGeom.Scope.Define(stage, materialPrimPath)
-     
 
-    for path in glob.glob(dem_path + "/" + str(mapIndex) + "*.obj"):
+    # Must be pre-converted if using USD.
+    src_dem_path = ""
+    if in_convert_to_usd:
+        path = in_output_usd_folder
+        if path == "":
+            path = in_plateau_obj_path + "/output_usd"
 
+        if os.path.exists(path):
+            path += "/dem/" + str(_mapIndex) + "*"
+            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+
+    if src_dem_path == "":
+        src_dem_path = dem_path + "/" + str(_mapIndex) + "*.obj"
+
+    for path in glob.glob(src_dem_path, recursive=True):
         fName = os.path.basename(path)
 
         # Get map index from file name.
@@ -251,31 +273,59 @@ def loadDem (mapIndex : int, materialPath : str):
 
 # --------------------------------------.
 # load building.
-# @param[in] mapIndex       map index. 
-# @param[in] useLOD2        If LOD2 is available, use LOD2.
-# @param[in] materialPath   material prim path.
+# @param[in] _mapIndex       map index. 
+# @param[in] _useLOD2        If LOD2 is available, use LOD2.
+# @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadBuilding (mapIndex : int, useLOD2 : bool, materialPath : str):
+def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
     if os.path.exists(buliding_lod1_path) == False:
         return
 
-    mapPrimPath = createXfrom_mapIndex(mapIndex, materialPath)
+    mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
     buildingPath = mapPrimPath + "/building"
     UsdGeom.Xform.Define(stage, buildingPath)
 
+    # Must be pre-converted if using USD.
+    src_dem_path = ""
+    if in_convert_to_usd:
+        path = in_output_usd_folder
+        if path == "":
+            path = in_plateau_obj_path + "/output_usd"
+
+        if os.path.exists(path):
+            path += "/building/lod2/" + str(_mapIndex) + "*"
+            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+
+    if src_dem_path == "":
+        src_dem_path = buliding_lod2_path + "/**/" + str(_mapIndex) + "*.obj"
+
     # If LOD2 exists.
     useLOD2Dict = dict()
-    if useLOD2 and os.path.exists(buliding_lod2_path):
+    if _useLOD2 and os.path.exists(buliding_lod2_path):
         # Search subdirectories.
-        for path in glob.glob(buliding_lod2_path + "/**/" + str(mapIndex) + "*.obj", recursive=True):
+        for path in glob.glob(src_dem_path, recursive=True):
             fName = os.path.basename(path)  # e.g. 53392641_bldg_6677.obj
             p1 = fName.find('_')
             if p1 > 0:
                 s = fName[0:p1]
                 useLOD2Dict[int(s)] = path
 
+    # Must be pre-converted if using USD.
+    src_dem_path = ""
+    if in_convert_to_usd:
+        path = in_output_usd_folder
+        if path == "":
+            path = in_plateau_obj_path + "/output_usd"
+
+        if os.path.exists(path):
+            path += "/building/lod1/" + str(_mapIndex) + "*"
+            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+
+    if src_dem_path == "":
+        src_dem_path = buliding_lod1_path + "/**/" + str(_mapIndex) + "*.obj"
+
     # Search subdirectories.
-    for path in glob.glob(buliding_lod1_path + "/**/" + str(mapIndex) + "*.obj", recursive=True):
+    for path in glob.glob(src_dem_path, recursive=True):
         fName = os.path.basename(path)
 
         p1 = fName.find('_')
@@ -310,19 +360,33 @@ def loadBuilding (mapIndex : int, useLOD2 : bool, materialPath : str):
 
 # --------------------------------------.
 # load bridge.
-# @param[in] mapIndex       map index. 
-# @param[in] materialPath   material prim path.
+# @param[in] _mapIndex       map index. 
+# @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadBridge (mapIndex : int, materialPath : str):
+def loadBridge (_mapIndex : int, _materialPath : str):
     if os.path.exists(bridge_path) == False:
         return
 
-    mapPrimPath = createXfrom_mapIndex(mapIndex, materialPath)
+    mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
     bridgePath = mapPrimPath + "/bridge"
     UsdGeom.Xform.Define(stage, bridgePath)
 
+    # Must be pre-converted if using USD.
+    src_dem_path = ""
+    if in_convert_to_usd:
+        path = in_output_usd_folder
+        if path == "":
+            path = in_plateau_obj_path + "/output_usd"
+
+        if os.path.exists(path):
+            path += "/bridge/" + str(_mapIndex) + "*"
+            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+
+    if src_dem_path == "":
+        src_dem_path = bridge_path + "/**/" + str(_mapIndex) + "*.obj"
+
     # Search subdirectories.
-    for path in glob.glob(bridge_path + "/**/" + str(mapIndex) + "*.obj", recursive=True):
+    for path in glob.glob(src_dem_path, recursive=True):
         fName = os.path.basename(path)
 
         # Conv Prim name.
@@ -346,11 +410,216 @@ def loadBridge (mapIndex : int, materialPath : str):
         asyncio.ensure_future(_omniverse_sync_wait())
 
 # --------------------------------------.
+# Convert obj files to USD.
+# --------------------------------------.
+
+# Get target path for converting dem obj to usd.
+def get_ObjToUsdDem (_mapIndex : int, _dstPath : str):
+    if os.path.exists(dem_path) == False:
+        return
+
+    dstPath = _dstPath + "/dem"
+    if os.path.exists(dstPath) == False:
+        os.makedirs(dstPath)
+
+    srcObjPathList = []
+    dstUsdPathList = []
+    for path in glob.glob(dem_path + "/" + str(_mapIndex) + "*.obj"):
+        fName = os.path.basename(path)
+
+        # Get map index from file name.
+        mapIndex = 0
+        p1 = fName.find('_')
+        if p1 > 0:
+            mapIndex = int(fName[0:p1])
+
+        dstPath2 = dstPath + "/" + str(mapIndex)
+        if os.path.exists(dstPath2) == False:
+            os.makedirs(dstPath2)
+
+        usdPath = dstPath2 + "/" + str(mapIndex) + "_dem.usd"
+        if os.path.exists(usdPath):
+            continue
+
+        srcObjPathList.append(path)
+        dstUsdPathList.append(usdPath)
+
+    return srcObjPathList, dstUsdPathList
+
+# Get target path for converting bldg obj to usd.
+def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
+    srcObjPathList = []
+    dstUsdPathList = []
+
+    if os.path.exists(buliding_lod1_path):
+        dstPath = _dstPath + "/building/lod1"
+
+        for path in glob.glob(buliding_lod1_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
+            if os.path.exists(dstPath) == False:
+                os.makedirs(dstPath)
+
+            fName = os.path.basename(path)
+
+            # Get map index from file name.
+            mapIndex = 0
+            p1 = fName.find('_')
+            if p1 > 0:
+                mapIndex = int(fName[0:p1])
+
+            dstPath2 = dstPath + "/" + str(mapIndex)
+            if os.path.exists(dstPath2) == False:
+                os.makedirs(dstPath2)
+
+            usdPath = dstPath2 + "/" + str(mapIndex) + "_bldg.usd"
+            if os.path.exists(usdPath):
+                continue
+
+            srcObjPathList.append(path)
+            dstUsdPathList.append(usdPath)
+
+    if os.path.exists(buliding_lod2_path):
+        dstPath = _dstPath + "/building/lod2"
+
+        for path in glob.glob(buliding_lod2_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
+            if os.path.exists(dstPath) == False:
+                os.makedirs(dstPath)
+
+            fName = os.path.basename(path)
+
+            # Get map index from file name.
+            mapIndex = 0
+            p1 = fName.find('_')
+            if p1 > 0:
+                mapIndex = int(fName[0:p1])
+
+            dstPath2 = dstPath + "/" + str(mapIndex)
+            if os.path.exists(dstPath2) == False:
+                os.makedirs(dstPath2)
+
+            usdPath = dstPath2 + "/" + str(mapIndex) + "_bldg.usd"
+            if os.path.exists(usdPath):
+                continue
+
+            srcObjPathList.append(path)
+            dstUsdPathList.append(usdPath)
+
+    return srcObjPathList, dstUsdPathList
+
+# Get target path for converting bridge obj to usd.
+def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
+    srcObjPathList = []
+    dstUsdPathList = []
+
+    if os.path.exists(bridge_path):
+        dstPath = _dstPath + "/bridge"
+
+        for path in glob.glob(bridge_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
+            if os.path.exists(dstPath) == False:
+                os.makedirs(dstPath)
+
+            fName = os.path.basename(path)
+
+            # Get map index from file name.
+            mapIndex = 0
+            p1 = fName.find('_')
+            if p1 > 0:
+                mapIndex = int(fName[0:p1])
+
+            dstPath2 = dstPath + "/" + str(mapIndex)
+            if os.path.exists(dstPath2) == False:
+                os.makedirs(dstPath2)
+
+            usdPath = dstPath2 + "/" + str(mapIndex) + "_brid.usd"
+            if os.path.exists(usdPath):
+                continue
+
+            srcObjPathList.append(path)
+            dstUsdPathList.append(usdPath)
+
+    return srcObjPathList, dstUsdPathList
+
+# Convert asset file(obj/fbx/glTF, etc) to usd.
+async def convert_asset_to_usd (input_path_list, output_path_list):
+    # Input options are defaults.
+    converter_context = omni.kit.asset_converter.AssetConverterContext()
+    converter_context.ignore_materials = False
+    converter_context.ignore_camera = False
+    converter_context.ignore_animations = False
+    converter_context.ignore_light = False
+    converter_context.export_preview_surface = False
+    converter_context.use_meter_as_world_unit = False
+    converter_context.create_world_as_default_root_prim = True
+    converter_context.embed_textures = True
+    converter_context.convert_fbx_to_y_up = False
+    converter_context.convert_fbx_to_z_up = False
+    converter_context.merge_all_meshes = False
+    converter_context.use_double_precision_to_usd_transform_op = False 
+    converter_context.ignore_pivots = False 
+    converter_context.keep_all_materials = True
+    converter_context.smooth_normals = True
+    instance = omni.kit.asset_converter.get_instance()
+
+    for i in range(len(input_path_list)):
+        input_asset = input_path_list[i]
+        output_usd  = output_path_list[i]
+        task = instance.create_converter_task(input_asset, output_usd, None, converter_context)
+        print(output_usd)
+
+        # Wait for completion.
+        success = await task.wait_until_finished()
+        if not success:
+            carb.log_error(task.get_status(), task.get_detailed_error())
+            break
+
+# convert obj(dem/dldg/drid/tran) to usd.
+def convertObjToUsd ():
+    if os.path.exists(in_plateau_obj_path) == False:
+        return
+
+    dstPath = in_output_usd_folder
+    if dstPath == "":
+        dstPath = in_plateau_obj_path + "/output_usd" 
+
+    if os.path.exists(dstPath) == False:
+        os.makedirs(dstPath)
+
+    srcObjPathList = []
+    dstUsdPathList = []
+    for mapIndex in mapIndexList:
+        sList, dList = get_ObjToUsdDem(mapIndex, dstPath)
+        srcObjPathList.extend(sList)
+        dstUsdPathList.extend(dList)
+
+    for mapIndex in mapIndexList:
+        sList, dList = get_ObjToUsdBuilding(mapIndex, dstPath)
+        srcObjPathList.extend(sList)
+        dstUsdPathList.extend(dList)
+
+    if in_load_bridge:
+        for mapIndex in mapIndexList:
+            sList, dList = get_ObjToUsdBridge(mapIndex, dstPath)
+            srcObjPathList.extend(sList)
+            dstUsdPathList.extend(dList)
+
+    # Wait for usd conversion.
+    if len(srcObjPathList) > 0:
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(convert_asset_to_usd(srcObjPathList, dstUsdPathList))
+        #asyncio.ensure_future(
+        #  convert_asset_to_usd(srcObjPathList, dstUsdPathList)
+        #)
+
+
+# --------------------------------------.
 # load PLATEAU data.
 # --------------------------------------.
 def load_PLATEAU ():
     if os.path.exists(in_plateau_obj_path) == False:
         return
+
+    # Convert obj to usd.
+    if in_convert_to_usd:
+        convertObjToUsd()
 
     # Create OmniPBR material.
     materialLooksPath = defaultPrimPath + "/Looks"
@@ -366,7 +635,6 @@ def load_PLATEAU ():
 
         if in_load_bridge and in_load_lod2:
             loadBridge(mapIndex, defaultMaterialPath)
-
 
 # --------------------------------------.
 # --------------------------------------.
