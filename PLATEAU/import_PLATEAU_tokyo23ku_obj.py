@@ -49,8 +49,7 @@ in_assign_dem_texture = True
 in_load_bridge = False
 
 # Load map area.
-#mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
-mapIndexList = [533925]
+mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
 
 # --------------------------------------.
 # Path of PLATEAU data.
@@ -202,7 +201,7 @@ def createXfrom_mapIndex (mapIndex : int, materialPath : str):
 # @param[in] _mapIndex       map index. 
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadDem (_mapIndex : int, _materialPath : str):
+async def loadDem (_mapIndex : int, _materialPath : str):
     if os.path.exists(dem_path) == False:
         return
 
@@ -270,14 +269,13 @@ def loadDem (_mapIndex : int, _materialPath : str):
         # Pass the process to Omniverse.
         asyncio.ensure_future(_omniverse_sync_wait())
 
-
 # --------------------------------------.
 # load building.
 # @param[in] _mapIndex       map index. 
 # @param[in] _useLOD2        If LOD2 is available, use LOD2.
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
+async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
     if os.path.exists(buliding_lod1_path) == False:
         return
 
@@ -363,7 +361,7 @@ def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
 # @param[in] _mapIndex       map index. 
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
-def loadBridge (_mapIndex : int, _materialPath : str):
+async def loadBridge (_mapIndex : int, _materialPath : str):
     if os.path.exists(bridge_path) == False:
         return
 
@@ -563,7 +561,6 @@ async def convert_asset_to_usd (input_path_list, output_path_list):
         input_asset = input_path_list[i]
         output_usd  = output_path_list[i]
         task = instance.create_converter_task(input_asset, output_usd, None, converter_context)
-        print(output_usd)
 
         # Wait for completion.
         success = await task.wait_until_finished()
@@ -572,7 +569,7 @@ async def convert_asset_to_usd (input_path_list, output_path_list):
             break
 
 # convert obj(dem/dldg/drid/tran) to usd.
-def convertObjToUsd ():
+async def convertObjToUsd ():
     if os.path.exists(in_plateau_obj_path) == False:
         return
 
@@ -603,23 +600,25 @@ def convertObjToUsd ():
 
     # Wait for usd conversion.
     if len(srcObjPathList) > 0:
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(convert_asset_to_usd(srcObjPathList, dstUsdPathList))
-        #asyncio.ensure_future(
-        #  convert_asset_to_usd(srcObjPathList, dstUsdPathList)
-        #)
+        task = asyncio.create_task(convert_asset_to_usd(srcObjPathList, dstUsdPathList))
+        await task
+        print(f"PLATEAU : convert obj to usd ({ len(srcObjPathList) })")
 
+        asyncio.ensure_future(_omniverse_sync_wait())
 
 # --------------------------------------.
 # load PLATEAU data.
 # --------------------------------------.
-def load_PLATEAU ():
+async def load_PLATEAU ():
     if os.path.exists(in_plateau_obj_path) == False:
         return
 
+    print("PLATEAU : Start processing.")
+
     # Convert obj to usd.
     if in_convert_to_usd:
-        convertObjToUsd()
+        task = asyncio.create_task(convertObjToUsd())
+        await task
 
     # Create OmniPBR material.
     materialLooksPath = defaultPrimPath + "/Looks"
@@ -630,13 +629,20 @@ def load_PLATEAU ():
     defaultMaterialPath = createMaterialOmniPBR(materialLooksPath + "/defaultMaterial")
 
     for mapIndex in mapIndexList:
-        loadDem(mapIndex, defaultMaterialPath)
-        loadBuilding(mapIndex, in_load_lod2, defaultMaterialPath)
+        task_dem = asyncio.create_task(loadDem(mapIndex, defaultMaterialPath))
+        await task_dem
+
+        task_building = asyncio.create_task(loadBuilding(mapIndex, in_load_lod2, defaultMaterialPath))
+        await task_building
 
         if in_load_bridge and in_load_lod2:
-            loadBridge(mapIndex, defaultMaterialPath)
+            task_bridge = asyncio.create_task(loadBridge(mapIndex, defaultMaterialPath))
+            await task_bridge
+        
+        print(f"PLATEAU : map_index[{mapIndex}]")
+
+    print("PLATEAU : Processing is complete.")
 
 # --------------------------------------.
 # --------------------------------------.
-load_PLATEAU()
-
+asyncio.ensure_future(load_PLATEAU())
