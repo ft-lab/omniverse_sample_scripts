@@ -251,6 +251,34 @@ cmとm単位の距離をConsoleに出力します。
 
 Omniverseではobj/fbxファイルを直接Referenceできますが、できるだけusdに変換して扱うほうがよいと思われます。    
 
+## Collect Asset : Nucleusにアップロードするには？
+
+参考 : https://docs.omniverse.nvidia.com/app_create/prod_extensions/ext_collect.html
+
+「Collect Asset」を使用することで、
+対象usdファイル内からusdファイルや画像ファイルなどの参照がある場合に相対パスになるように整理して出力します。     
+これによりローカルの環境依存がある状態でのパスが整理され、Nucleusへのアップロードができるようになります。     
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」を使用して東京23区の都市データを読み込み後、       
+現在のStageをusdファイルに保存します。     
+なお、このとき参照されるファイルもすべてUSDファイルで構成されるようにしておいてください。デフォルトの「in_convert_to_usd = True」の指定でobjはUSDに変換されます。      
+
+Contentウィンドウで保存したusdを右クリックしてポップアップメニューを表示。       
+「Collect Asset」を選択します。     
+![plateau_collectAsset_01.png](./images/plateau_collectAsset_01.png)    
+Collection Optionsウィンドウで「Collection Path」に出力先を指定します。     
+ここでNucleus上のパスを指定しました。      
+Collectボタンを押すと、指定のパスに整理した状態でusdや参照されているテクスチャなどを出力します。      
+![plateau_collectAsset_02.png](./images/plateau_collectAsset_02.png)    
+
+### Collect Asset使用時の注意点
+
+Omniverse Create 2022.1.3段階で、以下の点を確認しています。
+
+* 対象のUSDファイルから参照(Reference)するAssetは、usdファイルを指定するようにしてください。       
+objやfbxを直接参照することもできますが、この場合はCollect Assetでマテリアルファイルやテクスチャファイルが正しく渡せませんでした。     
+* Material Graphを使用すると、Collect AssetでMDLファイルが正しく渡せませんでした。     
+
 ----
 
 ## ファイル
