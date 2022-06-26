@@ -48,6 +48,9 @@ in_assign_dem_texture = True
 # Load bridge.
 in_load_bridge = False
 
+# Load tran.
+in_load_tran = False
+
 # Load map area.
 mapIndexList = [533925, 533926, 533934, 533935, 533936, 533937, 533944, 533945, 533946, 533947, 533954, 533955, 533956, 533957]
 
@@ -408,6 +411,57 @@ async def loadBridge (_mapIndex : int, _materialPath : str):
         asyncio.ensure_future(_omniverse_sync_wait())
 
 # --------------------------------------.
+# load tran.
+# @param[in] _mapIndex       map index. 
+# @param[in] _materialPath   material prim path.
+# --------------------------------------.
+async def loadTran (_mapIndex : int, _materialPath : str):
+    if os.path.exists(tran_path) == False:
+        return
+
+    mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
+    tranPath = mapPrimPath + "/tran"
+    UsdGeom.Xform.Define(stage, tranPath)
+
+    # Must be pre-converted if using USD.
+    src_dem_path = ""
+    if in_convert_to_usd:
+        path = in_output_usd_folder
+        if path == "":
+            path = in_plateau_obj_path + "/output_usd"
+
+        if os.path.exists(path):
+            path += "/tran/" + str(_mapIndex) + "*"
+            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+
+    if src_dem_path == "":
+        src_dem_path = tran_path + "/**/" + str(_mapIndex) + "*.obj"
+
+    # Search subdirectories.
+    for path in glob.glob(src_dem_path, recursive=True):
+        fName = os.path.basename(path)
+
+        # Conv Prim name.
+        primName = convFileNameToUSDPrimName(fName)
+
+        # Create Xform.
+        newPath = tranPath + "/" + primName
+        UsdGeom.Xform.Define(stage, newPath)
+        prim = stage.GetPrimAtPath(newPath)
+
+        # Remove references.
+        prim.GetReferences().ClearReferences()
+
+        # Add a reference.
+        prim.GetReferences().AddReference(path)
+
+        setRotate(prim, -90.0, 0.0, 0.0)
+        setScale(prim, 100.0, 100.0, 100.0)
+
+        # Pass the process to Omniverse.
+        asyncio.ensure_future(_omniverse_sync_wait())
+
+# --------------------------------------.
 # Convert obj files to USD.
 # --------------------------------------.
 
@@ -536,6 +590,39 @@ def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
 
     return srcObjPathList, dstUsdPathList
 
+# Get target path for converting tran obj to usd.
+def get_ObjToUsdTran (_mapIndex : int, _dstPath : str):
+    srcObjPathList = []
+    dstUsdPathList = []
+
+    if os.path.exists(tran_path):
+        dstPath = _dstPath + "/tran"
+
+        for path in glob.glob(tran_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
+            if os.path.exists(dstPath) == False:
+                os.makedirs(dstPath)
+
+            fName = os.path.basename(path)
+
+            # Get map index from file name.
+            mapIndex = 0
+            p1 = fName.find('_')
+            if p1 > 0:
+                mapIndex = int(fName[0:p1])
+
+            dstPath2 = dstPath + "/" + str(mapIndex)
+            if os.path.exists(dstPath2) == False:
+                os.makedirs(dstPath2)
+
+            usdPath = dstPath2 + "/" + str(mapIndex) + "_tran.usd"
+            if os.path.exists(usdPath):
+                continue
+
+            srcObjPathList.append(path)
+            dstUsdPathList.append(usdPath)
+
+    return srcObjPathList, dstUsdPathList
+
 # Convert asset file(obj/fbx/glTF, etc) to usd.
 async def convert_asset_to_usd (input_path_list, output_path_list):
     # Input options are defaults.
@@ -598,6 +685,12 @@ async def convertObjToUsd ():
             srcObjPathList.extend(sList)
             dstUsdPathList.extend(dList)
 
+    if in_load_tran:
+        for mapIndex in mapIndexList:
+            sList, dList = get_ObjToUsdTran(mapIndex, dstPath)
+            srcObjPathList.extend(sList)
+            dstUsdPathList.extend(dList)
+
     # Wait for usd conversion.
     if len(srcObjPathList) > 0:
         task = asyncio.create_task(convert_asset_to_usd(srcObjPathList, dstUsdPathList))
@@ -638,7 +731,11 @@ async def load_PLATEAU ():
         if in_load_bridge and in_load_lod2:
             task_bridge = asyncio.create_task(loadBridge(mapIndex, defaultMaterialPath))
             await task_bridge
-        
+
+        if in_load_tran:
+            task_tran = asyncio.create_task(loadTran(mapIndex, defaultMaterialPath))
+            await task_tran
+
         print(f"PLATEAU : map_index[{mapIndex}]")
 
     print("PLATEAU : Processing is complete.")
