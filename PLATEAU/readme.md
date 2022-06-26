@@ -303,7 +303,7 @@ PLATEAUのobjを直接Referenceで参照します。
 
 東京23区全体(LOD2)を読み込んで保存後usdを閉じ、
 再度同じシーンを開いた場合、テクスチャが消えてしまう場合があります。      
-これはobjで読み込んだ場合のキャッシュ（objの場合、Omniverseで作業ディレクトリに格納される）によるものと思われます。    
+これはobjで読み込んだ場合のキャッシュ（objの場合、作業ディレクトリにusd変換した際のジオメトリやテクスチャが格納される）によるものと思われます。    
 
 また、「Collect Asset」( https://docs.omniverse.nvidia.com/app_create/prod_extensions/ext_collect.html )を行ってNucleusにusd一式をアップロードする場合、    
 objを使っているとマテリアルのmtlやテクスチャを渡してくれないようでした。     
