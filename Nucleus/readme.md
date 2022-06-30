@@ -2,7 +2,7 @@
 
 OmniverseではUSDからの保存はNucleusの指定のパス(omniverse://localhost/xxx/yyy.usd)に出力できます。    
 別途、Nucleus上でファイル操作を行う「omni.client」が用意されています。     
-omni.clientの機能はコルーチンから呼ぶ必要があります。     
+
 
 ## 参考
 
