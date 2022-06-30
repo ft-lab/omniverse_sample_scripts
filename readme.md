@@ -88,6 +88,7 @@ print('Hello Omniverse !')
 |[UI](./UI)|UI操作|    
 |[Post Processing](./PostProcessing)|Post Processingのパラメータを変更 (omni.kit.commands.executeを使用)|    
 |[AssetConverter](./AssetConverter)|obj/fbx/glTFファイルなどをUSDファイルに変換|    
+|[Nucleus](./Nucleus)|Nucleus上のファイル操作|    
 
 ## プロジェクト別のサンプル
 
