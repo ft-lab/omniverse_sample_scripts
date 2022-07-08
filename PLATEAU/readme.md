@@ -277,7 +277,7 @@ Omniverse Create 2022.1.3段階で、以下の点を確認しています。
 
 * 対象のUSDファイルから参照(Reference)するAssetは、usdファイルを指定するようにしてください。       
 objやfbxを直接参照することもできますが、この場合はCollect Assetでマテリアルファイルやテクスチャファイルが正しく渡せませんでした。     
-* Material Graphを使用すると、Collect AssetでMDLファイルが正しく渡せませんでした。     
+* ~~Material Graphを使用すると、Collect AssetでMDLファイルが正しく渡せませんでした。~~ Omniverse Create 2022.1.3では問題なし。     
 
 ----
 
