@@ -53,6 +53,18 @@ Omniverse Create 2022.1.2で確認しました。
 
 注意 : 配置パスに日本語名のフォルダがある場合は正しく動作しません。     
 
+### Nucleus上へアップロード (2022/07/11 追加)
+
+PLATEAUのデータをデフォルトでNucleus上にアップロードするようにしました。      
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」の     
+```
+in_output_folder = "omniverse://localhost/PLATEAU/Tokyo_23ku"
+```
+の指定のURLに、objからusd変換されたときのファイルとGEOTiffを分割した画像を転送します。      
+
+なお、初回はobjからusdの変換、GEOTiff画像のNucleusへの転送作業が発生するため時間がかかります。      
+
 
 ### 例1 : 東京23区の地形と建物(LOD1)を読み込み
 
@@ -339,6 +351,15 @@ objを使っているとマテリアルのmtlやテクスチャを渡してく�
 そのため、OmniverseではStageはすべてusdを使用するほうがよさそうです。      
 
 ## 更新履歴
+
+### 2022/07/11
+
+[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py) を更新。     
+
+* 「in_output_folder」を指定することで、Nucleus上にusd/テクスチャファイルを送るようにした
+* ファイル転送時にUIが止まる問題の緩和 (Nucleus上にアップするようにしたため？)     
+ただし、ステージの構築時はLOD2の場合はマテリアル処理で待ちが発生する模様。      
+* GEOTiffのテクスチャを地形に割り当てる際に、マテリアルのSpecularを0にした（白飛びを緩和）
 
 ### 2022/06/26
 
