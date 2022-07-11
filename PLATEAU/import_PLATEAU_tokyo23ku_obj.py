@@ -263,8 +263,9 @@ async def loadDem (_mapIndex : int, _materialPath : str):
 
         # When usd file is output on Nucleus, check the corresponding file.
         if in_output_folder != "":
+            fName2 = str(mapIndex) + "_dem.usd"
             newPath = in_output_folder + "/data"
-            newPath += "/dem/" + str(mapIndex) + "/" + fName
+            newPath += "/dem/" + str(mapIndex) + "/" + fName2
             if (await ocl_existPath_async(path)):
                 path = newPath
 
@@ -345,8 +346,9 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
                 # When usd file is output on Nucleus, check the corresponding file.
                 if in_output_folder != "":
                     mIndex = int(s)
+                    fName2 = str(mIndex) + "_bldg.usd"
                     newPath = in_output_folder + "/data"
-                    newPath += "/building/lod2/" + str(mIndex) + "/" + fName
+                    newPath += "/building/lod2/" + str(mIndex) + "/" + fName2
                     if (await ocl_existPath_async(path)):
                         path = newPath
 
@@ -377,8 +379,9 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
 
             # When usd file is output on Nucleus, check the corresponding file.
             if in_output_folder != "":
+                fName2 = str(mIndex) + "_bldg.usd"
                 newPath = in_output_folder + "/data"
-                newPath += "/building/lod1/" + str(mIndex) + "/" + fName
+                newPath += "/building/lod1/" + str(mIndex) + "/" + fName2
                 if (await ocl_existPath_async(path)):
                     path = newPath
 
@@ -451,8 +454,9 @@ async def loadBridge (_mapIndex : int, _materialPath : str):
 
         # When usd file is output on Nucleus, check the corresponding file.
         if in_output_folder != "":
+            fName2 = str(mIndex) + "_brid.usd"
             newPath = in_output_folder + "/data"
-            newPath += "/bridge/" + str(mIndex) + "/" + fName
+            newPath += "/bridge/" + str(mIndex) + "/" + fName2
             if (await ocl_existPath_async(path)):
                 path = newPath
 
@@ -517,8 +521,9 @@ async def loadTran (_mapIndex : int, _materialPath : str):
 
         # When usd file is output on Nucleus, check the corresponding file.
         if in_output_folder != "":
+            fName2 = str(mIndex) + "_tran.usd"
             newPath = in_output_folder + "/data"
-            newPath += "/tran/" + str(mIndex) + "/" + fName
+            newPath += "/tran/" + str(mIndex) + "/" + fName2
             if (await ocl_existPath_async(path)):
                 path = newPath
 
