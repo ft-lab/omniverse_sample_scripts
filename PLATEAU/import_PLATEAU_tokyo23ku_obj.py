@@ -266,7 +266,7 @@ async def loadDem (_mapIndex : int, _materialPath : str):
             fName2 = str(mapIndex) + "_dem.usd"
             newPath = in_output_folder + "/data"
             newPath += "/dem/" + str(mapIndex) + "/" + fName2
-            if (await ocl_existPath_async(path)):
+            if (await ocl_existPath_async(newPath)):
                 path = newPath
 
         # Convert Prim name.
@@ -349,7 +349,7 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
                     fName2 = str(mIndex) + "_bldg.usd"
                     newPath = in_output_folder + "/data"
                     newPath += "/building/lod2/" + str(mIndex) + "/" + fName2
-                    if (await ocl_existPath_async(path)):
+                    if (await ocl_existPath_async(newPath)):
                         path = newPath
 
                 useLOD2Dict[int(s)] = path
@@ -382,7 +382,7 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
                 fName2 = str(mIndex) + "_bldg.usd"
                 newPath = in_output_folder + "/data"
                 newPath += "/building/lod1/" + str(mIndex) + "/" + fName2
-                if (await ocl_existPath_async(path)):
+                if (await ocl_existPath_async(newPath)):
                     path = newPath
 
             # Refer to LOD2 path.
@@ -457,7 +457,7 @@ async def loadBridge (_mapIndex : int, _materialPath : str):
             fName2 = str(mIndex) + "_brid.usd"
             newPath = in_output_folder + "/data"
             newPath += "/bridge/" + str(mIndex) + "/" + fName2
-            if (await ocl_existPath_async(path)):
+            if (await ocl_existPath_async(newPath)):
                 path = newPath
 
         # Create Xform.
@@ -524,7 +524,7 @@ async def loadTran (_mapIndex : int, _materialPath : str):
             fName2 = str(mIndex) + "_tran.usd"
             newPath = in_output_folder + "/data"
             newPath += "/tran/" + str(mIndex) + "/" + fName2
-            if (await ocl_existPath_async(path)):
+            if (await ocl_existPath_async(newPath)):
                 path = newPath
 
         # Create Xform.
