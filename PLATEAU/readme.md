@@ -53,19 +53,6 @@ Omniverse Create 2022.1.2で確認しました。
 
 注意 : 配置パスに日本語名のフォルダがある場合は正しく動作しません。     
 
-### Nucleus上へアップロード (2022/07/11 追加)
-
-PLATEAUのデータをデフォルトでNucleus上にアップロードするようにしました。      
-
-「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」の     
-```
-in_output_folder = "omniverse://localhost/PLATEAU/Tokyo_23ku"
-```
-の指定のURLに、objからusd変換されたときのファイルとGEOTiffを分割した画像を転送します。      
-
-なお、初回はobjからusdの変換、GEOTiff画像のNucleusへの転送作業が発生するため時間がかかります。      
-
-
 ### 例1 : 東京23区の地形と建物(LOD1)を読み込み
 
 ※ テクスチャは反映しません。     
@@ -263,7 +250,23 @@ cmとm単位の距離をConsoleに出力します。
 
 Omniverseではobj/fbxファイルを直接Referenceできますが、できるだけusdに変換して扱うほうがよいと思われます。    
 
+## Nucleus上へアップロード (2022/07/11 追加)
+
+PLATEAUのデータをデフォルトでNucleus上にアップロードするようにしました。      
+
+「[import_PLATEAU_tokyo23ku_obj.py](./import_PLATEAU_tokyo23ku_obj.py)」の     
+```
+in_output_folder = "omniverse://localhost/PLATEAU/Tokyo_23ku"
+```
+の指定のURLに、objからusd変換されたときのファイルとGEOTiffを分割した画像を転送します。      
+
+なお、初回はobjからusdの変換、GEOTiff画像のNucleusへの転送作業が発生するため時間がかかります。      
+
 ## Collect Asset : Nucleusにアップロードするには？
+
+※ 2022/07/11 : デフォルトで、関連するusdとテクスチャファイルをNucleus上にアップロードするようにしました。      
+そのため、Collect Assetは使わなくても問題ありません。      
+
 
 参考 : https://docs.omniverse.nvidia.com/app_create/prod_extensions/ext_collect.html
 
