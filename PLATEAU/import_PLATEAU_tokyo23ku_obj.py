@@ -7,6 +7,7 @@
 # ---------------------------------------------------------------------.
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.usd
+import omni.client
 import glob
 import carb
 import os
@@ -31,6 +32,10 @@ in_plateau_obj_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_
 # dem textures path.
 # See : divide_GeoTiff_images.py
 in_dem_textures_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_ortho_2_op\\divide_images"
+
+# output folder.
+# If specified, all usd and texture files are output to the specified folder.
+in_output_folder = "omniverse://localhost/PLATEAU/Tokyo_23ku"
 
 # Convert obj to USD (Skipped if already converted to USD).
 in_convert_to_usd = True
@@ -76,6 +81,16 @@ tran_path = in_plateau_obj_path + "/tran"
 # ----------------------------------------------------.
 async def _omniverse_sync_wait():
     await omni.kit.app.get_app().next_update_async()
+
+# --------------------------------------.
+# Exist path (file/folder).
+# Support on Nucleus.
+# --------------------------------------.
+async def ocl_existPath_async (path : str):
+    (result, entry) = await omni.client.stat_async(path)
+    if result == omni.client.Result.ERROR_NOT_FOUND:
+        return False
+    return True
 
 # ----------------------------------------------------.
 # Convert file name to a string that can be used in USD Prim name.
@@ -162,6 +177,9 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", te
     # Set Roughness.
     shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.8)
 
+    # Set Specular.
+    shader.CreateInput('specular_level', Sdf.ValueTypeNames.Float).Set(0.0)
+
     # Set texture.
     if textureFilePath != "":
         diffTexIn = shader.CreateInput('diffuse_texture', Sdf.ValueTypeNames.Asset)
@@ -205,7 +223,7 @@ def createXfrom_mapIndex (mapIndex : int, materialPath : str):
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
 async def loadDem (_mapIndex : int, _materialPath : str):
-    if os.path.exists(dem_path) == False:
+    if (await ocl_existPath_async(dem_path)) == False:
         return
 
     mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
@@ -227,7 +245,7 @@ async def loadDem (_mapIndex : int, _materialPath : str):
         if path == "":
             path = in_plateau_obj_path + "/output_usd"
 
-        if os.path.exists(path):
+        if (await ocl_existPath_async(path)):
             path += "/dem/" + str(_mapIndex) + "*"
             src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
 
@@ -242,6 +260,13 @@ async def loadDem (_mapIndex : int, _materialPath : str):
         p1 = fName.find('_')
         if p1 > 0:
             mapIndex = int(fName[0:p1])
+
+        # When usd file is output on Nucleus, check the corresponding file.
+        if in_output_folder != "":
+            newPath = in_output_folder + "/data"
+            newPath += "/dem/" + str(mapIndex) + "/" + fName
+            if (await ocl_existPath_async(path)):
+                path = newPath
 
         # Convert Prim name.
         primName = convFileNameToUSDPrimName(fName)
@@ -263,7 +288,14 @@ async def loadDem (_mapIndex : int, _materialPath : str):
         # Assign texture.
         if in_assign_dem_texture and mapIndex > 0:
             mapFilePath = in_dem_textures_path + "/" + str(mapIndex) + ".jpg"
-            if os.path.exists(mapFilePath):
+
+            if in_output_folder != "":
+                mapFilePath2 = in_output_folder + "/data/geotiff_images"
+                mapFilePath2 += "/" + str(mapIndex) + ".jpg"
+                if (await ocl_existPath_async(mapFilePath2)):
+                    mapFilePath = mapFilePath2
+
+            if (await ocl_existPath_async(mapFilePath)):
                 # Create material.
                 materialName = "mat_dem_" + str(mapIndex)
                 matPath = materialPrimPath + "/" + materialName
@@ -279,7 +311,7 @@ async def loadDem (_mapIndex : int, _materialPath : str):
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
 async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
-    if os.path.exists(buliding_lod1_path) == False:
+    if (await ocl_existPath_async(buliding_lod1_path)) == False:
         return
 
     mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
@@ -287,52 +319,68 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
     UsdGeom.Xform.Define(stage, buildingPath)
 
     # Must be pre-converted if using USD.
-    src_dem_path = ""
+    src_bldg_path = ""
     if in_convert_to_usd:
         path = in_output_usd_folder
         if path == "":
             path = in_plateau_obj_path + "/output_usd"
 
-        if os.path.exists(path):
+        if (await ocl_existPath_async(path)):
             path += "/building/lod2/" + str(_mapIndex) + "*"
-            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+            src_bldg_path = path + "/" + str(_mapIndex) + "*.usd"
 
-    if src_dem_path == "":
-        src_dem_path = buliding_lod2_path + "/**/" + str(_mapIndex) + "*.obj"
+    if src_bldg_path == "":
+        src_bldg_path = buliding_lod2_path + "/**/" + str(_mapIndex) + "*.obj"
 
     # If LOD2 exists.
     useLOD2Dict = dict()
-    if _useLOD2 and os.path.exists(buliding_lod2_path):
+    if _useLOD2 and (await ocl_existPath_async(buliding_lod2_path)):
         # Search subdirectories.
-        for path in glob.glob(src_dem_path, recursive=True):
+        for path in glob.glob(src_bldg_path, recursive=True):
             fName = os.path.basename(path)  # e.g. 53392641_bldg_6677.obj
             p1 = fName.find('_')
             if p1 > 0:
                 s = fName[0:p1]
+
+                # When usd file is output on Nucleus, check the corresponding file.
+                if in_output_folder != "":
+                    mIndex = int(s)
+                    newPath = in_output_folder + "/data"
+                    newPath += "/building/lod2/" + str(mIndex) + "/" + fName
+                    if (await ocl_existPath_async(path)):
+                        path = newPath
+
                 useLOD2Dict[int(s)] = path
 
     # Must be pre-converted if using USD.
-    src_dem_path = ""
+    src_bldg_path = ""
     if in_convert_to_usd:
         path = in_output_usd_folder
         if path == "":
             path = in_plateau_obj_path + "/output_usd"
 
-        if os.path.exists(path):
+        if (await ocl_existPath_async(path)):
             path += "/building/lod1/" + str(_mapIndex) + "*"
-            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+            src_bldg_path = path + "/" + str(_mapIndex) + "*.usd"
 
-    if src_dem_path == "":
-        src_dem_path = buliding_lod1_path + "/**/" + str(_mapIndex) + "*.obj"
+    if src_bldg_path == "":
+        src_bldg_path = buliding_lod1_path + "/**/" + str(_mapIndex) + "*.obj"
 
     # Search subdirectories.
-    for path in glob.glob(src_dem_path, recursive=True):
+    for path in glob.glob(src_bldg_path, recursive=True):
         fName = os.path.basename(path)
 
         p1 = fName.find('_')
         if p1 > 0:
             s = fName[0:p1]
             mIndex = int(s)
+
+            # When usd file is output on Nucleus, check the corresponding file.
+            if in_output_folder != "":
+                newPath = in_output_folder + "/data"
+                newPath += "/building/lod1/" + str(mIndex) + "/" + fName
+                if (await ocl_existPath_async(path)):
+                    path = newPath
 
             # Refer to LOD2 path.
             if mIndex in useLOD2Dict:
@@ -365,7 +413,7 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
 async def loadBridge (_mapIndex : int, _materialPath : str):
-    if os.path.exists(bridge_path) == False:
+    if (await ocl_existPath_async(bridge_path)) == False:
         return
 
     mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
@@ -373,25 +421,40 @@ async def loadBridge (_mapIndex : int, _materialPath : str):
     UsdGeom.Xform.Define(stage, bridgePath)
 
     # Must be pre-converted if using USD.
-    src_dem_path = ""
+    src_brid_path = ""
     if in_convert_to_usd:
         path = in_output_usd_folder
         if path == "":
             path = in_plateau_obj_path + "/output_usd"
 
-        if os.path.exists(path):
+        if (await ocl_existPath_async(path)):
             path += "/bridge/" + str(_mapIndex) + "*"
-            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+            src_brid_path = path + "/" + str(_mapIndex) + "*.usd"
 
-    if src_dem_path == "":
-        src_dem_path = bridge_path + "/**/" + str(_mapIndex) + "*.obj"
+    if src_brid_path == "":
+        src_brid_path = bridge_path + "/**/" + str(_mapIndex) + "*.obj"
 
     # Search subdirectories.
-    for path in glob.glob(src_dem_path, recursive=True):
+    for path in glob.glob(src_brid_path, recursive=True):
         fName = os.path.basename(path)
+
+        mIndex = 0
+        p1 = fName.find('_')
+        if p1 > 0:
+            s = fName[0:p1]
+            mIndex = int(s)
+        if mIndex == 0:
+            continue
 
         # Conv Prim name.
         primName = convFileNameToUSDPrimName(fName)
+
+        # When usd file is output on Nucleus, check the corresponding file.
+        if in_output_folder != "":
+            newPath = in_output_folder + "/data"
+            newPath += "/bridge/" + str(mIndex) + "/" + fName
+            if (await ocl_existPath_async(path)):
+                path = newPath
 
         # Create Xform.
         newPath = bridgePath + "/" + primName
@@ -416,7 +479,7 @@ async def loadBridge (_mapIndex : int, _materialPath : str):
 # @param[in] _materialPath   material prim path.
 # --------------------------------------.
 async def loadTran (_mapIndex : int, _materialPath : str):
-    if os.path.exists(tran_path) == False:
+    if (await ocl_existPath_async(tran_path)) == False:
         return
 
     mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
@@ -424,25 +487,40 @@ async def loadTran (_mapIndex : int, _materialPath : str):
     UsdGeom.Xform.Define(stage, tranPath)
 
     # Must be pre-converted if using USD.
-    src_dem_path = ""
+    src_tran_path = ""
     if in_convert_to_usd:
         path = in_output_usd_folder
         if path == "":
             path = in_plateau_obj_path + "/output_usd"
 
-        if os.path.exists(path):
+        if (await ocl_existPath_async(path)):
             path += "/tran/" + str(_mapIndex) + "*"
-            src_dem_path = path + "/" + str(_mapIndex) + "*.usd"
+            src_tran_path = path + "/" + str(_mapIndex) + "*.usd"
 
-    if src_dem_path == "":
-        src_dem_path = tran_path + "/**/" + str(_mapIndex) + "*.obj"
+    if src_tran_path == "":
+        src_tran_path = tran_path + "/**/" + str(_mapIndex) + "*.obj"
 
     # Search subdirectories.
-    for path in glob.glob(src_dem_path, recursive=True):
+    for path in glob.glob(src_tran_path, recursive=True):
         fName = os.path.basename(path)
+
+        mIndex = 0
+        p1 = fName.find('_')
+        if p1 > 0:
+            s = fName[0:p1]
+            mIndex = int(s)
+        if mIndex == 0:
+            continue
 
         # Conv Prim name.
         primName = convFileNameToUSDPrimName(fName)
+
+        # When usd file is output on Nucleus, check the corresponding file.
+        if in_output_folder != "":
+            newPath = in_output_folder + "/data"
+            newPath += "/tran/" + str(mIndex) + "/" + fName
+            if (await ocl_existPath_async(path)):
+                path = newPath
 
         # Create Xform.
         newPath = tranPath + "/" + primName
@@ -466,13 +544,15 @@ async def loadTran (_mapIndex : int, _materialPath : str):
 # --------------------------------------.
 
 # Get target path for converting dem obj to usd.
-def get_ObjToUsdDem (_mapIndex : int, _dstPath : str):
-    if os.path.exists(dem_path) == False:
+async def get_ObjToUsdDem (_mapIndex : int, _dstPath : str):
+    if (await ocl_existPath_async(dem_path)) == False:
         return
 
     dstPath = _dstPath + "/dem"
-    if os.path.exists(dstPath) == False:
-        os.makedirs(dstPath)
+    if (await ocl_existPath_async(dstPath)) == False:
+        result = omni.client.create_folder(dstPath)
+        if result != omni.client.Result.OK:
+            return
 
     srcObjPathList = []
     dstUsdPathList = []
@@ -486,11 +566,11 @@ def get_ObjToUsdDem (_mapIndex : int, _dstPath : str):
             mapIndex = int(fName[0:p1])
 
         dstPath2 = dstPath + "/" + str(mapIndex)
-        if os.path.exists(dstPath2) == False:
-            os.makedirs(dstPath2)
+        if (await ocl_existPath_async(dstPath2)) == False:
+            omni.client.create_folder(dstPath2)
 
         usdPath = dstPath2 + "/" + str(mapIndex) + "_dem.usd"
-        if os.path.exists(usdPath):
+        if (await ocl_existPath_async(usdPath)):
             continue
 
         srcObjPathList.append(path)
@@ -499,16 +579,16 @@ def get_ObjToUsdDem (_mapIndex : int, _dstPath : str):
     return srcObjPathList, dstUsdPathList
 
 # Get target path for converting bldg obj to usd.
-def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
+async def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
     srcObjPathList = []
     dstUsdPathList = []
 
-    if os.path.exists(buliding_lod1_path):
+    if (await ocl_existPath_async(buliding_lod1_path)):
         dstPath = _dstPath + "/building/lod1"
 
         for path in glob.glob(buliding_lod1_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
-            if os.path.exists(dstPath) == False:
-                os.makedirs(dstPath)
+            if (await ocl_existPath_async(dstPath)) == False:
+                omni.client.create_folder(dstPath)
 
             fName = os.path.basename(path)
 
@@ -519,22 +599,22 @@ def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
                 mapIndex = int(fName[0:p1])
 
             dstPath2 = dstPath + "/" + str(mapIndex)
-            if os.path.exists(dstPath2) == False:
-                os.makedirs(dstPath2)
+            if (await ocl_existPath_async(dstPath2)) == False:
+                omni.client.create_folder(dstPath2)
 
             usdPath = dstPath2 + "/" + str(mapIndex) + "_bldg.usd"
-            if os.path.exists(usdPath):
+            if (await ocl_existPath_async(usdPath)):
                 continue
 
             srcObjPathList.append(path)
             dstUsdPathList.append(usdPath)
 
-    if os.path.exists(buliding_lod2_path):
+    if (await ocl_existPath_async(buliding_lod2_path)) and in_load_lod2:
         dstPath = _dstPath + "/building/lod2"
 
         for path in glob.glob(buliding_lod2_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
-            if os.path.exists(dstPath) == False:
-                os.makedirs(dstPath)
+            if (await ocl_existPath_async(dstPath)) == False:
+                omni.client.create_folder(dstPath)
 
             fName = os.path.basename(path)
 
@@ -545,11 +625,11 @@ def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
                 mapIndex = int(fName[0:p1])
 
             dstPath2 = dstPath + "/" + str(mapIndex)
-            if os.path.exists(dstPath2) == False:
-                os.makedirs(dstPath2)
+            if (await ocl_existPath_async(dstPath2)) == False:
+                omni.client.create_folder(dstPath2)
 
             usdPath = dstPath2 + "/" + str(mapIndex) + "_bldg.usd"
-            if os.path.exists(usdPath):
+            if (await ocl_existPath_async(usdPath)):
                 continue
 
             srcObjPathList.append(path)
@@ -558,16 +638,16 @@ def get_ObjToUsdBuilding (_mapIndex : int, _dstPath : str):
     return srcObjPathList, dstUsdPathList
 
 # Get target path for converting bridge obj to usd.
-def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
+async def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
     srcObjPathList = []
     dstUsdPathList = []
 
-    if os.path.exists(bridge_path):
+    if (await ocl_existPath_async(bridge_path)):
         dstPath = _dstPath + "/bridge"
 
         for path in glob.glob(bridge_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
-            if os.path.exists(dstPath) == False:
-                os.makedirs(dstPath)
+            if (await ocl_existPath_async(dstPath)) == False:
+                omni.client.create_folder(dstPath)
 
             fName = os.path.basename(path)
 
@@ -578,11 +658,11 @@ def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
                 mapIndex = int(fName[0:p1])
 
             dstPath2 = dstPath + "/" + str(mapIndex)
-            if os.path.exists(dstPath2) == False:
-                os.makedirs(dstPath2)
+            if (await ocl_existPath_async(dstPath2)) == False:
+                omni.client.create_folder(dstPath2)
 
             usdPath = dstPath2 + "/" + str(mapIndex) + "_brid.usd"
-            if os.path.exists(usdPath):
+            if (await ocl_existPath_async(usdPath)):
                 continue
 
             srcObjPathList.append(path)
@@ -591,17 +671,16 @@ def get_ObjToUsdBridge (_mapIndex : int, _dstPath : str):
     return srcObjPathList, dstUsdPathList
 
 # Get target path for converting tran obj to usd.
-def get_ObjToUsdTran (_mapIndex : int, _dstPath : str):
+async def get_ObjToUsdTran (_mapIndex : int, _dstPath : str):
     srcObjPathList = []
     dstUsdPathList = []
 
-    if os.path.exists(tran_path):
+    if (await ocl_existPath_async(tran_path)):
         dstPath = _dstPath + "/tran"
+        if (await ocl_existPath_async(dstPath)) == False:
+            omni.client.create_folder(dstPath)
 
         for path in glob.glob(tran_path + "/**/" + str(_mapIndex) + "*.obj", recursive=True):
-            if os.path.exists(dstPath) == False:
-                os.makedirs(dstPath)
-
             fName = os.path.basename(path)
 
             # Get map index from file name.
@@ -611,11 +690,11 @@ def get_ObjToUsdTran (_mapIndex : int, _dstPath : str):
                 mapIndex = int(fName[0:p1])
 
             dstPath2 = dstPath + "/" + str(mapIndex)
-            if os.path.exists(dstPath2) == False:
-                os.makedirs(dstPath2)
+            if (await ocl_existPath_async(dstPath2)) == False:
+                omni.client.create_folder(dstPath2)
 
             usdPath = dstPath2 + "/" + str(mapIndex) + "_tran.usd"
-            if os.path.exists(usdPath):
+            if (await ocl_existPath_async(usdPath)):
                 continue
 
             srcObjPathList.append(path)
@@ -657,37 +736,47 @@ async def convert_asset_to_usd (input_path_list, output_path_list):
 
 # convert obj(dem/dldg/drid/tran) to usd.
 async def convertObjToUsd ():
-    if os.path.exists(in_plateau_obj_path) == False:
+    if (await ocl_existPath_async(in_plateau_obj_path)) == False:
         return
 
     dstPath = in_output_usd_folder
     if dstPath == "":
-        dstPath = in_plateau_obj_path + "/output_usd" 
+        dstPath = in_plateau_obj_path + "/output_usd"
 
-    if os.path.exists(dstPath) == False:
-        os.makedirs(dstPath)
+    if in_output_folder != "":
+        dstPath = in_output_folder + "/data"
+
+    if (await ocl_existPath_async(dstPath)) == False:
+        result = omni.client.create_folder(dstPath)
+        if result != omni.client.Result.OK:
+            return
 
     srcObjPathList = []
     dstUsdPathList = []
     for mapIndex in mapIndexList:
-        sList, dList = get_ObjToUsdDem(mapIndex, dstPath)
+        ##sList, dList = get_ObjToUsdDem(mapIndex, dstPath)
+        sList, dList = await get_ObjToUsdDem(mapIndex, dstPath)
+
         srcObjPathList.extend(sList)
         dstUsdPathList.extend(dList)
 
     for mapIndex in mapIndexList:
-        sList, dList = get_ObjToUsdBuilding(mapIndex, dstPath)
+        #sList, dList = get_ObjToUsdBuilding(mapIndex, dstPath)
+        sList, dList = await get_ObjToUsdBuilding(mapIndex, dstPath)
         srcObjPathList.extend(sList)
         dstUsdPathList.extend(dList)
 
     if in_load_bridge:
         for mapIndex in mapIndexList:
-            sList, dList = get_ObjToUsdBridge(mapIndex, dstPath)
+            #sList, dList = get_ObjToUsdBridge(mapIndex, dstPath)
+            sList, dList = await get_ObjToUsdBridge(mapIndex, dstPath)
             srcObjPathList.extend(sList)
             dstUsdPathList.extend(dList)
 
     if in_load_tran:
         for mapIndex in mapIndexList:
-            sList, dList = get_ObjToUsdTran(mapIndex, dstPath)
+            #sList, dList = get_ObjToUsdTran(mapIndex, dstPath)
+            sList, dList = await get_ObjToUsdTran(mapIndex, dstPath)
             srcObjPathList.extend(sList)
             dstUsdPathList.extend(dList)
 
@@ -699,11 +788,45 @@ async def convertObjToUsd ():
 
         asyncio.ensure_future(_omniverse_sync_wait())
 
+# Copy geoTiff images.
+async def copyGEOTiffImages (srcPath : str, _mapIndex : int):
+    if in_output_folder == "":
+        return
+
+    if (await ocl_existPath_async(srcPath)) == False:
+        return
+
+    dstPath = in_output_folder + "/data/geotiff_images"
+    if (await ocl_existPath_async(dstPath)) == False:
+        result = omni.client.create_folder(dstPath)
+        if result != omni.client.Result.OK:
+            return
+
+    imgCou = 0
+    for path in glob.glob(srcPath + "/" + str(_mapIndex) + "*.*"):
+        fName = os.path.basename(path)
+
+        dPath = dstPath + "/" + fName
+        if (await ocl_existPath_async(dPath)):
+            continue
+
+        try:
+            # TODO : Warning ?
+            result = omni.client.copy(path, dPath)
+            if result == omni.client.Result.OK:
+                imgCou += 1
+        except:
+            pass
+    
+    if imgCou > 0:
+        print(f"PLATEAU : copy GEOTiff images ({ imgCou })")
+    
+
 # --------------------------------------.
 # load PLATEAU data.
 # --------------------------------------.
 async def load_PLATEAU ():
-    if os.path.exists(in_plateau_obj_path) == False:
+    if (await ocl_existPath_async(in_plateau_obj_path)) == False:
         return
 
     print("PLATEAU : Start processing.")
@@ -712,6 +835,11 @@ async def load_PLATEAU ():
     if in_convert_to_usd:
         task = asyncio.create_task(convertObjToUsd())
         await task
+
+    # Copy GEOTiff images.
+    if in_dem_textures_path != "":
+        for mapIndex in mapIndexList:
+            await copyGEOTiffImages(in_dem_textures_path, mapIndex)
 
     # Create OmniPBR material.
     materialLooksPath = defaultPrimPath + "/Looks"

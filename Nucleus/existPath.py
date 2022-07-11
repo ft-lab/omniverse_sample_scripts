@@ -12,7 +12,7 @@ async def existPath (path : str):
 
     print("Exist : " + path)
 
-# 
+# Awaiting results.
 async def _ocl_existPath (path : str):
     (result, entry) = await omni.client.stat_async(path)
     if result == omni.client.Result.ERROR_NOT_FOUND:
