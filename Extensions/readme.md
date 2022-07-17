@@ -21,4 +21,5 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 |[ft_lab.sample.callDLL](./ft_lab.sample.callDLL)|C言語のDLLより関数を読み込む|     
 |[ft_lab.sample.menu](./ft_lab.sample.menu)|メニューを追加。<br>![extension_menu_01.png](./images/extension_menu_01.png)|     
 |[ft_lab.sample.loadStage](./ft_lab.sample.loadStage)|Extension内に配置したusdファイルを新規Stageとして読み込む|     
+|[ft_lab.sample.widgets](./ft_lab.sample.widgets)|omni.uiの使用例。<br>ウィンドウを表示し、ウィジットを配置。<br>![extension_widgets_01.png](./images/extension_widgets_01.png)|     
 
