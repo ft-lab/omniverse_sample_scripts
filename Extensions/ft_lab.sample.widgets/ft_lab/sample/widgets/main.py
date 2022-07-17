@@ -1,6 +1,8 @@
 import omni.ext
 import omni.ui
 from pathlib import Path
+import os.path
+import carb.tokens
 
 # ----------------------------------------------------------.
 class WidgetsExtension(omni.ext.IExt):
@@ -198,6 +200,18 @@ class WidgetsExtension(omni.ext.IExt):
                 omni.ui.Spacer(height=4)
                 omni.ui.Line(style={"border_width":2, "color":0xff202020})
                 omni.ui.Spacer(height=4)
+
+                # ------------------------------------------.
+                # Image.
+                # ------------------------------------------.
+                # Kit file path.
+                kitAbsPath = os.path.abspath(carb.tokens.get_tokens_interface().resolve("${kit}"))
+
+                # Load image (RGBA).
+                imagePath = Path(kitAbsPath).joinpath("resources").joinpath("desktop-icons")
+                imagePath = f"{imagePath}/omniverse_64.png"
+
+                omni.ui.Image(imagePath, width=64, height=64)
 
     # ------------------------------------------------.
     # Term window.
