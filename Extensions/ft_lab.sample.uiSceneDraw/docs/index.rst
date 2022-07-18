@@ -1,4 +1,4 @@
-ft_lab.sample.uiScene
+ft_lab.sample.uiSceneDraw
 ###########################
 
 .. toctree::

@@ -23,5 +23,6 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 |[ft_lab.sample.loadStage](./ft_lab.sample.loadStage)|Extension内に配置したusdファイルを新規Stageとして読み込む|     
 |[ft_lab.sample.widgets](./ft_lab.sample.widgets)|omni.uiの使用例。<br>ウィンドウを表示し、ウィジットを配置。<br>![extension_widgets_01.png](./images/extension_widgets_01.png)|     
 |[ft_lab.sample.uiScene](./ft_lab.sample.uiScene)|omni.ui sceneの使用例。<br>ウィンドウを表示し、SceneViewに描画を行う。<br>![omniverse_code_extension_uiScene.png](./images/omniverse_code_extension_uiScene.png)|     
+|[ft_lab.sample.uiSceneDraw](./ft_lab.sample.uiSceneDraw)|omni.ui sceneの使用例。<br>ウィンドウを表示し、SceneViewに順番を考慮した描画を行う。<br>また、描画を更新し、SceneViewでアニメーションする。<br>![omniverse_code_extension_uiSceneDraw.png](./images/omniverse_code_extension_uiSceneDraw.png)|     
 
 
