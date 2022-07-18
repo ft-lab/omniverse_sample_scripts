@@ -153,14 +153,25 @@ def setScale (prim : Usd.Prim, sx : float, sy : float, sz : float):
         if tV.IsValid():
             prim.CreateAttribute("xformOp:scale", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(sx, sy, sz))
 
+# --------------------------------------.
+# Set translate.
+# @param[in] prim           target prim.
+# @param[in] (tx, ty, tz)   translate.
+# --------------------------------------.
+def setTranslate (prim : Usd.Prim, tx : float, ty : float, tz : float):
+    if prim.IsValid():
+        tV = prim.GetAttribute("xformOp:translate")
+        if tV.IsValid():
+            prim.CreateAttribute("xformOp:translate", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(tx, ty, tz))
 
 # --------------------------------------.
 # Create new Material (OmniPBR).
 # @param[in] materialPrimPath   Prim path of Material
 # @param[in] targetPrimPath     Prim path to bind Material.
 # @param[in] textureFilePath    File path of Diffuse texture.
+# @param[in] diffuseColor       Diffuse Color.
 # --------------------------------------.
-def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", textureFilePath : str = ""):
+def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", textureFilePath : str = "", diffuseColor : Gf.Vec3f = Gf.Vec3f(0.2, 0.2, 0.2)):
     material = UsdShade.Material.Define(stage, materialPrimPath)
 
     shaderPath = materialPrimPath + '/Shader'
@@ -169,7 +180,7 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", te
     shader.GetPrim().CreateAttribute('info:mdl:sourceAsset:subIdentifier', Sdf.ValueTypeNames.Token, False, Sdf.VariabilityUniform).Set('OmniPBR')
 
     # Set Diffuse color.
-    shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set((0.2, 0.2, 0.2))
+    shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set((diffuseColor[0], diffuseColor[1], diffuseColor[2]))
 
     # Set Metallic.
     shader.CreateInput('metallic_constant', Sdf.ValueTypeNames.Float).Set(0.0)
@@ -540,6 +551,20 @@ async def loadTran (_mapIndex : int, _materialPath : str):
 
         setRotate(prim, -90.0, 0.0, 0.0)
         setScale(prim, 100.0, 100.0, 100.0)
+
+        heightPos = 5.0
+        setTranslate(prim, 0.0, heightPos, 0.0)
+
+        # Create/Set material.
+        matPath = "/World/Looks/mat_trans"
+        primM = stage.GetPrimAtPath(matPath)
+        if not primM.IsValid():
+            col = Gf.Vec3f(0, 1, 0)
+            createMaterialOmniPBR(matPath, "", "", col)
+            primM = stage.GetPrimAtPath(matPath)
+        
+        material = UsdShade.Material(primM)
+        UsdShade.MaterialBindingAPI(prim).Bind(material)
 
         # Pass the process to Omniverse.
         asyncio.ensure_future(_omniverse_sync_wait())
