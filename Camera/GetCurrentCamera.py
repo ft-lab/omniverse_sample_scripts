@@ -13,7 +13,8 @@ print("Active camera path : " + str(cameraPath))
 # Get stage.
 stage = omni.usd.get_context().get_stage()
 
-time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
+#time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
+time_code = Usd.TimeCode.Default()
 
 # Get active camera.
 cameraPrim = stage.GetPrimAtPath(cameraPath)

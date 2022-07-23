@@ -9,7 +9,8 @@ selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
 skel_cache = UsdSkel.Cache()
-time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
+#time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
+time_code = Usd.TimeCode.Default()
 
 for path in paths:
     # Get prim.
