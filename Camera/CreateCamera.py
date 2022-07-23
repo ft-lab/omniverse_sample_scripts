@@ -22,5 +22,6 @@ UsdGeom.XformCommonAPI(cameraGeom).SetRotate((-20, 15.0, 0.0), UsdGeom.XformComm
 UsdGeom.XformCommonAPI(cameraGeom).SetScale((1, 1, 1))
 
 # Change active camera.
-viewport = omni.kit.viewport.get_viewport_interface()
+# Kit103 changed from omni.kit.viewport to omni.kit.viewport_legacy
+viewport = omni.kit.viewport_legacy.get_viewport_interface()
 viewport.get_viewport_window().set_active_camera(pathName)

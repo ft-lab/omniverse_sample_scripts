@@ -47,7 +47,7 @@ class SceneDraw(sc.Manipulator):
         self.invalidate()
 
 # ----------------------------------------------------------.
-class UISceneExtension(omni.ext.IExt):
+class UISceneDrawExtension(omni.ext.IExt):
     _window = None
     _scene_view = None
 

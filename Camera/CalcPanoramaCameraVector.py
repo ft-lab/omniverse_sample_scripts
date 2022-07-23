@@ -5,7 +5,8 @@ import omni.kit
 ipdValue = 6.4
 
 # Get viewport.
-viewport = omni.kit.viewport.get_viewport_interface()
+# Kit103 changed from omni.kit.viewport to omni.kit.viewport_legacy
+viewport = omni.kit.viewport_legacy.get_viewport_interface()
 viewportWindow = viewport.get_viewport_window()
 
 # Get active camera path.
