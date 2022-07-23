@@ -1,7 +1,7 @@
-import omni.kit.viewport
+import omni.kit.viewport_legacy
 
 try:
-    viewport = omni.kit.viewport.get_viewport_interface()
+    viewport = omni.kit.viewport_legacy.get_viewport_interface()
     if viewport != None:
         viewport.get_viewport_window().focus_on_selected()
 except:

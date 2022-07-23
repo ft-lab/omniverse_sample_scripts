@@ -13,11 +13,13 @@ Omniverse Kit Ver.102での内容になります。
 ```python
 import omni.kit
 
-viewportI = omni.kit.viewport.acquire_viewport_interface()
+viewportI = omni.kit.viewport_legacy.acquire_viewport_interface()
 vWindow = viewportI.get_viewport_window(None)
 
 vwRec = vWindow.get_viewport_rect()
 ```
+※ Kit102では「omni.kit.viewport」でしたが、Kit103では「omni.kit.viewport_legacy」になっています。     
+
 このときの「vwRec」をビューポートの矩形とします。    
 メインメニューの左上を(0, 0)として原点とし、相対位置として
 (vwRec[0], vwRec[1]) - (vwRec[2], vwRec[3]) がビューポートの左上と右下の座標となります。      

@@ -1,17 +1,15 @@
 from pxr import Usd, UsdGeom, UsdPhysics, UsdSkel, UsdShade, Sdf, Gf, Tf
 import omni.ui
 
-# Not available in Omniverse Create 2022.1.3.
-#
 # Get main window viewport.
-#viewportI = omni.kit.viewport.acquire_viewport_interface()
-#vWindow = viewportI.get_viewport_window(None)
+viewportI = omni.kit.viewport_legacy.acquire_viewport_interface()
+vWindow = viewportI.get_viewport_window(None)
 
 # Get viewport rect.
-#viewportRect = vWindow.get_viewport_rect()
-#viewportSize = (viewportRect[2] - viewportRect[0], viewportRect[3] - viewportRect[1])
-#print(viewportRect)
-#print(viewportSize)
+viewportRect = vWindow.get_viewport_rect()
+viewportSize = (viewportRect[2] - viewportRect[0], viewportRect[3] - viewportRect[1])
+print(viewportRect)
+print(viewportSize)
 
 # Get Viewport window rect.
 uiViewportWindow = omni.ui.Workspace.get_window("Viewport")

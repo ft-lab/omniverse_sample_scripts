@@ -7,7 +7,7 @@ import asyncio
 
 # Get main window viewport.
 window = omni.ui.Window('Viewport')
-viewportI = omni.kit.viewport.acquire_viewport_interface()
+viewportI = omni.kit.viewport_legacy.acquire_viewport_interface()
 vWindow = viewportI.get_viewport_window(None)
 
 viewportRect = None
