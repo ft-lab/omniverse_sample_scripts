@@ -34,6 +34,8 @@ icon = "data/icon.png"
 
 # We only depend on testing framework currently:
 [dependencies]
+"omni.ui.scene" = {}
+"omni.kit.viewport.utility" = {}
 
 # Main python module this extension provides.
 [[python.module]]

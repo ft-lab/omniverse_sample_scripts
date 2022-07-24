@@ -77,6 +77,11 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     def _notice_objects_changed (self, notice, stage):
         # Called by Tf.Notice.
         for p in notice.GetChangedInfoOnlyPaths():
+            # Camera changed.
+            cameraPath = self.getCurrentCameraPrimPath()
+            if self._camera_path != cameraPath:
+                self._camera_path = cameraPath
+
             if p.GetPrimPath() == self._camera_path:
                 self._camera_changed()
 
