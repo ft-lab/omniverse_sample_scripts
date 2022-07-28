@@ -4,8 +4,10 @@ import omni.ui
 from omni.ui import color as cl
 from omni.ui import scene as sc
 import omni.kit
+import omni.kit.app
+import carb.events
 from pathlib import Path
-import math
+import time
 
 # -------------------------------------.
 # Scene draw process.
@@ -38,15 +40,19 @@ class SceneDraw (sc.Manipulator):
                 with sc.Transform(transform=moveT):
                     sc.Label(prim.GetName(), alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)
 
-        self.invalidate()
+        #self.invalidate()
 
 # ----------------------------------------------------------.
 class UISceneShowPrimNameExtension(omni.ext.IExt):
     _window = None
     _scene_view = None
     _objects_changed_listener = None
+    _subs_update = None
     _camera_path = None
     _stage = None
+    _sceneDraw = None
+    _time = 0
+    _selectedPrimPaths = None
 
     # ------------------------------------------------.
     # Get current camera prim path.
@@ -110,10 +116,34 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     def _notice_objects_changed (self, notice, stage):
         self._camera_path = self.getCurrentCameraPrimPath()
 
+        # Update drawing.
+        self._sceneDraw.invalidate()
+
         # Called by Tf.Notice.
         for p in notice.GetChangedInfoOnlyPaths():
             if p.GetPrimPath() == self._camera_path:
                 self._camera_changed()
+
+    # ------------------------------------------------.
+    # Update event.
+    # ------------------------------------------------.
+    def on_update (self, e: carb.events.IEvent):
+        # Check every 0.2 seconds.
+        curTime = time.time()
+        diffTime = curTime - self._time
+        if diffTime > 0.2:
+            self._time = curTime
+
+            # Get selection.
+            selection = omni.usd.get_context().get_selection()
+            paths = selection.get_selected_prim_paths()
+
+            # Selection changed.
+            if self._selectedPrimPaths == None or self._selectedPrimPaths != paths:
+                self._selectedPrimPaths = paths
+
+                # Update drawing.
+                self._sceneDraw.invalidate()
 
     # ------------------------------------------------.
     # Init window.
@@ -131,6 +161,11 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
         self._objects_changed_listener = Tf.Notice.Register(
             Usd.Notice.ObjectsChanged, self._notice_objects_changed, self._stage)
 
+        # Register for update event.
+        self._subs_update = omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop(self.on_update)
+
+        self._time = time.time()
+
         # Get main window viewport.
         self._window = omni.ui.Window('Viewport')
 
@@ -142,7 +177,8 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
                 self._camera_changed()
 
                 with self._scene_view.scene:
-                    SceneDraw()
+                    self._sceneDraw = SceneDraw()
+                    self._sceneDraw.invalidate()
 
     # ------------------------------------------------.
     # Term window.
@@ -153,6 +189,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
 
         self._window = None
         self._objects_changed_listener = None
+        self._subs_update = None
 
     # ------------------------------------------------.
     # Startup.
