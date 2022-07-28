@@ -33,6 +33,7 @@ class SceneDraw (sc.Manipulator):
                 # Decompose transform.
                 translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
 
+                # Draw prim name.
                 moveT = sc.Matrix44.get_translation_matrix(translate[0], translate[1], translate[2])
                 with sc.Transform(transform=moveT):
                     sc.Label(prim.GetName(), alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)

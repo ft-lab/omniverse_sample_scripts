@@ -25,6 +25,9 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 |[ft_lab.sample.uiScene](./ft_lab.sample.uiScene)|omni.ui.sceneの使用例。<br>ウィンドウを表示し、SceneViewに描画を行う。<br>![omniverse_code_extension_uiScene.png](./images/omniverse_code_extension_uiScene.png)|     
 |[ft_lab.sample.uiSceneDraw](./ft_lab.sample.uiSceneDraw)|omni.ui.sceneの使用例。<br>ウィンドウを表示し、SceneViewに順番を考慮した描画を行う。<br>また、描画を更新し、SceneViewでアニメーションする。<br>![omniverse_code_extension_uiSceneDraw.png](./images/omniverse_code_extension_uiSceneDraw.png)|     
 |[ft_lab.sample.uiSceneViewportOverlay](./ft_lab.sample.uiSceneViewportOverlay)|omni.ui.sceneの使用例。<br>ViewportにSceneViewをオーバレイ表示する。<br>![omniverse_code_extension_uiSceneViewportOverlay.jpg](./images/omniverse_code_extension_uiSceneViewportOverlay.jpg)|     
+|[ft_lab.sample.uiSceneShowPrimName](./ft_lab.sample.uiSceneShowPrimName)|omni.ui.sceneの使用例。<br>ViewportにSceneViewをオーバレイ表示する。<br>選択Prim名を形状のローカル座標の中心に表示。<br>![omniverse_code_extension_uiSceneShowPrimName.jpg](./images/omniverse_code_extension_uiSceneShowPrimName.jpg)|     
+
+
 
 
 
