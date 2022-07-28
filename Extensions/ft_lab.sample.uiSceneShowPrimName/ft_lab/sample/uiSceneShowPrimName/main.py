@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, CameraUtil, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, CameraUtil, UsdShade, UsdSkel, Sdf, Gf, Tf
 import omni.ext
 import omni.ui
 from omni.ui import color as cl
@@ -7,8 +7,40 @@ import omni.kit
 from pathlib import Path
 import math
 
+# -------------------------------------.
+# Scene draw process.
+# -------------------------------------.
+class SceneDraw (sc.Manipulator):
+    def __init__(self, **kwargs):
+        super().__init__ (**kwargs)
+
+    def on_build (self):
+        stage = omni.usd.get_context().get_stage()
+
+        # Get selection.
+        selection = omni.usd.get_context().get_selection()
+        paths = selection.get_selected_prim_paths()
+
+        time_code = Usd.TimeCode.Default()
+        xformCache = UsdGeom.XformCache(time_code)
+
+        for path in paths:
+            prim = stage.GetPrimAtPath(path)
+            if prim.IsValid():
+                # Get world Transform.
+                globalPose = xformCache.GetLocalToWorldTransform(prim)
+
+                # Decompose transform.
+                translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
+
+                moveT = sc.Matrix44.get_translation_matrix(translate[0], translate[1], translate[2])
+                with sc.Transform(transform=moveT):
+                    sc.Label(prim.GetName(), alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)
+
+        self.invalidate()
+
 # ----------------------------------------------------------.
-class UISceneViewportOverlayExtension(omni.ext.IExt):
+class UISceneShowPrimNameExtension(omni.ext.IExt):
     _window = None
     _scene_view = None
     _objects_changed_listener = None
@@ -75,7 +107,6 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
             self._scene_view.model.projection = projection
 
     def _notice_objects_changed (self, notice, stage):
-        # Camera changed.
         self._camera_path = self.getCurrentCameraPrimPath()
 
         # Called by Tf.Notice.
@@ -110,27 +141,7 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
                 self._camera_changed()
 
                 with self._scene_view.scene:
-                    # Edges of cube
-                    cubeSize = 100.0
-                    sc.Line([-cubeSize, -cubeSize, -cubeSize], [cubeSize, -cubeSize, -cubeSize])
-                    sc.Line([-cubeSize, cubeSize, -cubeSize], [cubeSize, cubeSize, -cubeSize])
-                    sc.Line([-cubeSize, -cubeSize, cubeSize], [cubeSize, -cubeSize, cubeSize])
-                    sc.Line([-cubeSize, cubeSize, cubeSize], [cubeSize, cubeSize, cubeSize])
-
-                    sc.Line([-cubeSize, -cubeSize, -cubeSize], [-cubeSize, cubeSize, -cubeSize])
-                    sc.Line([cubeSize, -cubeSize, -cubeSize], [cubeSize, cubeSize, -cubeSize])
-                    sc.Line([-cubeSize, -cubeSize, cubeSize], [-cubeSize, cubeSize, cubeSize])
-                    sc.Line([cubeSize, -cubeSize, cubeSize], [cubeSize, cubeSize, cubeSize])
-
-                    sc.Line([-cubeSize, -cubeSize, -cubeSize], [-cubeSize, -cubeSize, cubeSize])
-                    sc.Line([-cubeSize, cubeSize, -cubeSize], [-cubeSize, cubeSize, cubeSize])
-                    sc.Line([cubeSize, -cubeSize, -cubeSize], [cubeSize, -cubeSize, cubeSize])
-                    sc.Line([cubeSize, cubeSize, -cubeSize], [cubeSize, cubeSize, cubeSize])
-
-                    # Use Transform to change position.
-                    moveT = sc.Matrix44.get_translation_matrix(0, 0, 0)
-                    with sc.Transform(transform=moveT):
-                        sc.Label("Hello Omniverse !!", alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)
+                    SceneDraw()
 
     # ------------------------------------------------.
     # Term window.
