@@ -14,4 +14,4 @@
 |---|---|     
 |[GetMaterialType.py](./GetMaterialType.py)|選択マテリアルの種類を取得(UsdPreviewSurface or MDL)|     
 |[GetMaterialInputs.py](./GetMaterialInputs.py)|選択マテリアルの入力パラメータを取得|     
-
+|[GetMaterialTexturePath.py](./GetMaterialTexturePath.py)|選択マテリアルの入力パラメータからテクスチャ情報のみを取得。<br>Sdf.AssetPathのpathは入力そのまま。resolvedPathはフルパスが入っている。|     
