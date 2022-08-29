@@ -6,14 +6,13 @@ stage = omni.usd.get_context().get_stage()
 selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
-for path in paths:
+# Get material type (UsdPreviewSurface/OmniPBR/CustomMDL etc.)
+def GetMaterialType (path : str):
     prim = stage.GetPrimAtPath(path)
     if prim.GetTypeName() != "Material":
-        continue
-
-    print("[" + prim.GetPath().pathString + "]")
-
-    # Get Shader of Material and input parameters.
+        return ""
+    
+    materialTypeName = ""
     pChildren = prim.GetChildren()
     for cPrim in pChildren:
         if cPrim.GetTypeName() == "Shader":
@@ -22,18 +21,36 @@ for path in paths:
             # In the case of UsdPreviewSurface, ImplementationSource is "id".
             # In the case of MDL, the ImplementationSource is "sourceAsset".
             sourceV = shaderPrim.GetImplementationSource()
-            print("  " + "implementationSource : " + sourceV)
             if sourceV == "id":
                 attr = shaderPrim.GetIdAttr()
                 idValue = attr.Get()    # "UsdPreviewSurface"
-                print("  " + attr.GetName() + " : " + idValue)
+                if idValue == "UsdPreviewSurface":
+                    materialTypeName = idValue
 
             # Get MDL information.
             if sourceV == "sourceAsset":
+                # Sdf.AssetPath
+                #   assetPath.path ... display path.
+                #   assetPath.resolvedPath ... absolute path.
                 assetPath = shaderPrim.GetSourceAsset("mdl")
-                print("  assetPath : " + assetPath.path)
 
+                # MDL name.
                 subIdentifier = shaderPrim.GetSourceAssetSubIdentifier("mdl")
-                print("  sourceAsset:subIdentifier : " + subIdentifier)
 
+                if subIdentifier != "":
+                    materialTypeName = subIdentifier
+                else:
+                    materialTypeName = assetPath.resolvedPath
+
+            if materialTypeName != "":
+                break
+
+    return materialTypeName
+
+# -----------------------------------.
+for path in paths:
+    materialTypeName = GetMaterialType(path)
+
+    if materialTypeName != "":
+        print(f"{path} : {materialTypeName}")
 
