@@ -30,7 +30,7 @@ def GetMaterialType (path : str):
             # Get MDL information.
             if sourceV == "sourceAsset":
                 # Sdf.AssetPath
-                #   assetPath.path ... display path.
+                #   assetPath.path         ... display path.
                 #   assetPath.resolvedPath ... absolute path.
                 assetPath = shaderPrim.GetSourceAsset("mdl")
 

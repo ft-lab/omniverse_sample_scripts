@@ -47,6 +47,9 @@ in_output_usd_folder = ""
 # Load LOD2.
 in_load_lod2 = False
 
+# Load LOD1 & LOD2.
+in_load_lod1_lod2 = False
+
 # Assign texture to dem.
 in_assign_dem_texture = True
 
@@ -328,6 +331,11 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
 
     mapPrimPath = createXfrom_mapIndex(_mapIndex, _materialPath)
     buildingPath = mapPrimPath + "/building"
+    if _useLOD2:
+        buildingPath += "_lod2"
+    else:
+        buildingPath += "_lod1"
+
     UsdGeom.Xform.Define(stage, buildingPath)
 
     # Must be pre-converted if using USD.
@@ -383,23 +391,30 @@ async def loadBuilding (_mapIndex : int, _useLOD2 : bool, _materialPath : str):
     for path in glob.glob(src_bldg_path, recursive=True):
         fName = os.path.basename(path)
 
+        chkF = False
         p1 = fName.find('_')
         if p1 > 0:
             s = fName[0:p1]
             mIndex = int(s)
 
             # When usd file is output on Nucleus, check the corresponding file.
-            if in_output_folder != "":
-                fName2 = str(mIndex) + "_bldg.usd"
-                newPath = in_output_folder + "/data"
-                newPath += "/building/lod1/" + str(mIndex) + "/" + fName2
-                if (await ocl_existPath_async(newPath)):
-                    path = newPath
-
+            if (not in_load_lod1_lod2) or (in_load_lod1_lod2 and not _useLOD2):
+                if in_output_folder != "":
+                    fName2 = str(mIndex) + "_bldg.usd"
+                    newPath = in_output_folder + "/data"
+                    newPath += "/building/lod1/" + str(mIndex) + "/" + fName2
+                    if (await ocl_existPath_async(newPath)):
+                        path = newPath
+                        chkF = True
+                
             # Refer to LOD2 path.
             if mIndex in useLOD2Dict:
                 path = useLOD2Dict[mIndex]
                 fName = os.path.basename(path)
+                chkF = True
+
+        if not chkF:
+            continue
 
         # Conv Prim name.
         primName = convFileNameToUSDPrimName(fName)
@@ -883,8 +898,15 @@ async def load_PLATEAU ():
         task_dem = asyncio.create_task(loadDem(mapIndex, defaultMaterialPath))
         await task_dem
 
-        task_building = asyncio.create_task(loadBuilding(mapIndex, in_load_lod2, defaultMaterialPath))
-        await task_building
+        if not in_load_lod1_lod2:
+            task_building = asyncio.create_task(loadBuilding(mapIndex, in_load_lod2, defaultMaterialPath))
+            await task_building
+        else:
+            task_building_lod1 = asyncio.create_task(loadBuilding(mapIndex, False, defaultMaterialPath))
+            await task_building_lod1
+
+            task_building_lod2 = asyncio.create_task(loadBuilding(mapIndex, True, defaultMaterialPath))
+            await task_building_lod2
 
         if in_load_bridge and in_load_lod2:
             task_bridge = asyncio.create_task(loadBridge(mapIndex, defaultMaterialPath))

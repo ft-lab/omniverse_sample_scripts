@@ -26,6 +26,8 @@ for path in paths:
                 if typeName == "asset":
                     v = inputV.Get()    # Sdf.AssetPath
                     if v.path != "":
+                        #   v.path         ... display path.
+                        #   v.resolvedPath ... absolute path.
                         print(f"  {baseName}")
                         print(f"      path [ {v.path} ]")
                         print(f"      resolvedPath [ {v.resolvedPath} ]")
