@@ -17,4 +17,5 @@ https://docs.omniverse.nvidia.com/py/kit/source/extensions/omni.client/docs/inde
 |[FileCopy.py](./FileCopy.py)|ローカルからNucleus上にファイルを転送。|     
 |[createFolder.py](./createFolder.py)|Nucleus上にフォルダを作成。|     
 |[deleteFile.py](./deleteFile.py)|Nucleus上のファイルやフォルダを削除。|     
+|[ReadImageFile.py](./ReadImageFile.py)|Nucleus上の画像ファイルをPIL.Imageに読み込み。|     
 

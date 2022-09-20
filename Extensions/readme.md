@@ -28,8 +28,3 @@ Omniverse Createの[Help]-[Developers Manual]からOmniverse Kitのドキュメ�
 |[ft_lab.sample.uiSceneViewportOverlay](./ft_lab.sample.uiSceneViewportOverlay)|omni.ui.sceneの使用例。<br>ViewportにSceneViewをオーバレイ表示する。<br>![omniverse_code_extension_uiSceneViewportOverlay.jpg](./images/omniverse_code_extension_uiSceneViewportOverlay.jpg)|     
 |[ft_lab.sample.uiSceneShowPrimName](./ft_lab.sample.uiSceneShowPrimName)|omni.ui.sceneの使用例。<br>ViewportにSceneViewをオーバレイ表示する。<br>選択Prim名を形状のローカル座標の中心に表示。<br>![omniverse_code_extension_uiSceneShowPrimName.jpg](./images/omniverse_code_extension_uiSceneShowPrimName.jpg)|     
 
-
-
-
-
-
