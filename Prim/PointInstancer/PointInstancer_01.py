@@ -23,7 +23,8 @@ UsdGeom.Xform.Define(stage, refPath)
 prim = stage.GetPrimAtPath(refPath)
 
 # Set Kind.
-Usd.ModelAPI(prim).SetKind(Kind.Tokens.component)
+#Usd.ModelAPI(prim).SetKind(Kind.Tokens.component)
+Usd.ModelAPI(prim).SetKind("component")
 
 # Set the asset to be referenced.
 pointInstancer.CreatePrototypesRel().AddTarget(refPath)
