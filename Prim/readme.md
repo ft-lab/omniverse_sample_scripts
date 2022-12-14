@@ -18,7 +18,7 @@ Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利�
 |[GetParent.py](./GetParent.py)|選択パスの親のPrimを取得|     
 |[GetChildren.py](./GetChildren.py)|選択パスの子のPrimを取得|     
 |[CalcWorldBoundingBox.py](./CalcWorldBoundingBox.py)|選択形状のワールド座標でのバウンディングボックスを計算|     
-
+|[RemovePrim.py](./RemovePrim.py)|指定のパスのPrimを削除。<br>Sdf.NamespaceEdit.Removeを使用する。|     
 
 |サンプル|説明|     
 |---|---|     
