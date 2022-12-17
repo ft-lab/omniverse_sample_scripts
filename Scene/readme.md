@@ -13,6 +13,7 @@
 |[NewStage.py](./NewStage.py)|何も配置されていない新しいStageを作成します。<br>なお、直前のStageの変更は保存されません。|     
 |[CloseStage.py](./CloseStage.py)|現在のStageを閉じます。<br>なお、直前のStageの変更は保存されません。|     
 |[OpenUSDFile.py](./OpenUSDFile.py)|指定のUSDファイルを開きます。<br>なお、直前のStageの変更は保存されません。|     
+|[GetResolvedPath.py](./GetResolvedPath.py)|カレントStageで指定されている相対パス（テクスチャやReferenceとして参照しているusdファイルなど）を絶対パスに変換。<br>存在しないパスを指定した場合は空文字が返る。|     
 
 ## レイヤ関連
 

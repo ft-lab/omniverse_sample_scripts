@@ -25,7 +25,7 @@ Payloadのほうが利便性があるため、基本的にはPayloadで参照を
 |[InternalReferenceTest.py](./InternalReferenceTest.py)|作成したXformに対して同一Stage内のPrimを参照として追加<br>![usd_prim_reference_01.jpg](./images/usd_prim_reference_01.jpg)|    
 |[HasReference.py](./HasReference.py)|選択した形状が参照を持つかチェック|
 |[HasPayload.py](./HasPayload.py)|選択した形状がPayloadを持つかチェック|
-|[GetReferencePayload.py](./GetReferencePayload.py)|選択した形状ががReferenceまたはPayloadの場合に、参照先のパスを取得|
+|[GetReferencePayload.py](./GetReferencePayload.py)|選択した形状がReferenceまたはPayloadの場合に、参照先のパスを取得|
 
 ----
 
