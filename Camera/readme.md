@@ -23,6 +23,8 @@ kit.104は"Viewport 2.0"となっており、複数のViewportを持つことが
 
 ## サンプル
 
+Kit104以上で動作。      
+
 |ファイル|説明|     
 |---|---|     
 |[CreateCamera.py](./CreateCamera.py)|カメラを作成|     

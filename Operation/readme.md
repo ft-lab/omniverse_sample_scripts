@@ -4,7 +4,7 @@ Ominverseの操作/イベント処理を行います。
 
 |ファイル|説明|     
 |---|---|     
-|[FocusPrim.py](./FocusPrim.py)|選択されたPrimにフォーカスを合わせる<br>（キーボードの[F]をプッシュした時と同じ動作）|     
+|[FocusPrim.py](./FocusPrim.py)|Kit104以上で動作。<br>指定のPrim(ここでは"/World/Sphere")にフォーカスを合わせる<br>（キーボードの[F]をプッシュした時と同じ動作）|     
 
 |サンプル|説明|     
 |---|---|     

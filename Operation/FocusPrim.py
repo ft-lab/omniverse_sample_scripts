@@ -1,42 +1,44 @@
-# "omni.kit.viewport_legacy" is no longer available in kit 104.
+# "omni.kit.viewport_legacy" is no longer available in kit104.
 #import omni.kit.viewport_legacy
-import omni.ui.scene
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
-
-#try:
-#    viewport = omni.kit.viewport_legacy.get_viewport_interface()
-#    if viewport != None:
-#        viewport.get_viewport_window().focus_on_selected()
-#except:
-#    pass
-
-#scene_view = omni.ui.scene.SceneView()
-# Pass the real object, as a weak-reference will be retained
-#viewport_api.add_scene_view(scene_view)
-#print(dir(scene_view))
-
-camera = UsdGeom.Camera().GetCamera()
-print(camera)
-
-'''
 import omni.kit.commands
-from pxr import Sdf, Usd
 
-# Get current camera.
-currentCameraPath = "/OmniverseKit_Persp"
+# Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
+import omni.kit.viewport.utility
 
-# Aspect ratio.
-aspect = 1.77777777
+# Get active viewport window.
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+viewport_api = active_vp_window.viewport_api
 
-# Taret prim path.
-targetPrim = "/World/Sphere"
+# Get camera path ("/OmniverseKit_Persp" etc).
+cameraPath = viewport_api.camera_path.pathString
 
-omni.kit.commands.execute('FramePrimsCommand',
-	prim_to_move=Sdf.Path(currentCameraPath),
-	prims_to_frame=[targetPrim],
-	time_code=Usd.TimeCode(),
-	usd_context_name='',
-	aspect_ratio=aspect)
+# Get stage.
+stage = omni.usd.get_context().get_stage()
 
-'''
+#time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
+time_code = Usd.TimeCode()
+
+# Get active camera.
+cameraPrim = stage.GetPrimAtPath(cameraPath)
+if cameraPrim.IsValid():
+    camera  = UsdGeom.Camera(cameraPrim)        # UsdGeom.Camera
+    cameraV = camera.GetCamera(time_code)       # Gf.Camera
+
+    # Aspect ratio.
+    aspect = cameraV.aspectRatio
+
+    # Taret prim path.
+    targetPrimPath = "/World/Sphere"
+
+    prim = stage.GetPrimAtPath(targetPrimPath)
+    if prim.IsValid():
+        # Set focus.
+        omni.kit.commands.execute('FramePrimsCommand',
+            prim_to_move=Sdf.Path(cameraPath),
+            prims_to_frame=[targetPrimPath],
+            time_code=time_code,
+            usd_context_name='',
+            aspect_ratio=aspect)
+
 
