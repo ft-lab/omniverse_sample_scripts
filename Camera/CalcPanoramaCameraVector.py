@@ -5,12 +5,19 @@ import omni.kit
 ipdValue = 6.4
 
 # Get viewport.
-# Kit103 changed from omni.kit.viewport to omni.kit.viewport_legacy
-viewport = omni.kit.viewport_legacy.get_viewport_interface()
-viewportWindow = viewport.get_viewport_window()
+# Kit103 : changed from omni.kit.viewport to omni.kit.viewport_legacy
+#viewport = omni.kit.viewport_legacy.get_viewport_interface()
+#viewportWindow = viewport.get_viewport_window()
 
-# Get active camera path.
-cameraPath = viewportWindow.get_active_camera()
+# Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
+import omni.kit.viewport.utility
+
+# Get active viewport window.
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+viewport_api = active_vp_window.viewport_api
+
+# Get camera path ("/OmniverseKit_Persp" etc).
+cameraPath = viewport_api.camera_path.pathString
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
