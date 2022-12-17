@@ -7,6 +7,9 @@ import omni.kit
 from pathlib import Path
 import math
 
+# Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
+import omni.kit.viewport.utility
+
 # ----------------------------------------------------------.
 class UISceneViewportOverlayExtension(omni.ext.IExt):
     _window = None
@@ -19,13 +22,12 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     # Get current camera prim path.
     # ------------------------------------------------.
     def getCurrentCameraPrimPath (self):
-        # Get viewport.
-        # Kit103 changed from omni.kit.viewport to omni.kit.viewport_legacy
-        viewport = omni.kit.viewport_legacy.get_viewport_interface()
-        viewportWindow = viewport.get_viewport_window()
+        # Kit104 : Get active viewport window.
+        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+        viewport_api = active_vp_window.viewport_api
 
-        # Get active camera path.
-        cameraPath = viewportWindow.get_active_camera()
+        # Get camera path ("/OmniverseKit_Persp" etc).
+        cameraPath = viewport_api.camera_path.pathString
         return cameraPath
 
     # ------------------------------------------------.
