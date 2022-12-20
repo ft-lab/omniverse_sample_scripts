@@ -20,6 +20,14 @@ https://developer.nvidia.com/nvidia-omniverse-developer-resource-center
 Omniverse開発の入口となるサイトです。     
 全体的に何ができて何が重要か、というのは俯瞰して見ることができます。      
 
+### Omniverse Kit
+
+https://docs.omniverse.nvidia.com/prod_kit/prod_kit/overview.html     
+
+Omniverse Kitのトップページです。     
+"Search API"のようなAPIからの検索もあるため、ある程度理解が進んだ方はこちらから進めるのがよいかもしれません。      
+
+
 ## はじめに
 
 Omniverse Createで、メインメニューの [Window] - [Script Editor]を選択して、Script Editorを起動します。     
