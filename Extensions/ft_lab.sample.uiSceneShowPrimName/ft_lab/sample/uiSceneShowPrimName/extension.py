@@ -16,8 +16,16 @@ import omni.kit.viewport.utility
 # Scene draw process.
 # -------------------------------------.
 class SceneDraw (sc.Manipulator):
+    _viewport_api = None
+
     def __init__(self, **kwargs):
         super().__init__ (**kwargs)
+
+        # Kit104 : Get active viewport window.
+        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+
+        # Get viewport API.
+        self._viewport_api = active_vp_window.viewport_api
 
     def on_build (self):
         stage = omni.usd.get_context().get_stage()
@@ -38,12 +46,15 @@ class SceneDraw (sc.Manipulator):
                 # Decompose transform.
                 translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
 
+                # World to NDC space (X : -1.0 to +1.0, Y : -1.0 to +1.0).
+                ndc_pos = self._viewport_api.world_to_ndc.Transform(translate)
+
+                # Translation matrix.
+                moveT = sc.Matrix44.get_translation_matrix(ndc_pos[0], ndc_pos[1] * 0.5, 0.0)
+
                 # Draw prim name.
-                moveT = sc.Matrix44.get_translation_matrix(translate[0], translate[1], translate[2])
                 with sc.Transform(transform=moveT):
                     sc.Label(prim.GetName(), alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)
-
-        #self.invalidate()
 
 # ----------------------------------------------------------.
 class UISceneShowPrimNameExtension(omni.ext.IExt):
@@ -51,84 +62,21 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     _scene_view = None
     _objects_changed_listener = None
     _subs_update = None
-    _camera_path = None
     _stage = None
     _sceneDraw = None
     _time = 0
     _selectedPrimPaths = None
 
     # ------------------------------------------------.
-    # Get current camera prim path.
+    # Notification of object changes.
     # ------------------------------------------------.
-    def getCurrentCameraPrimPath (self):
-        # Kit104 : Get active viewport window.
-        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
-        viewport_api = active_vp_window.viewport_api
-
-        # Get camera path ("/OmniverseKit_Persp" etc).
-        cameraPath = viewport_api.camera_path.pathString
-
-        return cameraPath
-
-    # ------------------------------------------------.
-    # Get View/Projection Matrix of the current camera.
-    # ------------------------------------------------.
-    def getCurrentCameraViewProjectionMatrix (self):
-        # Get current camera Prim Path.
-        if self._camera_path == None:
-            self._camera_path = self.getCurrentCameraPrimPath()
-
-        if self._stage == None:
-            self._stage = omni.usd.get_context().get_stage()
-
-        viewMatrix = None
-        projMatrix = None
-
-        # Get active camera.
-        cameraPrim = self._stage.GetPrimAtPath(self._camera_path)
-        if cameraPrim.IsValid():
-            camera  = UsdGeom.Camera(cameraPrim)                # UsdGeom.Camera
-            cameraV = camera.GetCamera(Usd.TimeCode.Default())  # Gf.Camera
-            viewMatrix = cameraV.frustum.ComputeViewMatrix()
-            projMatrix = cameraV.frustum.ComputeProjectionMatrix()
-
-        return viewMatrix, projMatrix
-
-
-    # ------------------------------------------------.
-    # Camera change event called from Tf.Notice (Usd.Notice.ObjectsChanged).
-    # ------------------------------------------------.
-    def _camera_changed (self):
-        # Called when the camera is changed.
-        def flatten (transform):
-            # Convert array[n][m] to array[n*m].
-            return [item for sublist in transform for item in sublist]
-    
-        # Get View/Projection Matrix.
-        view, projection = self.getCurrentCameraViewProjectionMatrix()
-
-        # Convert Gf.Matrix4d to list　
-        view = flatten(view)
-        projection = flatten(projection)
-
-        # Set the scene
-        if self._scene_view != None:
-            self._scene_view.model.view = view
-            self._scene_view.model.projection = projection
-
     def _notice_objects_changed (self, notice, stage):
-        self._camera_path = self.getCurrentCameraPrimPath()
-
         # Update drawing.
         self._sceneDraw.invalidate()
 
-        # Called by Tf.Notice.
-        for p in notice.GetChangedInfoOnlyPaths():
-            if p.GetPrimPath() == self._camera_path:
-                self._camera_changed()
-
     # ------------------------------------------------.
     # Update event.
+    # Update when selection shape changes.
     # ------------------------------------------------.
     def on_update (self, e: carb.events.IEvent):
         # Check every 0.2 seconds.
@@ -152,15 +100,10 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     # Init window.
     # ------------------------------------------------.
     def init_window (self):
-        imagesPath = Path(__file__).parent.joinpath("images")
-
         # Get current stage.
         self._stage = omni.usd.get_context().get_stage()
 
-        # Get current camera Prim Path.
-        self._camera_path = self.getCurrentCameraPrimPath()
-
-        # Tracking the camera
+        # Notification of object changes.
         self._objects_changed_listener = Tf.Notice.Register(
             Usd.Notice.ObjectsChanged, self._notice_objects_changed, self._stage)
 
@@ -175,9 +118,6 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
         with self._window.frame:
             with omni.ui.VStack():
                 self._scene_view = sc.SceneView()
-
-                # Update view./projection matrix.
-                self._camera_changed()
 
                 with self._scene_view.scene:
                     self._sceneDraw = SceneDraw()
