@@ -1,47 +1,97 @@
 # Viewport
 
 ビューポート上のオーバレイ表示。    
-Omniverse Kit Ver.102での内容になります。     
+ビューポートの特定位置に2D図形の描画やテキスト描画、3Dのワイヤーフレーム描画などを行います。      
+Omniverse Kit.102/103/104で仕様が変わっており、ここではKit.104に沿うようにしています。      
 
-なお、Omniverse Kit Ver.103ではビューポート周りはより扱いやすく整理されているため、このあたりは今後使わなくなるのかもしれません。    
+参考 :      
+https://docs.omniverse.nvidia.com/kit/docs/omni.kit.viewport.docs/latest/index.html     
 
-## ビューポートの位置とサイズ
 
-※ Omniverse Kit Ver.102までで使えます。Ver.103では使用できませんでした。    
+## ビューポートは複数持つことができる
 
-以下のように実行すると、ビューポートの矩形情報を取得できます。     
+Kit.103以降では、複数のビューポートを持てるようになりました（ただし、複数のビューポートは同じレンダラの種類になる）。     
+![viewport_104_01](./images/viewport_104_01.jpg)     
+クリックして選択したビューポートがアクティブなビューポートとなります。     
+
+以下で、現在のアクティブなビューポートの"viewport_api"を取得できます。     
+このクラスからビューポート情報の取得を行うことになります。     
 ```python
 import omni.kit
 
-viewportI = omni.kit.viewport_legacy.acquire_viewport_interface()
-vWindow = viewportI.get_viewport_window(None)
-
-vwRec = vWindow.get_viewport_rect()
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+viewport_api = active_vp_window.viewport_api
 ```
-※ Kit102では「omni.kit.viewport」でしたが、Kit103では「omni.kit.viewport_legacy」になっています。     
 
-このときの「vwRec」をビューポートの矩形とします。    
-メインメニューの左上を(0, 0)として原点とし、相対位置として
-(vwRec[0], vwRec[1]) - (vwRec[2], vwRec[3]) がビューポートの左上と右下の座標となります。      
-![viewport_rect.jpg](./images/viewport_rect.jpg)      
+## 取得できるビューポート情報
 
-## omni.ui.Workspaceでの位置とサイズ
+「[GetActiveViewportInfo.py](GetActiveViewportInfo.py)」にサンプルを上げています。      
+以下のような要素をViewport APIから取得できます。     
 
-※ Omniverse Kit Ver.102までで使えます。Ver.103では使用できませんでした。    
-
-「omni.ui.Workspace」からビューポートを取得した場合、ビューポートウィンドウ全体（上部のキャプション部も含む）の位置を(position_x, position_y)、ウィンドウサイズを(width, height)で取得できます。    
-この場合も、メインメニューの左上を(0, 0)とした相対位置になります。    
+* カメラのPrim Path ("/OmniverseKit_Persp"など)
+* レンダリングの解像度
+* ビューポートで使用しているStage
+* Projection/Transform/View Matrix
 
 ```python
-import omni.ui
+# Get camera path ("/OmniverseKit_Persp" etc).
+cameraPath = viewport_api.camera_path.pathString
+print("cameraPath : " + cameraPath)
 
-uiViewportWindow = omni.ui.Workspace.get_window("Viewport")
-wid = uiViewportWindow.width
-hei = uiViewportWindow.height
-posX = uiViewportWindow.position_x
-posY = uiViewportWindow.position_y
+# Resolution.
+resolution = viewport_api.resolution
+print("Resolution : " + str(resolution[0]) + " x " + str(resolution[1]))
+
+# Stage (Usd.Stage).
+print(viewport_api.stage)
+
+# Projection matrix (Gf.Matrix4d).
+print(viewport_api.projection)
+
+# Transform matrix (Gf.Matrix4d).
+print(viewport_api.transform)
+
+# View matrix (Gf.Matrix4d).
+print(viewport_api.view)
 ```
-![viewport_rect_02.jpg](./images/viewport_rect_02.jpg)      
+
+Viewport APIは以下に詳しい使用例が記載されているので参考になります。     
+https://docs.omniverse.nvidia.com/kit/docs/omni.kit.viewport.docs/latest/viewport_api.html     
+
+## ワールド座標からスクリーン座標への変換 (Space Mapping)
+
+「[WorldToScreen.py](WorldToScreen.py)」にサンプルを上げています。      
+上記以外の機能として、ワールド座標上の位置をスクリーンの2D座標に変換してくることができます(この逆も可能)。     
+これと"omni.ui.scene"を使うことで、ビューポートへのオーバーレイ描画を容易に行うことができます。      
+
+```python
+
+# World to NDC space (X : -1.0 to +1.0, Y : -1.0 to +1.0).
+p = (0, 0, 0)
+p_screen = viewport_api.world_to_ndc.Transform(p)
+
+# NDC to Pixel space.
+sPos, in_viewport = viewport_api.map_ndc_to_texture_pixel(p_screen)
+if in_viewport:
+    print(sPos)
+```
+
+### NDC space
+
+"NDC space"は、ビューポート全体をX方向に-1.0から+1.0、Y方向に-1.0から+1.0としたときの座標系です。      
+![viewport_104_02](./images/viewport_104_02.jpg)     
+
+### Pixel space
+
+"Pixel space"は、ビューポートのレンダリング画像内のピクセル座標です。    
+これはViewport APIの"resolution"で取得できる解像度の範囲のピクセル位置を表します。     
+以下は解像度が1280 x 720ピクセルの場合のPixel spaceの例です。     
+![viewport_104_03](./images/viewport_104_03.jpg)     
+
+## キャプチャ
+
+その他、レンダリング画像のキャプチャ機能があります。     
+※ まだ未記載。     
 
 ## サンプル
 
@@ -54,5 +104,7 @@ posY = uiViewportWindow.position_y
 |[UpdateText2.py](./UpdateText2.py)|ビューポートにカウントアップするテキストを描画。<br>time.time()で1秒の間隔ごとに更新。<br>![UpdateText2.png](./images/UpdateText2.png)|     
 |[UpdateDrawImage.py](./UpdateDrawImage.py)|"omni.ui.ImageWithProvider"を使用して、ファイルから読み込んだ画像をビューポートに表示します。<br>"omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop"使用時は omni.ui.Imageでの描画がうまく反映されないようなのでそれの変わりです。|   
 |[GetViewportRect.py](./GetViewportRect.py)|ビューポートの矩形情報を取得|     
-|[DrawPrimName.py](./DrawPrimName.py)|選択形状の中央にPrim名を表示。<br>選択されたPrimのワールドポジションをスクリーン座標に変換。<br>ビューポート上の座標に変換して"omni.ui.Label"でテキストを描画しています。<br>![DrawPrimName.png](./images/DrawPrimName.png)|     
+|[GetActiveViewportInfo.py](./GetActiveViewportInfo.py)|アクティブなビューポートの情報を取得(omni.kit Viewport API)|     
+|[WorldToScreen.py](./WorldToScreen.py)|ワールド座標位置からスクリーン上の位置に変換(omni.kit Viewport API)|     
+
 
