@@ -50,7 +50,7 @@ class SceneDraw (sc.Manipulator):
                 ndc_pos = self._viewport_api.world_to_ndc.Transform(translate)
 
                 # Translation matrix.
-                moveT = sc.Matrix44.get_translation_matrix(ndc_pos[0], ndc_pos[1] * 0.5, 0.0)
+                moveT = sc.Matrix44.get_translation_matrix(ndc_pos[0], ndc_pos[1], 0.0)
 
                 # Draw prim name.
                 with sc.Transform(transform=moveT):
@@ -117,7 +117,9 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
 
         with self._window.frame:
             with omni.ui.VStack():
-                self._scene_view = sc.SceneView()
+                # The coordinate system is NDC space.
+                # (X : -1.0 to +1.0, Y : -1.0 to +1.0).
+                self._scene_view = sc.SceneView(aspect_ratio_policy=sc.AspectRatioPolicy.STRETCH)
 
                 with self._scene_view.scene:
                     self._sceneDraw = SceneDraw()
