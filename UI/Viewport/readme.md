@@ -156,7 +156,11 @@ with self._window.frame:
             # Update drawing.
             self._sceneDraw.invalidate()
 ```
-として、ビューポートウィンドウにオーバレイするためにSceneViewを作成します。      
+
+"omni.ui.Window"の第一引数に渡すビューポート名は、マルチビューポートに対応するため「アクティブなビューポート名」を取得する必要があります。     
+"omni.kit.viewport.utility.get_active_viewport_window()"で取得したクラスからnameを取得することで、アクティブなビューポート名を得ることができます。      
+
+ビューポートウィンドウにオーバレイするためにSceneViewを作成します。      
 "sc.SceneView"の引数でAspect ratioをSTRETCHとします。     
 これでNDC space(X : -1.0 to +1.0, Y : -1.0 to +1.0)の座標系になります。      
 また、SceneDrawクラスを作成するときに第一引数にViewport APIを渡しています。     
