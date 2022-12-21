@@ -130,6 +130,7 @@ Viewport APIはビューポートの情報を取得したり計算結果を返�
 
 ビューポートへのオーバレイ描画は"omni.ui.scene"を使用します。     
 サンプルExtension"[ft_lab.sample.uiSceneShowPrimName](../../Extensions/ft_lab.sample.uiSceneShowPrimName)"は、選択したPrimの名前をビューポートに表示する簡単な例です。      
+![omniverse_code_extension_uiSceneShowPrimName.jpg](../../Extensions/images/omniverse_code_extension_uiSceneShowPrimName.jpg)       
 
 ```python
 from omni.ui import scene as sc

@@ -68,6 +68,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     _selectedPrimPaths = None
     _viewport_api = None
     _subs_viewport_change = None
+    _active_viewport_name = ""
 
     # ------------------------------------------------.
     # Notification of object changes.
@@ -88,6 +89,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Update event.
     # Update when selection shape changes.
+    # Update when the active viewport is switched.
     # ------------------------------------------------.
     def on_update (self, e: carb.events.IEvent):
         # Check every 0.2 seconds.
@@ -107,6 +109,26 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
                 # Update drawing.
                 if self._sceneDraw != None:
                     self._sceneDraw.invalidate()
+
+            # If the active viewport name has changed.
+            active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+            if active_vp_window != None and active_vp_window.name != self._active_viewport_name:
+                # Rebuild overlay.
+                self.term_window()
+                self.init_window()
+
+    # ------------------------------------------------.
+    # Called when the focus of the viewport changes.
+    # The following are not called.
+    # ------------------------------------------------.
+    def _focused_changed (self, focused: bool):
+        pass
+        # If the active viewport name has changed.
+        #active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+        #if active_vp_window != None and active_vp_window.name != self._active_viewport_name:
+        #    # Rebuild overlay.
+        #    self.term_window()
+        #    self.init_window()
 
     # ------------------------------------------------.
     # Init window.
@@ -130,12 +152,16 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
         # Get viewport API.
         self._viewport_api = active_vp_window.viewport_api
 
+        # Called when the focus of the viewport changes.
+        # The following are disabled because they are unstable.
+        #active_vp_window.set_focused_changed_fn(self._focused_changed)
+
         # Register a callback to be called when the camera in the viewport is changed.
         self._subs_viewport_change = self._viewport_api.subscribe_to_view_change(self._viewport_changed)
 
         # Get viewport window.
-        viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
-        self._window = omni.ui.Window(viewport_name)
+        self._active_viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
+        self._window = omni.ui.Window(self._active_viewport_name)
 
         with self._window.frame:
             with omni.ui.VStack():
