@@ -6,7 +6,7 @@ Omniverseは、データ構造としてUSDを使用してます。
 Omniverse CreateやOmniverse ViewなどのOmniverseアプリのビュー上の制御もUSDを介して行われます（形状の表示/非表示の切り替えや移動など）。      
 
 ここでは、OmniverseアプリであるOmniverse CreateのScript Editorで試せるスクリプトのサンプルを用途別に列挙します。     
-Omniverse Create ~~2021.3.8~~ 2022.1.4で確認しました。     
+Omniverse Create ~~2021.3.8~~ ~~2022.1.4~~ 2022.3.1(Kit.104)で確認しました。     
 
 ## 開発の参考サイト
 
