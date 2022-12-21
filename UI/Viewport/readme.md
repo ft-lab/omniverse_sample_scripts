@@ -139,7 +139,7 @@ import omni.kit
 active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
 viewport_api = active_vp_window.viewport_api
 
-# Get main window viewport.
+# Get viewport window.
 viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
 self._window = omni.ui.Window(viewport_name)
 
@@ -156,12 +156,69 @@ with self._window.frame:
             self._sceneDraw.invalidate()
 ```
 として、ビューポートウィンドウにオーバレイするためにSceneViewを作成します。      
-第一引数にViewpoer APIを渡しています。     
 "sc.SceneView"の引数でAspect ratioをSTRETCHとします。     
 これでNDC space(X : -1.0 to +1.0, Y : -1.0 to +1.0)の座標系になります。      
+また、SceneDrawクラスを作成するときに第一引数にViewport APIを渡しています。     
 
 SceneDrawクラスは以下のように記載しました。      
-まだ記載中、、、。      
+```python
+class SceneDraw (sc.Manipulator):
+    _viewport_api = None
+
+    def __init__(self, viewport_api, **kwargs):
+        super().__init__ (**kwargs)
+
+        # Set Viewport API.
+        self._viewport_api = viewport_api
+
+    # -------------------------------------------.
+    # Repaint.
+    # -------------------------------------------.
+    def on_build (self):
+        stage = omni.usd.get_context().get_stage()
+
+        # Get selection.
+        selection = omni.usd.get_context().get_selection()
+        paths = selection.get_selected_prim_paths()
+
+        time_code = Usd.TimeCode.Default()
+        xformCache = UsdGeom.XformCache(time_code)
+
+        for path in paths:
+            prim = stage.GetPrimAtPath(path)
+            if prim.IsValid():
+                # Get world Transform.
+                globalPose = xformCache.GetLocalToWorldTransform(prim)
+
+                # Decompose transform.
+                translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
+
+                # World to NDC space (X : -1.0 to +1.0, Y : -1.0 to +1.0).
+                ndc_pos = self._viewport_api.world_to_ndc.Transform(translate)
+
+                # Translation matrix.
+                moveT = sc.Matrix44.get_translation_matrix(ndc_pos[0], ndc_pos[1], 0.0)
+
+                # Draw prim name.
+                with sc.Transform(transform=moveT):
+                    sc.Label(prim.GetName(), alignment = omni.ui.Alignment.CENTER, color=cl("#ffff00a0"), size=20)
+```
+"self._sceneDraw.invalidate()"の指定により"on_build"が呼ばれます。      
+現在のStageから選択されたprimを取得し、"globalPose = xformCache.GetLocalToWorldTransform(prim)"でワールド座標の変換行列を取得。      
+"UsdSkel.DecomposeTransform"で移動(translate)、回転(rotation)、スケール(scale)に分解します。      
+Viewport APIの"self._viewport_api.world_to_ndc.Transform(translate)"でtranslateをワールド座標からNDC座標に変換します。      
+
+"sc.Matrix44.get_translation_matrix"を使ってNDC座標の位置を行列に変換。      
+"with sc.Transform(transform=moveT)"でこのときの位置を中心にsc.Labelでラベルを配置しています。       
+
+これはオーバーレイの描画を行う流れになり、これ以外に以下のイベントを取得して"self._sceneDraw.invalidate()"で更新する必要があります。      
+
+* Primが移動した場合(Transformの変更)
+* 選択Primが変更された場合
+* ビューポートのカメラが変更された場合
+* アクティブなビューポートが変更された場合
+
+これらについては、"[ft_lab.sample.uiSceneShowPrimName](../../Extensions/ft_lab.sample.uiSceneShowPrimName)"のExtensionをご参照くださいませ。       
 
 
 ## キャプチャ

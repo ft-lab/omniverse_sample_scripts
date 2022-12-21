@@ -9,6 +9,9 @@ import omni.kit
 active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
 viewport_api = active_vp_window.viewport_api
 
+# Get Viewport window title.
+print("Viewport window : " + active_vp_window.name)
+
 # Get camera path ("/OmniverseKit_Persp" etc).
 cameraPath = viewport_api.camera_path.pathString
 print("cameraPath : " + cameraPath)
