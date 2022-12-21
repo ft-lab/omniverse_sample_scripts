@@ -237,7 +237,7 @@ Viewport APIの"self._viewport_api.world_to_ndc.Transform(translate)"でtranslat
 |[UpdateText.py](./UpdateText.py)|ビューポートに10秒間カウントアップするテキストを描画。<br>asyncio.ensure_future()でタスクを起動。<br>await asyncio.sleep(1) で待つ<br>![UpdateText.png](./images/UpdateText.png)|     
 |[UpdateText2.py](./UpdateText2.py)|ビューポートにカウントアップするテキストを描画。<br>time.time()で1秒の間隔ごとに更新。<br>![UpdateText2.png](./images/UpdateText2.png)|     
 |[UpdateDrawImage.py](./UpdateDrawImage.py)|"omni.ui.ImageWithProvider"を使用して、ファイルから読み込んだ画像をビューポートに表示します。<br>"omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop"使用時は omni.ui.Imageでの描画がうまく反映されないようなのでそれの変わりです。|   
-|[GetViewportRect.py](./GetViewportRect.py)|ビューポートの矩形情報を取得|     
+|[GetViewportRect.py](./GetViewportRect.py)|Kit.103までの動作。Kit.104では使用できません。<br>ビューポートの矩形情報を取得|     
 |[GetActiveViewportInfo.py](./GetActiveViewportInfo.py)|アクティブなビューポートの情報を取得(omni.kit Viewport API)|     
 |[WorldToScreen.py](./WorldToScreen.py)|ワールド座標位置からスクリーン上の位置に変換(omni.kit Viewport API)|     
 

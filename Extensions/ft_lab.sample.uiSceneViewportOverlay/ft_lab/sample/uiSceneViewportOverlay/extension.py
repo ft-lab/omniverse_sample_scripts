@@ -17,18 +17,8 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     _objects_changed_listener = None
     _camera_path = None
     _stage = None
-
-    # ------------------------------------------------.
-    # Get current camera prim path.
-    # ------------------------------------------------.
-    def getCurrentCameraPrimPath (self):
-        # Kit104 : Get active viewport window.
-        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
-        viewport_api = active_vp_window.viewport_api
-
-        # Get camera path ("/OmniverseKit_Persp" etc).
-        cameraPath = viewport_api.camera_path.pathString
-        return cameraPath
+    _viewport_api = None
+    _active_viewport_name = ""
 
     # ------------------------------------------------.
     # Get View/Projection Matrix of the current camera.
@@ -36,7 +26,7 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     def getCurrentCameraViewProjectionMatrix (self):
         # Get current camera Prim Path.
         if self._camera_path == None:
-            self._camera_path = self.getCurrentCameraPrimPath()
+            self._camera_path = self._viewport_api.camera_path.pathString
 
         if self._stage == None:
             self._stage = omni.usd.get_context().get_stage()
@@ -76,9 +66,12 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
             self._scene_view.model.view = view
             self._scene_view.model.projection = projection
 
+    # ------------------------------------------------.
+    # Notification of object changes.
+    # ------------------------------------------------.
     def _notice_objects_changed (self, notice, stage):
         # Camera changed.
-        self._camera_path = self.getCurrentCameraPrimPath()
+        self._camera_path = self._viewport_api.camera_path.pathString
 
         # Called by Tf.Notice.
         for p in notice.GetChangedInfoOnlyPaths():
@@ -94,15 +87,20 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
         # Get current stage.
         self._stage = omni.usd.get_context().get_stage()
 
-        # Get current camera Prim Path.
-        self._camera_path = self.getCurrentCameraPrimPath()
+        # Kit104 : Get active viewport window.
+        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+        self._viewport_api = active_vp_window.viewport_api
+
+        # Get camera path ("/OmniverseKit_Persp" etc).
+        self._camera_path = self._viewport_api.camera_path.pathString
 
         # Tracking the camera
         self._objects_changed_listener = Tf.Notice.Register(
             Usd.Notice.ObjectsChanged, self._notice_objects_changed, self._stage)
 
-        # Get main window viewport.
-        self._window = omni.ui.Window('Viewport')
+        # Get viewport window.
+        self._active_viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
+        self._window = omni.ui.Window(self._active_viewport_name)
 
         with self._window.frame:
             with omni.ui.VStack():
