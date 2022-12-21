@@ -23,10 +23,22 @@ active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
 viewport_api = active_vp_window.viewport_api
 ```
 
+## ビューポート名を取得
+
+以下でアクティブなビューポートの名前("Viewport", "Viewport 2"など)を取得します。      
+
+```python
+import omni.kit
+
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+print(active_vp_window.name)
+```
+
 ## 取得できるビューポート情報
 
 「[GetActiveViewportInfo.py](GetActiveViewportInfo.py)」にサンプルを上げています。      
 以下のような要素をViewport APIから取得できます。     
+以下のほかにも情報を取得できます。     
 
 * カメラのPrim Path ("/OmniverseKit_Persp"など)
 * レンダリングの解像度
@@ -58,6 +70,30 @@ print(viewport_api.view)
 Viewport APIは以下に詳しい使用例が記載されているので参考になります。     
 https://docs.omniverse.nvidia.com/kit/docs/omni.kit.viewport.docs/latest/viewport_api.html     
 
+## レンダラの種類を取得
+
+レンダラの種類は"hydra_engine"と"render_mode"で判断します。     
+
+```python
+import omni.kit
+
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+viewport_api = active_vp_window.viewport_api
+
+print(viewport_api.hydra_engine)
+print(viewport_api.render_mode)
+```
+
+以下のように取得できました。     
+
+|レンダラの種類|hydra_engine|render_mode|    
+|---|---|---|    
+|RTX-Real-Time|rtx|RaytracedLighting|    
+|RTX-Interactive (Path Tracing)|rtx|PathTracing|    
+|RTX Accurate (Iray)|iray|iray|    
+|Pixar Storm|pxr|HdStormRendererPlugin|    
+
+
 ## ワールド座標からスクリーン座標への変換 (Space Mapping)
 
 「[WorldToScreen.py](WorldToScreen.py)」にサンプルを上げています。      
@@ -75,6 +111,8 @@ sPos, in_viewport = viewport_api.map_ndc_to_texture_pixel(p_screen)
 if in_viewport:
     print(sPos)
 ```
+Viewport APIはビューポートの情報を取得したり計算結果を返す役割になります。     
+描画は"omni.ui.scene"で行う、という役割分担になります。     
 
 ### NDC space
 
@@ -87,6 +125,44 @@ if in_viewport:
 これはViewport APIの"resolution"で取得できる解像度の範囲のピクセル位置を表します。     
 以下は解像度が1280 x 720ピクセルの場合のPixel spaceの例です。     
 ![viewport_104_03](./images/viewport_104_03.jpg)     
+
+## omni.ui.sceneを使用してビューポートにオーバレイ描画
+
+ビューポートへのオーバレイ描画は"omni.ui.scene"を使用します。     
+サンプルExtension"[ft_lab.sample.uiSceneShowPrimName](../../Extensions/ft_lab.sample.uiSceneShowPrimName)"は、選択したPrimの名前をビューポートに表示する簡単な例です。      
+
+```python
+from omni.ui import scene as sc
+import omni.kit
+
+# Get active viewport.
+active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+viewport_api = active_vp_window.viewport_api
+
+# Get main window viewport.
+viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
+self._window = omni.ui.Window(viewport_name)
+
+with self._window.frame:
+    with omni.ui.VStack():
+        # The coordinate system is NDC space.
+        # (X : -1.0 to +1.0, Y : -1.0 to +1.0).
+        self._scene_view = sc.SceneView(aspect_ratio_policy=sc.AspectRatioPolicy.STRETCH)
+
+        with self._scene_view.scene:
+            self._sceneDraw = SceneDraw(self._viewport_api)
+
+            # Update drawing.
+            self._sceneDraw.invalidate()
+```
+として、ビューポートウィンドウにオーバレイするためにSceneViewを作成します。      
+第一引数にViewpoer APIを渡しています。     
+"sc.SceneView"の引数でAspect ratioをSTRETCHとします。     
+これでNDC space(X : -1.0 to +1.0, Y : -1.0 to +1.0)の座標系になります。      
+
+SceneDrawクラスは以下のように記載しました。      
+まだ記載中、、、。      
+
 
 ## キャプチャ
 

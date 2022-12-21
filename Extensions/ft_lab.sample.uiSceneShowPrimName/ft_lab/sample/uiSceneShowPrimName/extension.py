@@ -18,15 +18,15 @@ import omni.kit.viewport.utility
 class SceneDraw (sc.Manipulator):
     _viewport_api = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, viewport_api, **kwargs):
         super().__init__ (**kwargs)
 
-        # Kit104 : Get active viewport window.
-        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+        # Set Viewport API.
+        self._viewport_api = viewport_api
 
-        # Get viewport API.
-        self._viewport_api = active_vp_window.viewport_api
-
+    # -------------------------------------------.
+    # Repaint.
+    # -------------------------------------------.
     def on_build (self):
         stage = omni.usd.get_context().get_stage()
 
@@ -66,13 +66,24 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     _sceneDraw = None
     _time = 0
     _selectedPrimPaths = None
+    _viewport_api = None
+    _subs_viewport_change = None
 
     # ------------------------------------------------.
     # Notification of object changes.
     # ------------------------------------------------.
     def _notice_objects_changed (self, notice, stage):
         # Update drawing.
-        self._sceneDraw.invalidate()
+        if self._sceneDraw != None:
+            self._sceneDraw.invalidate()
+
+    # ------------------------------------------------.
+    # Called when the camera in the viewport is changed.
+    # ------------------------------------------------.
+    def _viewport_changed (self, viewport_api):
+        # Update drawing.
+        if self._sceneDraw != None:
+            self._sceneDraw.invalidate()
 
     # ------------------------------------------------.
     # Update event.
@@ -94,7 +105,8 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
                 self._selectedPrimPaths = paths
 
                 # Update drawing.
-                self._sceneDraw.invalidate()
+                if self._sceneDraw != None:
+                    self._sceneDraw.invalidate()
 
     # ------------------------------------------------.
     # Init window.
@@ -112,8 +124,18 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
 
         self._time = time.time()
 
-        # Get main window viewport.
-        self._window = omni.ui.Window('Viewport')
+        # Kit104 : Get active viewport window.
+        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+
+        # Get viewport API.
+        self._viewport_api = active_vp_window.viewport_api
+
+        # Register a callback to be called when the camera in the viewport is changed.
+        self._subs_viewport_change = self._viewport_api.subscribe_to_view_change(self._viewport_changed)
+
+        # Get viewport window.
+        viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
+        self._window = omni.ui.Window(viewport_name)
 
         with self._window.frame:
             with omni.ui.VStack():
@@ -122,7 +144,9 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
                 self._scene_view = sc.SceneView(aspect_ratio_policy=sc.AspectRatioPolicy.STRETCH)
 
                 with self._scene_view.scene:
-                    self._sceneDraw = SceneDraw()
+                    self._sceneDraw = SceneDraw(self._viewport_api)
+
+                    # Update drawing.
                     self._sceneDraw.invalidate()
 
     # ------------------------------------------------.
@@ -135,6 +159,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
         self._window = None
         self._objects_changed_listener = None
         self._subs_update = None
+        self._subs_viewport_change = None
 
     # ------------------------------------------------.
     # Startup.
