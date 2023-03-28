@@ -21,17 +21,23 @@ def DumpMeshData (prim):
         # Get the number of faces of Mesh.
         facesCou = len(m.GetFaceVertexCountsAttr().Get())
 
+        # Get number of normals.
+        normalsCou = len(m.GetNormalsAttr().Get())
+
         # Total number of vertices.
         versCou = len(m.GetPointsAttr().Get())
 
         # Get UV.
+        uvsCou = 0
         uvlayersCou = 0
         primvars = m.GetPrimvars()
         for primvar in primvars:
-            if str(primvar.GetTypeName().arrayType) == 'float2[]':
+            typeName = str(primvar.GetTypeName().arrayType)
+            if typeName == 'float2[]' or typeName == 'texCoord2f[]':
                 # 'st'
                 pName = primvar.GetPrimvarName()
                 uvlayersCou += 1
+                uvsCou = len(primvar.Get())
 
         # Get Material.
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
@@ -41,6 +47,8 @@ def DumpMeshData (prim):
         print("Show   : " + str(showF))
         print("Points : " + str(versCou))
         print("Faces  : " + str(facesCou))
+        print("uvs    : " + str(uvsCou))
+        print("normals : " + str(normalsCou))
         print("UV sets : " + str(uvlayersCou))
 
         if len(pathList) > 0:
