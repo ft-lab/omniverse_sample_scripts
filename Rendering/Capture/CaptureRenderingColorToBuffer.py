@@ -5,7 +5,7 @@ import ctypes
 
 from omni.kit.viewport.utility import get_active_viewport, capture_viewport_to_buffer
 
-# Referred to https://forums.developer.nvidia.com/t/how-to-get-the-backbuffer-of-omniverses-current-viewport/236825
+# See also : https://forums.developer.nvidia.com/t/how-to-get-the-backbuffer-of-omniverses-current-viewport/236825
 
 # -------------------------------------------.
 # Capture LDR.

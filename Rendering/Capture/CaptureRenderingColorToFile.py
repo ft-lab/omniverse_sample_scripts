@@ -5,7 +5,7 @@ import carb.settings
 
 from omni.kit.viewport.utility import get_active_viewport, capture_viewport_to_file
 
-# Referred to omni.kit.capture.
+# See also : omni.kit.capture.
 
 # -------------------------------------------.
 # Capture LDR/HDR.
