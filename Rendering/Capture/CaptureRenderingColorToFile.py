@@ -27,7 +27,7 @@ async def capture(filePath : str, hdr : bool = False):
     await active_viewport.wait_for_rendered_frames()
 
     # Capturing.
-    cap_obj = capture_viewport_to_file(active_viewport, filePath, hdr)
+    cap_obj = capture_viewport_to_file(active_viewport, filePath)
     await omni.kit.app.get_app_interface().next_update_async()
 
     # awaiting completion.
