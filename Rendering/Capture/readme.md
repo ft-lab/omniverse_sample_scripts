@@ -8,6 +8,7 @@ Kit.104で動作するように確認。
 |サンプル|説明|     
 |---|---|     
 |[CaptureRenderingColorToFile.py](./CaptureRenderingColorToFile.py) |レンダリング画像をファイルに保存。|     
+|[CaptureRenderingColorToBuffer.py](./CaptureRenderingColorToBuffer.py) |レンダリング画像をバッファ(RGBA)で取得し、PILのImageで表示。|     
 
 ## 古い実装
 
