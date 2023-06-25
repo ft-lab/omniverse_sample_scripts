@@ -9,6 +9,7 @@ Kit.104で動作するように確認。
 |---|---|     
 |[CaptureRenderingColorToFile.py](./CaptureRenderingColorToFile.py) |レンダリング画像をファイルに保存。|     
 |[CaptureRenderingColorToBuffer.py](./CaptureRenderingColorToBuffer.py) |レンダリング画像をバッファ(RGBA)で取得し、PILのImageで表示。|     
+|[CaptureCameraRenderingColorToBuffer.py](./CaptureCameraRenderingColorToBuffer.py) |指定のカメラからのレンダリングを行い、PILのImageで表示。<br>レンダリングのViewportは非表示にして、オフラインレンダリングを行う。|     
 
 ## 古い実装
 
