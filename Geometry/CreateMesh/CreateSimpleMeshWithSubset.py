@@ -29,7 +29,7 @@ def createMaterialOmniPBR (materialPrimPath : str, diffuseColor : Gf.Vec3f):
 
     # Connecting Material to Shader.
     mdlOutput = material.CreateSurfaceOutput('mdl')
-    mdlOutput.ConnectToSource(shader, 'out')
+    mdlOutput.ConnectToSource(shader.ConnectableAPI(), 'out')
 
     return materialPrimPath
 
@@ -59,11 +59,14 @@ def createMesh (meshPath : str):
     meshGeom.SetNormalsInterpolation("faceVarying")
 
     # Set uvs.
+    # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
+    primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
+    attr = primvarV.GetAttr()
+
     uvsList = []
     uvsList.extend([(0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)])
     uvsList.extend([(1.0, 1.0), (1.0, 0.0), (2.0, 0.0), (2.0, 1.0)])
-    texCoords = meshGeom.CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
-    texCoords.Set(uvsList)
+    attr.Set(uvsList)
 
     # Subdivision is set to none.
     meshGeom.CreateSubdivisionSchemeAttr().Set("none")

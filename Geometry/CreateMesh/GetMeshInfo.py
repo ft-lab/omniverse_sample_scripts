@@ -28,9 +28,12 @@ def DumpMeshData (prim):
         versCou = len(m.GetPointsAttr().Get())
 
         # Get UV.
+        # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
+        primvarsAPI = UsdGeom.PrimvarsAPI(prim)
+        primvars = primvarsAPI.GetPrimvars()
+
         uvsCou = 0
         uvlayersCou = 0
-        primvars = m.GetPrimvars()
         for primvar in primvars:
             typeName = str(primvar.GetTypeName().arrayType)
             if typeName == 'float2[]' or typeName == 'texCoord2f[]':
@@ -43,18 +46,18 @@ def DumpMeshData (prim):
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
         pathList = rel.GetTargets()
 
-        print("[ " + name + " ]  " + path)
-        print("Show   : " + str(showF))
-        print("Points : " + str(versCou))
-        print("Faces  : " + str(facesCou))
-        print("uvs    : " + str(uvsCou))
-        print("normals : " + str(normalsCou))
-        print("UV sets : " + str(uvlayersCou))
+        print(f"[ {name} ] {path}")
+        print(f"Show   : {showF}")
+        print(f"Points : {versCou}")
+        print(f"Faces  : {facesCou}")
+        print(f"uvs    : {uvsCou}")
+        print(f"normals : {normalsCou}")
+        print(f"UV sets : {uvlayersCou}")
 
         if len(pathList) > 0:
             print("Material : ")
             for mPath in pathList:
-                print("    " + mPath.pathString)
+                print(f"     {mPath.pathString}")
 
         print("")
 

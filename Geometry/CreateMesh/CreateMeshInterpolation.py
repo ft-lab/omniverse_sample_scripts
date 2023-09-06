@@ -40,8 +40,10 @@ def createTestMesh (path : str, interpolation : str = "vertex", pos : Gf.Vec3f =
         meshGeom.SetNormalsInterpolation("vertex")
 
         # Set uvs.
-        texCoords = meshGeom.CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex)
-        texCoords.Set([(0.0, 1.0), (1.0, 1.0), (2.0, 1.0), (0.0, 0.0), (1.0, 0.0), (2.0, 0.0)])
+        # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
+        primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex)
+        attr = primvarV.GetAttr()
+        attr.Set([(0.0, 1.0), (1.0, 1.0), (2.0, 1.0), (0.0, 0.0), (1.0, 0.0), (2.0, 0.0)])
 
     else:
         # Set normals and UVs for each face vertex.
@@ -54,11 +56,13 @@ def createTestMesh (path : str, interpolation : str = "vertex", pos : Gf.Vec3f =
         meshGeom.SetNormalsInterpolation("faceVarying")
 
         # Set uvs.
+        primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
+        attr = primvarV.GetAttr()
+
         uvsList = []
         uvsList.extend([(0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)])
         uvsList.extend([(1.0, 1.0), (1.0, 0.0), (2.0, 0.0), (2.0, 1.0)])
-        texCoords = meshGeom.CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
-        texCoords.Set(uvsList)
+        attr.Set(uvsList)
 
     # Subdivision is set to none.
     meshGeom.CreateSubdivisionSchemeAttr().Set("none")

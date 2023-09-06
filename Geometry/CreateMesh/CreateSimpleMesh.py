@@ -28,10 +28,10 @@ meshGeom.CreateFaceVertexCountsAttr([4])
 meshGeom.CreateFaceVertexIndicesAttr([0, 1, 2, 3])
 
 # Set uvs.
-texCoords = meshGeom.CreatePrimvar("st", 
-        Sdf.ValueTypeNames.TexCoord2fArray, 
-        UsdGeom.Tokens.vertex)
-texCoords.Set([(0, 1), (0, 0), (1, 0), (1, 1)])
+# USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
+primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex)
+attr = primvarV.GetAttr()
+attr.Set([(0, 1), (0, 0), (1, 0), (1, 1)])
 
 # Subdivision is set to none.
 meshGeom.CreateSubdivisionSchemeAttr().Set("none")
