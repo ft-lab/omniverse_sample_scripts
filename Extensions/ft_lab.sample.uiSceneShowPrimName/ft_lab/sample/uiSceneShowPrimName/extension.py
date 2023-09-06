@@ -12,6 +12,8 @@ import time
 # Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
 import omni.kit.viewport.utility
 
+# Reference : https://github.com/NVIDIA-Omniverse/kit-extension-sample-ui-scene
+
 # -------------------------------------.
 # Scene draw process.
 # -------------------------------------.
@@ -58,33 +60,15 @@ class SceneDraw (sc.Manipulator):
 
 # ----------------------------------------------------------.
 class UISceneShowPrimNameExtension(omni.ext.IExt):
-    _window = None
     _scene_view = None
-    _objects_changed_listener = None
-    _subs_update = None
     _stage = None
     _sceneDraw = None
     _time = 0
     _selectedPrimPaths = None
+    _active_vp_window = None
     _viewport_api = None
-    _subs_viewport_change = None
     _active_viewport_name = ""
-
-    # ------------------------------------------------.
-    # Notification of object changes.
-    # ------------------------------------------------.
-    def _notice_objects_changed (self, notice, stage):
-        # Update drawing.
-        if self._sceneDraw != None:
-            self._sceneDraw.invalidate()
-
-    # ------------------------------------------------.
-    # Called when the camera in the viewport is changed.
-    # ------------------------------------------------.
-    def _viewport_changed (self, viewport_api):
-        # Update drawing.
-        if self._sceneDraw != None:
-            self._sceneDraw.invalidate()
+    _ext_id = ""
 
     # ------------------------------------------------.
     # Update event.
@@ -115,83 +99,56 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
             if active_vp_window != None and active_vp_window.name != self._active_viewport_name:
                 # Rebuild overlay.
                 self.term_window()
-                self.init_window()
-
-    # ------------------------------------------------.
-    # Called when the focus of the viewport changes.
-    # The following are not called.
-    # ------------------------------------------------.
-    def _focused_changed (self, focused: bool):
-        pass
-        # If the active viewport name has changed.
-        #active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
-        #if active_vp_window != None and active_vp_window.name != self._active_viewport_name:
-        #    # Rebuild overlay.
-        #    self.term_window()
-        #    self.init_window()
+                self.init_window(self._ext_id)
 
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self):
+    def init_window (self, ext_id : str):
+        self._ext_id = ext_id
+
         # Get current stage.
         self._stage = omni.usd.get_context().get_stage()
-
-        # Notification of object changes.
-        self._objects_changed_listener = Tf.Notice.Register(
-            Usd.Notice.ObjectsChanged, self._notice_objects_changed, self._stage)
-
-        # Register for update event.
-        self._subs_update = omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop(self.on_update)
 
         self._time = time.time()
 
         # Kit104 : Get active viewport window.
-        active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
+        self._active_vp_window = omni.kit.viewport.utility.get_active_viewport_window()
 
         # Get viewport API.
-        self._viewport_api = active_vp_window.viewport_api
-
-        # Called when the focus of the viewport changes.
-        # The following are disabled because they are unstable.
-        #active_vp_window.set_focused_changed_fn(self._focused_changed)
+        self._viewport_api = self._active_vp_window.viewport_api
 
         # Register a callback to be called when the camera in the viewport is changed.
         self._subs_viewport_change = self._viewport_api.subscribe_to_view_change(self._viewport_changed)
 
-        # Get viewport window.
-        self._active_viewport_name = active_vp_window.name   # "Viewport", "Viewport 2" etc.
-        self._window = omni.ui.Window(self._active_viewport_name)
+        with self._active_vp_window.get_frame(ext_id):
+            self._scene_view = sc.SceneView()
 
-        with self._window.frame:
-            with omni.ui.VStack():
-                # The coordinate system is NDC space.
-                # (X : -1.0 to +1.0, Y : -1.0 to +1.0).
-                self._scene_view = sc.SceneView(aspect_ratio_policy=sc.AspectRatioPolicy.STRETCH)
+            # Add the manipulator into the SceneView's scene
+            with self._scene_view.scene:
+                ObjectInfoManipulator(model=ObjectInfoModel())
 
-                with self._scene_view.scene:
-                    self._sceneDraw = SceneDraw(self._viewport_api)
-
-                    # Update drawing.
-                    self._sceneDraw.invalidate()
+            # Register the SceneView with the Viewport to get projection and view updates
+            self._viewport_api.add_scene_view(self._scene_view)
 
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
     def term_window (self):
-        if self._objects_changed_listener:
-            self._objects_changed_listener.Revoke()
+        if self._scene_view:
+            # Empty the SceneView of any elements it may have
+            self._scene_view.scene.clear()
+            # Be a good citizen, and un-register the SceneView from Viewport updates
+            if self._active_vp_window:
+                self._active_vp_window.viewport_api.remove_scene_view(self._scene_view)
 
-        self._window = None
-        self._objects_changed_listener = None
-        self._subs_update = None
-        self._subs_viewport_change = None
+        self._active_vp_window = None
 
     # ------------------------------------------------.
     # Startup.
     # ------------------------------------------------.
     def on_startup(self, ext_id):
-        self.init_window()
+        self.init_window(ext_id)
 
     # ------------------------------------------------.
     # Shutdown.

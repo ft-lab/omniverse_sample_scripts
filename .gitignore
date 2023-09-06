@@ -7,3 +7,6 @@
 
 # Affinity Photo
 *.afphoto
+
+# Others
+InternalExtensions/*

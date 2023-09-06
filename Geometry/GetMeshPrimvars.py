@@ -13,8 +13,10 @@ for path in paths:
     if prim.GetTypeName() != "Mesh": 
         continue
 
-    m = UsdGeom.Mesh(prim)
-    primvars = m.GetPrimvars()
+    # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
+    primvarsAPI = UsdGeom.PrimvarsAPI(prim)
+
+    primvars = 	primvarsAPI.GetPrimvars()
     if len(primvars) > 0:
         print("[" + prim.GetPath().pathString + "]")
         for primvar in primvars:

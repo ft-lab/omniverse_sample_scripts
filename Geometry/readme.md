@@ -2,6 +2,10 @@
 
 ジオメトリを作成するためのサンプルです。     
 
+## primvarの仕様変更
+
+USD 20.08からUSD 22.11にかけて、primvarの仕様が変更されました。     
+「[UsdGeom.PrimvarsAPI](https://openusd.org/release/api/class_usd_geom_primvars_a_p_i.html)」を使用してprimvarを操作する必要があります。    
      
 ## Samples
 

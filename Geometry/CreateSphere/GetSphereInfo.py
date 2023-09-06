@@ -31,15 +31,14 @@ def DumpSphereData (prim):
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
         pathList = rel.GetTargets()
 
-        print("[ " + name + " ]  " + path)
-        print("Show    : " + str(showF))
-        print ("Radius : " + str(r * scale[0]) + " , " + str(r * scale[1]) + " , " + str(r * scale[2]))
+        print(f"[ {name} ] {path}")
+        print(f"Show   : {showF}")
+        print(f"Radius : {r * scale[0]} , {r * scale[1]} , {r * scale[2]}")
 
         if len(pathList) > 0:
             print("Material : ")
             for mPath in pathList:
-                print("    " + mPath.pathString)
-
+                print(f"     {mPath.pathString}")
         print("")
 
 # ---------------------------------------.

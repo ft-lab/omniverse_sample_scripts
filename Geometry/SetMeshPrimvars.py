@@ -15,25 +15,31 @@ for path in paths:
 
     m = UsdGeom.Mesh(prim)
 
-    # Set primvar(float).
-    primvar = m.CreatePrimvar("dat1", Sdf.ValueTypeNames.Float)
-    primvar.Set(2.2)
+    # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
 
-    if m.HasPrimvar("dat1"):    # Check primvar.
+    # Set primvar(float).
+    primvarV = UsdGeom.PrimvarsAPI(prim).CreatePrimvar("dat1", Sdf.ValueTypeNames.Float)
+    attr = primvarV.GetAttr()
+    attr.Set((2.2))
+
+    if UsdGeom.primvarV(prim).HasPrimvar("dat1"):    # Check primvar.
         # Remove primvar.
-        prim.RemoveProperty("primvars:dat1")
+        UsdGeom.primvarV(prim).RemovePrimvar("dat1")
 
     # Set primvar (float2).
     # If there is already a primvar with the same name but a different type,
     # it must be removed using RemoveProperty.
-    primvar = m.CreatePrimvar("dat1", Sdf.ValueTypeNames.Float2)
-    primvar.Set((1.0, 2.0))
+    primvarV = UsdGeom.PrimvarsAPI(prim).CreatePrimvar("dat1", Sdf.ValueTypeNames.Float2)
+    attr = primvarV.GetAttr()
+    attr.Set((1.0, 2.0))
 
     # Set primvar (color).
-    primvar = m.CreatePrimvar("dat2", Sdf.ValueTypeNames.Color3f)
-    primvar.Set((1.0, 0.5, 0.2))
+    primvarV = UsdGeom.PrimvarsAPI(prim).CreatePrimvar("dat2", Sdf.ValueTypeNames.Color3f)
+    attr = primvarV.GetAttr()
+    attr.Set((1.0, 0.5, 0.2))
 
     # Set primvar (float3 array)
-    primvar = m.CreatePrimvar("dat3", Sdf.ValueTypeNames.Float3Array)
-    primvar.Set([(0.1, 0.2, 0.5), (0.4, 0.05, 0.0), (0.1, 0.4, 0.05)])
+    primvarV = UsdGeom.PrimvarsAPI(prim).CreatePrimvar("dat3", Sdf.ValueTypeNames.Float3Array)
+    attr = primvarV.GetAttr()
+    attr.Set([(0.1, 0.2, 0.5), (0.4, 0.05, 0.0), (0.1, 0.4, 0.05)])
 
