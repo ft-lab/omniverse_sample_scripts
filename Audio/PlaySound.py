@@ -26,7 +26,7 @@ class AudioPlayer:
         if success:
             print("load success!")
             soundLength = self._player.get_sound_length()
-            print("sound length : " + str(soundLength) + " sec")
+            print(f"sound length : {soundLength} sec")
         else:
             print("load failed...")
         self._loadBusy = False

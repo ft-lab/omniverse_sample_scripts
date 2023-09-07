@@ -8,4 +8,4 @@ stage = omni.usd.get_context().get_stage()
 # Get current timeCode.
 time_code = omni.timeline.get_timeline_interface().get_current_time() * stage.GetTimeCodesPerSecond()
 
-print("Current timeCode : " + str(time_code))
+print(f"Current timeCode : {time_code}")

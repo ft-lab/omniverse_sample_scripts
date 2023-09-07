@@ -4,9 +4,9 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 stage = omni.usd.get_context().get_stage()
 
 # Get TimeCode.
-print("Start TimeCode : " + str(stage.GetStartTimeCode()))
-print("End TimeCode : " + str(stage.GetEndTimeCode()))
+print(f"Start TimeCode : {stage.GetStartTimeCode()}")
+print(f"End TimeCode : {stage.GetEndTimeCode()}")
 
 # Get frame rate.
-print("TimeCodesPerSecond : " + str(stage.GetTimeCodesPerSecond()))
+print(f"TimeCodesPerSecond : {stage.GetTimeCodesPerSecond()}")
 

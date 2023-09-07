@@ -36,20 +36,20 @@ if cameraPrim.IsValid():
     print("World to camera matrix : " + str(cameraV.transform))
 
     viewMatrix = cameraV.frustum.ComputeViewMatrix()
-    print("View matrix : " + str(viewMatrix))
+    print("View matrix : {viewMatrix}")
 
     viewInv = viewMatrix.GetInverse()
 
     # Camera position(World).
     cameraPos = viewInv.Transform(Gf.Vec3f(0, 0, 0))
-    print("Camera position(World) : " + str(cameraPos))
+    print(f"Camera position(World) : {cameraPos}")
 
     # Camera vector(World).
     cameraVector = viewInv.TransformDir(Gf.Vec3f(0, 0, -1))
-    print("Camera vector(World) : " + str(cameraVector))
+    print(f"Camera vector(World) : {cameraVector}")
 
     projectionMatrix = cameraV.frustum.ComputeProjectionMatrix()
-    print("Projection matrix : " + str(projectionMatrix))
+    print(f"Projection matrix : {projectionMatrix}")
 
     #cv = CameraUtil.ScreenWindowParameters(cameraV)
     #print(cv.screenWindow)

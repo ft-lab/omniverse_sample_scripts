@@ -23,5 +23,5 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
 
     if checkLight(prim):
-        print("[ " + prim.GetPath().pathString + " ] : " + prim.GetTypeName())
+        print(f"[ {prim.GetPath().pathString} ] : {prim.GetTypeName()}")
 
