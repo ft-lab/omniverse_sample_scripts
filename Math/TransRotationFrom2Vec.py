@@ -4,8 +4,8 @@ from pxr import Usd, UsdGeom, UsdShade, Sdf, Gf, Tf
 dirA = Gf.Vec3f(1.0, 0.0, 0.0).GetNormalized()
 dirB = Gf.Vec3f(-0.2, 12.0, 15.0).GetNormalized()
 
-print("dirA : " + str(dirA))
-print("dirB : " + str(dirB))
+print(f"dirA : {dirA}")
+print(f"dirB : {dirB}")
 
 # Calculate the rotation to transform dirA to dirB.
 rot = Gf.Rotation().SetRotateInto(Gf.Vec3d(dirA), Gf.Vec3d(dirB))
@@ -14,4 +14,4 @@ rot = Gf.Rotation().SetRotateInto(Gf.Vec3d(dirA), Gf.Vec3d(dirB))
 # v will have the same result as dirB.
 m = Gf.Matrix4f(rot, Gf.Vec3f(0, 0, 0))
 v = m.Transform(dirA)
-print("dirA * m = " + str(v))
+print(f"dirA * m = {v}")

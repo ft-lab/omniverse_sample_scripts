@@ -56,6 +56,6 @@ col_linear = conv_sRGB_to_RGB(col)
 # RGB to sRGB (linear to sRGB).
 col2 = conv_RGB_to_sRGB(col_linear)
 
-print("col : " + str(col))
-print("col_linear : " + str(col_linear))
-print("col2 : " + str(col2))
+print(f"col : {col}")
+print(f"col_linear : {col_linear}")
+print(f"col2 : {col2}")

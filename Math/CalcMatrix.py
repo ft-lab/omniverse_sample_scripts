@@ -11,10 +11,8 @@ m1 = Gf.Matrix4f(rotV, transV)
 print(m1)
 
 # Get data.
-print (str(m1[0,0]) + " , " + str(m1[0,1]) + " , " + str(m1[0,2]) + " , " + str(m1[0,3]))
-print (str(m1[1,0]) + " , " + str(m1[1,1]) + " , " + str(m1[1,2]) + " , " + str(m1[1,3]))
-print (str(m1[2,0]) + " , " + str(m1[2,1]) + " , " + str(m1[2,2]) + " , " + str(m1[2,3]))
-print (str(m1[3,0]) + " , " + str(m1[3,1]) + " , " + str(m1[3,2]) + " , " + str(m1[3,3]))
+for i in range(4):
+    print(f"{m1[i,0]} , {m1[i,1]} , {m1[i,2]} , {m1[i,3]}")
 
 # Set identity.
 m1.SetIdentity()
@@ -43,9 +41,9 @@ m5 = Gf.Matrix4f(rotV, transV)
 
 v1 = Gf.Vec3f(1.2, 1.0, 2.5)
 v2 = m5.Transform(v1)
-print(str(v2))
+print(f"{v2}")
 
 # vector3 * matrix4 (Ignore position).
 v1 = Gf.Vec3f(1.2, 1.0, 2.5)
 v2 = m5.TransformDir(v1)
-print(str(v2))
+print(f"{v2}")
