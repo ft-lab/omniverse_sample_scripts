@@ -21,9 +21,11 @@ for path in paths:
         translate, rotation, scale = UsdSkel.DecomposeTransform(globalPose)
 
         # Conv Quat to eular angles.
-        rV = Gf.Rotation(rotation).Decompose(Gf.Vec3d(1, 0, 0), Gf.Vec3d(0, 1, 0), Gf.Vec3d(0, 0, 1))
+        # Rotate XYZ.
+        rV = Gf.Rotation(rotation).Decompose(Gf.Vec3d(0, 0, 1), Gf.Vec3d(0, 1, 0), Gf.Vec3d(1, 0, 0))
+        rV = Gf.Vec3d(rV[2], rV[1], rV[0])
 
-        print("==> translate : " + str(translate))
-        print("==> rotation : " + str(rV))
-        print("==> scale : " + str(scale))
+        print(f"==> translate : {translate}")
+        print(f"==> rotation : {rV}")
+        print(f"==> scale : {scale}")
 

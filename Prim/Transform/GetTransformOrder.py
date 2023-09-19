@@ -11,11 +11,11 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         # Order of Transform elements.
         transformOrder = prim.GetAttribute('xformOpOrder').Get()
         for sV in transformOrder:
-            print("  " + str(sV))
+            print(f"  {sV}")
 
 

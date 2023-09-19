@@ -28,7 +28,7 @@ def _setRotate (prim : Usd.Prim, rV : Gf.Vec3f):
         rotX = Gf.Rotation(Gf.Vec3d(1, 0, 0), rV[0])
         rotY = Gf.Rotation(Gf.Vec3d(0, 1, 0), rV[1])
         rotZ = Gf.Rotation(Gf.Vec3d(0, 0, 1), rV[2])
-        rotXYZ = rotZ * rotY * rotX
+        rotXYZ = rotX * rotY * rotZ
         if type(tV.Get()) == Gf.Quatd:
             tV.Set(rotXYZ.GetQuat())
         elif type(tV.Get()) == Gf.Quatf:
@@ -55,7 +55,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         rV = Gf.Vec3f(10.0, 25.0, 12.0)
         _setRotate(prim, rV)

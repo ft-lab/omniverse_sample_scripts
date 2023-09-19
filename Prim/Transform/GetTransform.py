@@ -17,12 +17,12 @@ for path in paths:
         transformOrder = prim.GetAttribute('xformOpOrder')
 
         if transformOrder.IsValid() and transformOrder.Get() != None:
-            print('    TransformOrder : ' + str(transformOrder.Get()))
+            print(f"    TransformOrder : {transformOrder.Get()}")
 
             for transV in transformOrder.Get():
                 # 'xformOp:scale', 'xformOp:rotateXYZ', 'xformOp:translate', etc.
                 tV = prim.GetAttribute(transV)
 
                 if tV.IsValid():
-                    print("    " + transV + " ( " + str(tV.GetTypeName()) + " ) : " + str(tV.Get()))
+                    print(f"    {transV} ( {tV.GetTypeName()} ) : {tV.Get()}")
 

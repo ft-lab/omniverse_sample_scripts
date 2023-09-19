@@ -15,7 +15,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         # Get transform.
         # However, the type that can be obtained here is different from the actual Type.
@@ -24,26 +24,26 @@ for path in paths:
 
         print("** GetXformVectors **")
 
-        print("translation : " + str(type(translation)) + " " + str(translation))
-        print("rotation : " + str(type(rotation)) + " " + str(rotation))
-        print("scale : " + str(type(scale)) + " " + str(scale))
-        print("pivot : " + str(type(pivot)) + " " + str(pivot))
-        print("rotOrder : " + str(type(rotOrder)) + " " + str(rotOrder))
+        print(f"translation : {type(translation)} {translation}")
+        print(f"rotation : {type(rotation)} {rotation}")
+        print(f"scale : {type(scale)} {scale}")
+        print(f"pivot : {type(pivot)} {pivot}")
+        print(f"rotOrder : {type(rotOrder)} {rotOrder}")
 
         print("** prim.GetAttribute **")
 
         trans = prim.GetAttribute("xformOp:translate").Get()
-        print("trans : " + str(type(trans)) + " " + str(trans))
+        print(f"trans : {type(trans)} {trans}")
 
         # Convert rotOrder to "xformOp:rotateXYZ" etc.
         t = xformAPI.ConvertRotationOrderToOpType(rotOrder)
         rotateAttrName = "xformOp:" + UsdGeom.XformOp.GetOpTypeToken(t)
 
         rotate = prim.GetAttribute(rotateAttrName).Get()
-        print("rotate (" + rotateAttrName + ") : " + str(type(rotate)) + " " + str(rotate))
+        print(f"rotate ({rotateAttrName}) : {type(rotate)} {rotate}")
 
         scale = prim.GetAttribute("xformOp:scale").Get()
-        print("scale : " + str(type(scale)) + " " + str(scale))
+        print(f"scale : {type(scale)} {scale}")
         
         pivot = prim.GetAttribute("xformOp:translate:pivot").Get()
-        print("pivot : " + str(type(pivot)) + " " + str(pivot))
+        print(f"pivot : {type(pivot)} {pivot}")

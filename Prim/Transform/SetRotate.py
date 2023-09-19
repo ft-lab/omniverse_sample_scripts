@@ -42,7 +42,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         rV = Gf.Vec3f(10.0, 25.0, 12.0)
         _setRotate(prim, rV)

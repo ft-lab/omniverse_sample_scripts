@@ -44,7 +44,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         pV = Gf.Vec3f(10.0, 20.0, 0.0)
         _setPivot(prim, pV)

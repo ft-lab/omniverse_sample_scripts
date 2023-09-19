@@ -33,7 +33,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f"[ {prim.GetName()} ]")
 
         sV = Gf.Vec3f(1.1, 1.2, 1.3)
         _setScale(prim, sV)
