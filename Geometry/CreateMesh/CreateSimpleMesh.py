@@ -33,6 +33,13 @@ primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.
 attr = primvarV.GetAttr()
 attr.Set([(0, 1), (0, 0), (1, 0), (1, 1)])
 
+# Compute extent.
+boundable = UsdGeom.Boundable(meshGeom.GetPrim())
+extent = boundable.ComputeExtent(Usd.TimeCode(0))
+
+# Set Extent.
+meshGeom.CreateExtentAttr(extent)
+
 # Subdivision is set to none.
 meshGeom.CreateSubdivisionSchemeAttr().Set("none")
 

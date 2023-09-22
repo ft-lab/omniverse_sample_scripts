@@ -16,3 +16,9 @@ light.CreateColorAttr(Gf.Vec3f(1.0, 0.5, 0.2))
 # Set Exposure.
 light.CreateExposureAttr(0.0)
 
+# Compute extent.
+boundable = UsdGeom.Boundable(light.GetPrim())
+extent = boundable.ComputeExtent(Usd.TimeCode(0))
+
+# Set Extent.
+light.CreateExtentAttr(extent)

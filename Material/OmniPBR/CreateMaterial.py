@@ -11,6 +11,8 @@ spherePrim = stage.GetPrimAtPath(spherePath)
 spherePrim.CreateAttribute('refinementEnableOverride', Sdf.ValueTypeNames.Bool).Set(True)
 spherePrim.CreateAttribute('refinementLevel', Sdf.ValueTypeNames.Int).Set(2)
 
+prim = sphereGeom.GetPrim()
+
 # Create material scope.
 materialScopePath = '/World/Materials'
 scopePrim = stage.GetPrimAtPath(materialScopePath)
@@ -40,5 +42,7 @@ mdlOutput = material.CreateSurfaceOutput('mdl')
 mdlOutput.ConnectToSource(shader, 'out')
 
 # Bind material.
-UsdShade.MaterialBindingAPI(spherePrim).Bind(material)
+bindAPI = UsdShade.MaterialBindingAPI(prim)
+bindAPI.Bind(material)
+bindAPI.Apply(prim)
 

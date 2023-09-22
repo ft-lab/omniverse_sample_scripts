@@ -23,3 +23,10 @@ light.CreateExposureAttr(0.0)
 shapingAPI = UsdLux.ShapingAPI(light)
 shapingAPI.CreateShapingConeAngleAttr(180.0)
 shapingAPI.Apply(light.GetPrim())  # Register ShapingAPI as a schema in prim.
+
+# Compute extent.
+boundable = UsdGeom.Boundable(light.GetPrim())
+extent = boundable.ComputeExtent(Usd.TimeCode(0))
+
+# Set Extent.
+light.CreateExtentAttr(extent)
