@@ -16,7 +16,9 @@ Physicsを使用する場合の説明がされています。
 
 デフォルトでは、Physicsの剛体を配置してアニメーション再生すると重いです。      
 これは、アニメーション時にフレームごとにUSDを更新する書き込みが走るのが原因になります。     
-Extensionの「omni.physx.flatcache」をExtensionsウィンドウで検索し有効にすることで、この速度低下は解決します。      
+USD Composer 2023.2.1の場合は、Viewportの設定から Show By Type - Physics - Simulation Settings を選択。      
+Simulation Settingsウィンドウで"Fabric GPU"を選択します。     
+![physics_settings.jpg](images/physics_settings.jpg)      
 
 ## サンプル
 
