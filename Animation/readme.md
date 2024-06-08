@@ -20,8 +20,9 @@ BlendShapeは人の顔の表情のような、ボーンでの変形が難しい�
 |[GetTimeCode.py](./GetTimeCode.py)|現在のStageの開始/終了TimeCode、TimeCodesPerSecond(フレームレート)を取得。|     
 |[GetCurrentTimeCode.py](./GetCurrentTimeCode.py)|現在のタイムコード（フレーム位置）を取得。|     
 |[TransformAnimation.py](./TransformAnimation.py)|Translate, Rotate, Scaleのキーフレーム指定|     
+|[SkeletonSkin.py](./SkeletonSkin.py)|MeshへのSkeleton、Skinの割り当て|     
 
-## Usd.TimeCode(v)とUsd.TimeCode.Default()の違い
+## Usd.TimeCode(value)とUsd.TimeCode.Default()の違い
 
 キーフレームを割り当てる場合は以下のように指定します。  
 
@@ -60,4 +61,6 @@ xformAPI.SetTranslate(Gf.Vec3d(0, 0, 0), Usd.TimeCode.Default())
   double3 xformOp:translate = (0, 0, 0)
 ```
 "xformOp:translate"となっています。  
+この"TimeCode.Default()"を使用した場合は対象primそのものが持つtransform要素の指定になります(アニメーションをPlayしないときの姿勢)。  
+
 
