@@ -80,10 +80,6 @@ def createMeshWithSkeletonSkin(primPath : str, height : float = 100.0, divCou : 
     meshGeom = createMesh(f"{primPath}/mesh", height, divCou)
     prim = meshGeom.GetPrim()
 
-    # Single Sided (Omniverse only).
-    singleSidedAttr = prim.CreateAttribute("singleSided", Sdf.ValueTypeNames.Bool)
-    singleSidedAttr.Set(True)
-
     # -----------------------------------------------------------.
     # Create joints.
     # joints = ["root", "root/bone1", "root/bone1/bone2", "root/bone1/bone2/bone3"]
