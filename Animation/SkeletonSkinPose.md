@@ -2,6 +2,8 @@
 
 参考のソースコード : [SkeletonSkinPose.py](./SkeletonSkinPose.py)
 
+「[スケルトンの構造とスキン](./SkeletonSkin.md)」の続きです。  
+
 このサンプルソースコードでは、"createMeshWithSkeletonSkin"でSkeletonとSkinを作成するまでは「[SkeletonSkin](./SkeletonSkin.py)」と同じ内容です。   
 その後でSkelAnimationを作成して、ポーズを与えています。  
 
