@@ -27,6 +27,6 @@ BlendShapeは人の顔の表情のような、ボーンでの変形が難しい�
 
 * [Usd.TimeCode(value)とUsd.TimeCode.Default()の違い](./UsdTimeCode.md)
 * [スケルトンの構造とスキン](./SkeletonSkin.md)
-
+* [SkelAnimationでポーズを与える](./SkeletonSkinPose.md)
 
 

@@ -210,50 +210,34 @@ print(jointNamesList)
 # Rest transform list.
 # Get the local coordinate values ​​for Translation, Rotation, and Scale from here.
 translationList = []
-rotationXYZList = []
+rotationList = []
 scaleList = []
 restTransforms = skeleton.GetRestTransformsAttr().Get()
 for m in restTransforms:
     # Decompose Transform into Translate, Rotate, and Scale.
     translation, rotation, scale = UsdSkel.DecomposeTransform(m)
 
-    # Quaternion to RotateXYZ.
-    rot = convertQuatFToRotationXYZ(rotation)
+    translationList.append(Gf.Vec3f(translation))
+    rotationList.append(Gf.Quatf(rotation))
+    scaleList.append(Gf.Vec3f(scale))
 
-    translationList.append(translation)
-    rotationXYZList.append(rot)
-    scaleList.append(scale)
+rotationList[1] = convertRotationXYZToQuatF(Gf.Vec3f(-30.0, 0.0, 0.0))
+rotationList[2] = convertRotationXYZToQuatF(Gf.Vec3f(-20.0, 0.0, 0.0))
 
 # Store a list of Joint names in SkelAnimation.
 jointsAttr = skelAnim.CreateJointsAttr()
 jointsAttr.Set(jointNamesList)
-
-# Store Translation, Rotation, Scale in SkelAnimation.
-jointsTranslation = []
-jointsRotationXYZ = []
-jointsScale       = []
-if len(jointNamesList) == len(translationList):
-    for i in range(len(jointNamesList)):
-        jointsTranslation.append(Gf.Vec3f(translationList[i]))
-        jointsScale.append(Gf.Vec3f(scaleList[i]))
-
-        # RotationXYZ to Quaternion.
-        q = convertRotationXYZToQuatF(rotationXYZList[i])
-        jointsRotationXYZ.append(q)
-
-jointsRotationXYZ[1] = convertRotationXYZToQuatF(Gf.Vec3f(-30.0, 0.0, 0.0))
-jointsRotationXYZ[2] = convertRotationXYZToQuatF(Gf.Vec3f(-20.0, 0.0, 0.0))
 
 # Clear cache.
 xformCache = UsdGeom.XformCache()
 xformCache.Clear()
 
 attr = skelAnim.CreateTranslationsAttr()
-attr.Set(jointsTranslation)
+attr.Set(translationList)
 
 attr = skelAnim.GetRotationsAttr()
-attr.Set(jointsRotationXYZ)
+attr.Set(rotationList)
 
 attr = skelAnim.CreateScalesAttr()
-attr.Set(jointsScale)
+attr.Set(scaleList)
 
