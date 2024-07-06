@@ -235,7 +235,7 @@ xformCache.Clear()
 attr = skelAnim.CreateTranslationsAttr()
 attr.Set(translationList)
 
-attr = skelAnim.GetRotationsAttr()
+attr = skelAnim.CreateRotationsAttr()
 attr.Set(rotationList)
 
 attr = skelAnim.CreateScalesAttr()
