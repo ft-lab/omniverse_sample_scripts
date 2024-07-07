@@ -5,7 +5,7 @@
 「[スケルトンの構造とスキン](./SkeletonSkin.md)」の続きです。  
 
 このサンプルソースコードでは、"createMeshWithSkeletonSkin"でSkeletonとSkinを作成するまでは「[SkeletonSkin](./SkeletonSkin.py)」と同じ内容です。   
-その後でSkelAnimationを作成して、ポーズを与えています。  
+その後でSkelAnimationを作成してポーズを与えています。  
 
 ## SkelAnimationの作成
 

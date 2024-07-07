@@ -21,7 +21,9 @@ BlendShapeは人の顔の表情のような、ボーンでの変形が難しい�
 |[GetCurrentTimeCode.py](./GetCurrentTimeCode.py)|現在のタイムコード（フレーム位置）を取得。|     
 |[TransformAnimation.py](./TransformAnimation.py)|Translate, Rotate, Scaleのキーフレーム指定|     
 |[SkeletonSkin.py](./SkeletonSkin.py)|MeshへのSkeleton、Skinの割り当て|     
+|[SkeletonSkinBlendShape.py](./SkeletonSkinBlendShape.py)|MeshへのBlendShapeの割り当て|     
 |[SkeletonSkinPose.py](./SkeletonSkinPose.py)|SkelAnimation : Skeletonのポーズを指定|     
+
 
 ## Tips
 
