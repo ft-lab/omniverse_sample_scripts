@@ -10,7 +10,7 @@ meshGeom.CreatePointsAttr([(-10, 0, -10), (-10, 0, 10), (10, 0, 10), (10, 0, -10
 meshGeom.CreateNormalsAttr([(0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)])
 meshGeom.CreateFaceVertexCountsAttr([4])
 meshGeom.CreateFaceVertexIndicesAttr([0, 1, 2, 3])
-texCoords = meshGeom.CreatePrimvar("st", 
+texCoords = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", 
         Sdf.ValueTypeNames.TexCoord2fArray, 
         UsdGeom.Tokens.varying)
 texCoords.Set([(0, 1), (0, 0), (1, 0), (1, 1)])

@@ -39,7 +39,7 @@ shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Se
 
 # Connecting Material to Shader.
 mdlOutput = material.CreateSurfaceOutput('mdl')
-mdlOutput.ConnectToSource(shader, 'out')
+mdlOutput.ConnectToSource(shader.ConnectableAPI(), 'out')
 
 # Bind material.
 bindAPI = UsdShade.MaterialBindingAPI(prim)

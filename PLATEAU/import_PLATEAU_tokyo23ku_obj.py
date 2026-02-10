@@ -202,7 +202,7 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", te
 
     # Connecting Material to Shader.
     mdlOutput = material.CreateSurfaceOutput('mdl')
-    mdlOutput.ConnectToSource(shader, 'out')
+    mdlOutput.ConnectToSource(shader.ConnectableAPI(), 'out')
 
     # Bind material.
     if targetPrimPath != "":

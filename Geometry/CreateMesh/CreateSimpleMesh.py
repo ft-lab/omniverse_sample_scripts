@@ -12,7 +12,7 @@ if defaultPrim.IsValid():
     rootPath = defaultPrim.GetPath().pathString
 
 # Create mesh.
-meshGeom = UsdGeom.Mesh.Define(stage, rootPath + "/mesh")
+meshGeom = UsdGeom.Mesh.Define(stage, f"{rootPath}/mesh")
 
 # Set vertices.
 meshGeom.CreatePointsAttr([(-10, 0, -10), (-10, 0, 10), (10, 0, 10), (10, 0, -10)])

@@ -4,9 +4,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 # Dump mesh data.
 # ---------------------------------------.
 def DumpMeshData (prim):
-    typeName = prim.GetTypeName()
-
-    if typeName == 'Mesh':
+    if prim.IsA(UsdGeom.Mesh):
         m = UsdGeom.Mesh(prim)
 
         # Get prim name.
@@ -16,13 +14,13 @@ def DumpMeshData (prim):
         path = prim.GetPath().pathString
 
         # Get show/hide.
-        showF = (m.ComputeVisibility() == 'inherited')
+        showF = (m.ComputeVisibility() == "inherited")
 
         # Get the number of faces of Mesh.
         facesCou = len(m.GetFaceVertexCountsAttr().Get())
 
         # Get number of normals.
-        normalsCou = len(m.GetNormalsAttr().Get())
+        normalsCou = len(m.GetNormalsAttr().Get()) if m.GetNormalsAttr() and m.GetNormalsAttr().Get() else 0
 
         # Total number of vertices.
         versCou = len(m.GetPointsAttr().Get())
@@ -36,11 +34,21 @@ def DumpMeshData (prim):
         uvlayersCou = 0
         for primvar in primvars:
             typeName = str(primvar.GetTypeName().arrayType)
-            if typeName == 'float2[]' or typeName == 'texCoord2f[]':
+            if typeName == "float2[]" or typeName == "texCoord2f[]":
                 # 'st'
                 pName = primvar.GetPrimvarName()
                 uvlayersCou += 1
                 uvsCou = len(primvar.Get())
+
+        if normalsCou == 0:
+            for primvar in primvars:
+                typeName = str(primvar.GetTypeName().arrayType)
+                name = primvar.GetName()
+                if name == "primvars:normals" and typeName == "normal3f[]":
+                    # 'normals'
+                    pName = primvar.GetPrimvarName()
+                    normalsCou = len(primvar.Get())
+                    break
 
         # Get Material.
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
