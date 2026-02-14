@@ -1,11 +1,6 @@
-import omni.kit
+import omni.kit.app
 
-# Get Omniverse Kit version.
-kitVersion = omni.kit.app.get_app_interface().get_build_version()
-
-# 102.1.2+release.xxxx
-print("Kit Version : " + str(kitVersion))
-
-# 102.1.2
-print(str("   ") + kitVersion.split("+")[0])
-
+# e.g. 109.0.2
+kit_version = omni.kit.app.get_app().get_kit_version()
+kit_version = kit_version.split("+")[0] if "+" in kit_version else kit_version
+print(f"Kit Version = {kit_version}")

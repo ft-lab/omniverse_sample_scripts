@@ -141,9 +141,12 @@ def setBlendShape(primPath : str):
     blendShapesAttr = skelAnim.CreateBlendShapesAttr()
     blendShapesAttr.Set(blendShapesName)
 
+    # Specify the weight value of the BlendShape.
     blendShapesList = [1.0, 0.0]
     attr = skelAnim.CreateBlendShapeWeightsAttr()
     attr.Set(blendShapesList)
+
+# ----------------------------------------------------------.
 
 # Create a Plane mesh with Skeleton structure.
 createPlaneMeshWithSkeletonSkin("/World/plane", 100.0)
