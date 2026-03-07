@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdGeom, UsdShade
 
 # ---------------------------------------.
 # Dump mesh data.
@@ -14,13 +14,14 @@ def DumpMeshData (prim):
         path = prim.GetPath().pathString
 
         # Get show/hide.
-        showF = (m.ComputeVisibility() == "inherited")
+        showF = (m.ComputeVisibility() == UsdGeom.Tokens.inherited)
 
         # Get the number of faces of Mesh.
         facesCou = len(m.GetFaceVertexCountsAttr().Get())
 
         # Get number of normals.
         normalsCou = len(m.GetNormalsAttr().Get()) if m.GetNormalsAttr() and m.GetNormalsAttr().Get() else 0
+        normalsInterpolation = m.GetNormalsInterpolation()
 
         # Total number of vertices.
         versCou = len(m.GetPointsAttr().Get())
@@ -28,27 +29,22 @@ def DumpMeshData (prim):
         # Get UV.
         # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
         primvarsAPI = UsdGeom.PrimvarsAPI(prim)
-        primvars = primvarsAPI.GetPrimvars()
-
         uvsCou = 0
-        uvlayersCou = 0
-        for primvar in primvars:
+        uvInterpolation = ""
+        primvar = primvarsAPI.GetPrimvar("st")
+        if primvar.IsDefined():
             typeName = str(primvar.GetTypeName().arrayType)
             if typeName == "float2[]" or typeName == "texCoord2f[]":
-                # 'st'
-                pName = primvar.GetPrimvarName()
-                uvlayersCou += 1
-                uvsCou = len(primvar.Get())
+                uvsCou = len(primvar.Get()) if not primvar.IsIndexed() else len(primvar.GetIndices())
+                uvInterpolation = primvar.GetInterpolation()
 
         if normalsCou == 0:
-            for primvar in primvars:
+            primvar = primvarsAPI.GetPrimvar(UsdGeom.Tokens.normals)
+            if primvar.IsDefined():
                 typeName = str(primvar.GetTypeName().arrayType)
-                name = primvar.GetName()
-                if name == "primvars:normals" and typeName == "normal3f[]":
-                    # 'normals'
-                    pName = primvar.GetPrimvarName()
-                    normalsCou = len(primvar.Get())
-                    break
+                if typeName == "normal3f[]":
+                    normalsCou = len(primvar.Get()) if not primvar.IsIndexed() else len(primvar.GetIndices())
+                    normalsInterpolation = primvar.GetInterpolation()
 
         # Get Material.
         rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
@@ -58,9 +54,10 @@ def DumpMeshData (prim):
         print(f"Show   : {showF}")
         print(f"Points : {versCou}")
         print(f"Faces  : {facesCou}")
-        print(f"uvs    : {uvsCou}")
         print(f"normals : {normalsCou}")
-        print(f"UV sets : {uvlayersCou}")
+        print(f"normals interpolation : {normalsInterpolation}")
+        print(f"uvs    : {uvsCou}")
+        print(f"uvs interpolation : {uvInterpolation}")
 
         if len(pathList) > 0:
             print("Material : ")

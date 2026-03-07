@@ -9,5 +9,7 @@ PrimのGetVariant( https://graphics.pixar.com/usd/release/api/class_usd_prim.htm
 |ファイル|説明|    
 |---|---|    
 |[Variant_01.py](./Variant_01.py)|Variantを使ったPrimの切り替えのテスト|    
-
+|[GetVariant.py](./GetVariant.py)|選択primでのVariantSet名、Variant名、Variantの選択状態を取得する|    
+|[RemoveVariantSet.py](./RemoveVariantSet.py)|指定のprimの指定のVariantSetを削除|
+|[RemoveVariantInVariantSet.py](./RemoveVariantInVariantSet.py)|指定のprimの指定のVariantSet内のVariantを削除|
 
