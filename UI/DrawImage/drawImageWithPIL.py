@@ -29,7 +29,7 @@ class OverlayImageBuffer:
         self._byte_provider = None
         self._byte_data = None
 
-    def startup (self, width : int, height : int):
+    def startup(self, width : int, height : int):
         self._byte_provider = omni.ui.ByteImageProvider()
         self._width  = width
         self._height = height
@@ -39,7 +39,7 @@ class OverlayImageBuffer:
 
         self._byte_provider.set_bytes_data(self._byte_data, [self._width, self._height])
 
-    def update (self):
+    def update(self):
         self._byte_provider.set_bytes_data(self._byte_data, [self._width, self._height])
 
 # ------------------------------------------.
@@ -60,16 +60,16 @@ class DrawImageWithPIL:
         self._image = None
         self._draw  = None
 
-    def getWidth (self):
+    def getWidth(self):
         return self._overlayImageBuffer._width
 
-    def getHeight (self):
+    def getHeight(self):
         return self._overlayImageBuffer._height
 
-    def getByteProvider (self):
+    def getByteProvider(self):
         return self._overlayImageBuffer._byte_provider
 
-    def startup (self, width : int, height : int):
+    def startup(self, width : int, height : int):
         # Create new image.
         self._image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
         self._draw  = ImageDraw.Draw(self._image)
@@ -77,7 +77,7 @@ class DrawImageWithPIL:
         self._overlayImageBuffer = OverlayImageBuffer()
         self._overlayImageBuffer.startup(width, height)
 
-    def draw (self):
+    def draw(self):
         # Draw rectangle (fill).
         self._draw.rectangle((0, 0, self._image.width, self._image.height), fill=(0, 0, 0, 0))
 
@@ -96,7 +96,7 @@ class DrawImageWithPIL:
         # Draw circle (fill).
         self._draw.ellipse((280, 300, 380, 400), fill=(0, 0, 255))
 
-    def update (self):
+    def update(self):
         self.draw()
 
         # Get image data(RGBA buffer).

@@ -12,7 +12,7 @@ paths = selection.get_selected_prim_paths()
 # --------------------------------------------------.
 # Set Rotate.
 # --------------------------------------------------.
-def _setRotate (prim : Usd.Prim, rV : Gf.Vec3f):
+def _setRotate(prim : Usd.Prim, rV : Gf.Vec3f):
     if prim == None:
         return
 

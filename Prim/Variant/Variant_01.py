@@ -25,7 +25,7 @@ variantSet.AddVariant("chair3")
 # -----------------------------------------------.
 # Set Chair.
 # -----------------------------------------------.
-def SetChair (index : int, path : str, colorV):
+def SetChair(index : int, path : str, colorV):
     # Create reference.
     # The USD file to be referenced should be changed to suit your environment.
     usdPath = "https://ft-lab.github.io/usd/omniverse/usd/simple_chair.usda"

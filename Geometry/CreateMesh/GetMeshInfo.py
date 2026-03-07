@@ -3,7 +3,7 @@ from pxr import UsdGeom, UsdShade
 # ---------------------------------------.
 # Dump mesh data.
 # ---------------------------------------.
-def DumpMeshData (prim):
+def DumpMeshData(prim):
     if prim.IsA(UsdGeom.Mesh):
         m = UsdGeom.Mesh(prim)
 
@@ -69,7 +69,7 @@ def DumpMeshData (prim):
 # ---------------------------------------.
 # Traverse the hierarchy.
 # ---------------------------------------.
-def TraverseHierarchy (prim):
+def TraverseHierarchy(prim):
     DumpMeshData(prim)
 
     # Recursively traverse the hierarchy.

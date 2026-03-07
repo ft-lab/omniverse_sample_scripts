@@ -16,7 +16,7 @@ if defaultPrim.IsValid():
 # @param[in] materialPrimPath   Prim path of Material
 # @param[in] diffuseColor       Diffuse color.
 # --------------------------------------.
-def createMaterialOmniPBR (materialPrimPath : str, diffuseColor : Gf.Vec3f):
+def createMaterialOmniPBR(materialPrimPath : str, diffuseColor : Gf.Vec3f):
     material = UsdShade.Material.Define(stage, materialPrimPath)
 
     shaderPath = materialPrimPath + '/Shader'
@@ -36,7 +36,7 @@ def createMaterialOmniPBR (materialPrimPath : str, diffuseColor : Gf.Vec3f):
 # --------------------------------------.
 # Create mesh with subset.
 # --------------------------------------.
-def createMesh (meshPath : str):
+def createMesh(meshPath : str):
     # Create mesh.
     meshGeom = UsdGeom.Mesh.Define(stage, meshPath)
 

@@ -11,7 +11,7 @@ paths = selection.get_selected_prim_paths()
 # -------------------------------------------------.
 # Calculate bounding box in world coordinates.
 # -------------------------------------------------.
-def _calcWorldBoundingBox (prim : Usd.Prim):
+def _calcWorldBoundingBox(prim : Usd.Prim):
     # Calc world boundingBox.
     bboxCache = UsdGeom.BBoxCache(Usd.TimeCode.Default(), ["default"])
     bboxD = bboxCache.ComputeWorldBound(prim).ComputeAlignedRange()

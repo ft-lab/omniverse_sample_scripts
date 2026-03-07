@@ -8,7 +8,7 @@ stage = omni.usd.get_context().get_stage()
 # @pram[in] primPath  Prim path.
 # @pram[in] planeSize size.
 # --------------------------------------------.
-def createPlaneMesh (meshPath : str, planeSize : float = 20.0):
+def createPlaneMesh(meshPath : str, planeSize : float = 20.0):
     # Create mesh.
     meshGeom = UsdGeom.Mesh.Define(stage, meshPath)
 

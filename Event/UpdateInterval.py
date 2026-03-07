@@ -17,7 +17,7 @@ class UpdateInterval:
         pass
 
     # Update event.
-    def on_update (self, e: carb.events.IEvent):
+    def on_update(self, e: carb.events.IEvent):
         if self._viewportWindow == None:
             return
 
@@ -42,7 +42,7 @@ class UpdateInterval:
                     f.visible = self._visible
                     f.set_style({"color": 0xff00ffff, "font_size": 32})
 
-    def startup (self):
+    def startup(self):
         # Get main window viewport.
         self._viewportWindow = omni.ui.Window('Viewport')
 
@@ -52,7 +52,7 @@ class UpdateInterval:
         # Register for update event.
         self._subs = omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop(self.on_update)
 
-    def shutdown (self):
+    def shutdown(self):
         # Release the update event.
         async def _exitUpdateEvent ():
             self._visible = False

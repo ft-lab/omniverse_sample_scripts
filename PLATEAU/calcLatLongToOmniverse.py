@@ -18,7 +18,7 @@ in_longi = 139.767348
 # 参考 : https://www.gsi.go.jp/LAW/heimencho.html
 # 東京都の場合は9を指定.
 # ---------------------------------------------------------.
-def getOriginLatAndLongi (index : int = 9):
+def getOriginLatAndLongi(index : int = 9):
     latV0   = 0.0
     longiV0 = 0.0
 
@@ -109,7 +109,7 @@ def getOriginLatAndLongi (index : int = 9):
 #                         https://www.gsi.go.jp/LAW/heimencho.html
 # @return x, y (m単位)
 # ---------------------------------------------.
-def calcLatLongToHeimenChokaku (latV : float, longiV : float, originIndex : int = 9):
+def calcLatLongToHeimenChokaku(latV : float, longiV : float, originIndex : int = 9):
     # 赤道半径 (km) = 楕円体の長半径.
     R = 6378.137
 

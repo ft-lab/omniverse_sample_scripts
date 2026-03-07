@@ -7,7 +7,7 @@ selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
 # Get material type (UsdPreviewSurface/OmniPBR/CustomMDL etc.)
-def GetMaterialType (path : str):
+def GetMaterialType(path : str):
     prim = stage.GetPrimAtPath(path)
     if prim.GetTypeName() != "Material":
         return ""

@@ -8,7 +8,7 @@ stage = omni.usd.get_context().get_stage()
 # -------------------------------------------------------.
 # Calculate normal.
 # -------------------------------------------------------.
-def calcTriangleNormal (v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
+def calcTriangleNormal(v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
     e1 = v2 - v1
     e2 = v3 - v2
     e1 = Gf.Vec4f(e1[0], e1[1], e1[2],1.0)
@@ -23,7 +23,7 @@ def calcTriangleNormal (v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
 # @param[in] primPath    Target Prim path.
 # @param[in] thickness   Thickness.
 # -------------------------------------------------------.
-def AttachThickness (primPath : str, thickness : float):
+def AttachThickness(primPath : str, thickness : float):
     prim = stage.GetPrimAtPath(primPath)
     if prim.IsValid() == False:
         return
@@ -166,7 +166,7 @@ def AttachThickness (primPath : str, thickness : float):
 # @param[in] filletHeight  Fillet height.
 # @param[in] gearWidth     Gear width.
 # -------------------------------------------------------.
-def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : float, gearWidth : float):
+def CreateGear(name : str, gearR : float, filletCount : int, filletHeight : float, gearWidth : float):
     angle = 360.0 / filletCount  # Angle of one tooth.
 
     # Calculate the length of one tooth on the circumference.
@@ -294,7 +294,7 @@ def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : flo
 # Main UI.
 # --------------------------------------------------------.
 # Clicked button event.
-def onButtonClick (hNameStringField, hRadiusFloatField, hFilletCouIntField, hFilletHeightFloatField, hGearWidthFloatField):
+def onButtonClick(hNameStringField, hRadiusFloatField, hFilletCouIntField, hFilletHeightFloatField, hGearWidthFloatField):
     name = hNameStringField.model.get_value_as_string()
     if name == '':
         name = 'gear'

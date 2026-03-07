@@ -12,7 +12,7 @@ paths = selection.get_selected_prim_paths()
 # --------------------------------------------------.
 # Delete pivot.
 # --------------------------------------------------.
-def _deletePivot (prim : Usd.Prim):
+def _deletePivot(prim : Usd.Prim):
     if prim == None:
         return
 

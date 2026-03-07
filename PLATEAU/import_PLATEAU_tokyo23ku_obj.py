@@ -100,7 +100,7 @@ async def ocl_existPath_async (path : str):
 # @param[in] fName   file name.
 # @return  USD Prim name.
 # ----------------------------------------------------.
-def convFileNameToUSDPrimName (fName : str):
+def convFileNameToUSDPrimName(fName : str):
     # Remove extension.
     fName2 = os.path.splitext(fName)[0]
 
@@ -128,7 +128,7 @@ def convFileNameToUSDPrimName (fName : str):
 # @param[in] prim           target prim.
 # @param[in] (rx, ry, rz)   Rotate (angle).
 # --------------------------------------.
-def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
+def setRotate(prim : Usd.Prim, rx : float, ry : float, rz : float):
     if prim.IsValid():
         tV = prim.GetAttribute("xformOp:rotateXYZ")
         if tV.IsValid():
@@ -150,7 +150,7 @@ def setRotate (prim : Usd.Prim, rx : float, ry : float, rz : float):
 # @param[in] prim           target prim.
 # @param[in] (sx, sy, sz)   Scale.
 # --------------------------------------.
-def setScale (prim : Usd.Prim, sx : float, sy : float, sz : float):
+def setScale(prim : Usd.Prim, sx : float, sy : float, sz : float):
     if prim.IsValid():
         tV = prim.GetAttribute("xformOp:scale")
         if tV.IsValid():
@@ -161,7 +161,7 @@ def setScale (prim : Usd.Prim, sx : float, sy : float, sz : float):
 # @param[in] prim           target prim.
 # @param[in] (tx, ty, tz)   translate.
 # --------------------------------------.
-def setTranslate (prim : Usd.Prim, tx : float, ty : float, tz : float):
+def setTranslate(prim : Usd.Prim, tx : float, ty : float, tz : float):
     if prim.IsValid():
         tV = prim.GetAttribute("xformOp:translate")
         if tV.IsValid():
@@ -174,7 +174,7 @@ def setTranslate (prim : Usd.Prim, tx : float, ty : float, tz : float):
 # @param[in] textureFilePath    File path of Diffuse texture.
 # @param[in] diffuseColor       Diffuse Color.
 # --------------------------------------.
-def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", textureFilePath : str = "", diffuseColor : Gf.Vec3f = Gf.Vec3f(0.2, 0.2, 0.2)):
+def createMaterialOmniPBR(materialPrimPath : str, targetPrimPath : str = "", textureFilePath : str = "", diffuseColor : Gf.Vec3f = Gf.Vec3f(0.2, 0.2, 0.2)):
     material = UsdShade.Material.Define(stage, materialPrimPath)
 
     shaderPath = materialPrimPath + '/Shader'
@@ -215,7 +215,7 @@ def createMaterialOmniPBR (materialPrimPath : str, targetPrimPath : str = "", te
 # --------------------------------------.
 # Create Xform (e.g. map_533946).
 # --------------------------------------.
-def createXfrom_mapIndex (mapIndex : int, materialPath : str):
+def createXfrom_mapIndex(mapIndex : int, materialPath : str):
     mapPrimPath = defaultPrimPath + "/map_" + str(mapIndex)
     prim = stage.GetPrimAtPath(mapPrimPath)
     if prim.IsValid() == False:

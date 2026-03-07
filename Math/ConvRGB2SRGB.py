@@ -1,14 +1,14 @@
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import math
 
-def rgb_to_srgb (v : float, quantum_max : float = 1.0):
+def rgb_to_srgb(v : float, quantum_max : float = 1.0):
     if v <= 0.0031308:
         return (v * 12.92)
     v = v / quantum_max
     v = math.pow(v, 1.0 / 2.4) * 1.055 - 0.055
     return (v * quantum_max)
 
-def srgb_to_rgb (v : float, quantum_max : float = 1.0):
+def srgb_to_rgb(v : float, quantum_max : float = 1.0):
     v = v / quantum_max
     if v <= 0.04045:
         return (v / 12.92)
@@ -16,7 +16,7 @@ def srgb_to_rgb (v : float, quantum_max : float = 1.0):
     return (v * quantum_max)
 
 # Conv RGB to sRGB.
-def conv_RGB_to_sRGB (col : Gf.Vec3f):
+def conv_RGB_to_sRGB(col : Gf.Vec3f):
     retCol = Gf.Vec3f(col)
 
     if retCol[0] > 0.0 and retCol[0] < 1.0:
@@ -31,7 +31,7 @@ def conv_RGB_to_sRGB (col : Gf.Vec3f):
     return retCol
 
 # Conv sRGB to RGB (Linear).
-def conv_sRGB_to_RGB (col : Gf.Vec3f):
+def conv_sRGB_to_RGB(col : Gf.Vec3f):
     retCol = Gf.Vec3f(col)
 
     if retCol[0] > 0.0 and retCol[0] < 1.0:

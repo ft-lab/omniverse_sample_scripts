@@ -4,13 +4,13 @@ import omni.kit.undo
 
 # Class for UNDO processing.
 class MyOrange (omni.kit.commands.Command):
-    def __init__ (self, bar: list):
+    def __init__(self, bar: list):
         self._bar = bar
 
-    def do (self):
+    def do(self):
         self._bar.append('orange')
 
-    def undo (self):
+    def undo(self):
         del self._bar[-1]
 
 # Register a Class and run it.

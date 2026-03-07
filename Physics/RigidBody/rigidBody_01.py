@@ -20,7 +20,7 @@ xformPrim = UsdGeom.Xform.Define(g_stage, g_basePath)
 # --------------------------------------------------------.
 # Create ground.
 # --------------------------------------------------------.
-def createGround ():
+def createGround():
     # Create cube.
     path = '/World/ground'
     cubeGeom = UsdGeom.Cube.Define(g_stage, path)

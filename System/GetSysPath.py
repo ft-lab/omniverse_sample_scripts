@@ -2,7 +2,7 @@ import sys
 import os
 
 # Append path.
-def appendSysPath (newPath):
+def appendSysPath(newPath):
     existF = False
     for path in sys.path:
       if path == newPath:

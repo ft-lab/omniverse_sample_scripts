@@ -13,7 +13,7 @@ stage = omni.usd.get_context().get_stage()
 # ------------------------------------------.
 # Move the selected Prim.
 # ------------------------------------------.
-def moveSelectedPrim (mV : Gf.Vec3f):
+def moveSelectedPrim(mV : Gf.Vec3f):
     # Get selection.
     selection = omni.usd.get_context().get_selection()
     paths = selection.get_selected_prim_paths()
@@ -168,7 +168,7 @@ class InputGamePad:
 
         moveSelectedPrim(mV)
 
-    def startup (self):
+    def startup(self):
         self._gamepads = []
         self._input = carb.input.acquire_input_interface()
         self._input_provider = carb.input.acquire_input_provider()
@@ -184,7 +184,7 @@ class InputGamePad:
             self._update_gamepads_data, name="GamePad test"
         )
 
-    def shutdown (self):
+    def shutdown(self):
         self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
 
         self._gamepad_connection_subs = None

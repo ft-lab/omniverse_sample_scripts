@@ -3,7 +3,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 # ---------------------------------------.
 # traverse the hierarchy.
 # ---------------------------------------.
-def TraverseHierarchy (depth, prim):
+def TraverseHierarchy(depth, prim):
     if prim.IsValid() == None:
         return
 

@@ -28,7 +28,7 @@ time_code = Usd.TimeCode.Default()
 # ---------------------------------.
 # Create new camera.
 # ---------------------------------.
-def createNewCamera (orgCamera : Gf.Camera, pathName : str, position : Gf.Vec3f, direction : Gf.Vec3f):
+def createNewCamera(orgCamera : Gf.Camera, pathName : str, position : Gf.Vec3f, direction : Gf.Vec3f):
     cameraGeom = UsdGeom.Camera.Define(stage, pathName)
 
     cameraGeom.CreateFocusDistanceAttr(orgCamera.GetFocusDistanceAttr().Get())

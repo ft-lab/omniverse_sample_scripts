@@ -20,7 +20,7 @@ xformPrim = UsdGeom.Xform.Define(g_stage, g_basePath)
 # --------------------------------------------------------.
 # Create ground.
 # --------------------------------------------------------.
-def createGround ():
+def createGround():
     # Create cube.
     path = '/World/ground'
     cubeGeom = UsdGeom.Cube.Define(g_stage, path)
@@ -75,7 +75,7 @@ def createSphere(index, radius, wPos, colorV):
 # @param[in] wPos     world position (x, y, z).
 # @param[in] wSize    size (x, y, z).
 # --------------------------------------------------------.
-def createCube (index, wPos, wSize):
+def createCube(index, wPos, wSize):
     name = 'cube_' + str(index)
     path = '/World/' + name
     cubePrim = UsdGeom.Cube.Define(g_stage, path)
@@ -99,7 +99,7 @@ def createCube (index, wPos, wSize):
 # --------------------------------------------------------.
 # Create wall.
 # --------------------------------------------------------.
-def createWall ():
+def createWall():
     createCube(0, [-200.0, 25.0,    0.0], [ 10.0, 50.0, 400.0])
     createCube(1, [ 200.0, 25.0,    0.0], [ 10.0, 50.0, 400.0])
     createCube(2, [   0.0, 25.0, -200.0], [400.0, 50.0,  10.0])

@@ -7,7 +7,7 @@ stage = omni.usd.get_context().get_stage()
 # -------------------------------------------------.
 # Calculate bounding box in world coordinates.
 # -------------------------------------------------.
-def _calcWorldBoundingBox (prim : Usd.Prim):
+def _calcWorldBoundingBox(prim : Usd.Prim):
     # Calc world boundingBox.
     bboxCache = UsdGeom.BBoxCache(Usd.TimeCode.Default(), ["default"])
     bboxD = bboxCache.ComputeWorldBound(prim).ComputeAlignedRange()

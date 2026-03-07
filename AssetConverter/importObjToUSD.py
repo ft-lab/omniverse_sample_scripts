@@ -8,12 +8,12 @@ import asyncio
 import omni.kit.asset_converter
 
 # Progress of processing.
-def progress_callback (current_step: int, total: int):
+def progress_callback(current_step: int, total: int):
    # Show progress
    print(f"{current_step} of {total}")
 
 # Convert asset file(obj/fbx/glTF, etc) to usd.
-async def convert_asset_to_usd (input_asset: str, output_usd: str):
+async def convert_asset_to_usd(input_asset: str, output_usd: str):
    # Input options are defaults.
    converter_context = omni.kit.asset_converter.AssetConverterContext()
    converter_context.ignore_materials = False

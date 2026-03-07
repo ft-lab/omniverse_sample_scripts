@@ -25,10 +25,10 @@ class OverlayImageBuffer:
         self._height = 256    
         self._byte_provider = None
     
-    def startup (self):
+    def startup(self):
         self._byte_provider = omni.ui.ByteImageProvider()
 
-    def update (self):
+    def update(self):
         # default format omni.ui.TextureFormat.RGBA8_UNORM.
         byte_data = [0] * (4 * self._width * self._height)
 

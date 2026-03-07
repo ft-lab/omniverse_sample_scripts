@@ -19,8 +19,8 @@ def createSphere(primPath : str, radius : float = 10.0, pos : Gf.Vec3f = Gf.Vec3
 
     # Set refinement.
     objPrim = stage.GetPrimAtPath(primPath)
-    objPrim.CreateAttribute('refinementEnableOverride', Sdf.ValueTypeNames.Bool).Set(True)
-    objPrim.CreateAttribute('refinementLevel', Sdf.ValueTypeNames.Int).Set(2)
+    objPrim.CreateAttribute("refinementEnableOverride", Sdf.ValueTypeNames.Bool).Set(True)
+    objPrim.CreateAttribute("refinementLevel", Sdf.ValueTypeNames.Int).Set(2)
 
     return objPrim
 

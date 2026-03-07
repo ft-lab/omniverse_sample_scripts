@@ -10,7 +10,7 @@ paths = selection.get_selected_prim_paths()
 # -------------------------------------------------------------------.
 # Traverse.
 # -------------------------------------------------------------------.
-def Traverse (prim):
+def Traverse(prim):
     if prim.IsValid() == None:
         return
 

@@ -13,10 +13,10 @@ class ClassFoo:
     def __del__(self):
         print("Destructor")
 
-    def printName (self):
+    def printName(self):
         print("name = " + self.name)
 
-    def add (self, a : float, b : float):
+    def add(self, a : float, b : float):
         return (a + b)
 
 # -----------------------------------------------.

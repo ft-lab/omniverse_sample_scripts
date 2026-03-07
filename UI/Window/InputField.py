@@ -9,7 +9,7 @@ with my_window.frame:
     sLabel = None
 
     # Reset StringField, Label.
-    def onReset (uiField, uiLabel):
+    def onReset(uiField, uiLabel):
         if not uiField or not uiLabel:
             return
 
@@ -17,7 +17,7 @@ with my_window.frame:
         uiLabel.text = ""
 
     # Called when a value is changed in a StringField.
-    def onValueChanged (uiFieldModel, uiLabel):
+    def onValueChanged(uiFieldModel, uiLabel):
         if not uiFieldModel or not uiLabel:
             return
 

@@ -22,7 +22,7 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self, ext_id : str):
+    def init_window(self, ext_id : str):
         imagesPath = Path(__file__).parent.joinpath("images")
 
         # Get current stage.
@@ -64,7 +64,7 @@ class UISceneViewportOverlayExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
-    def term_window (self):
+    def term_window(self):
         if self._scene_view:
             # Empty the SceneView of any elements it may have
             self._scene_view.scene.clear()

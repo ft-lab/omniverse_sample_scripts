@@ -9,10 +9,10 @@ stage = omni.usd.get_context().get_stage()
 class MyCreateSphere (omni.kit.commands.Command):
     _path = ""
 
-    def __init__ (self, path : str):
+    def __init__(self, path : str):
         self._path = path
 
-    def do (self):
+    def do(self):
         sphereGeom = UsdGeom.Sphere.Define(stage, self._path)
 
         # Set radius.
@@ -24,7 +24,7 @@ class MyCreateSphere (omni.kit.commands.Command):
         # Set position.
         UsdGeom.XformCommonAPI(sphereGeom).SetTranslate((0.0, 5.0, 0.0))
 
-    def undo (self):
+    def undo(self):
         stage.RemovePrim(self._path)
 
 # Create sphere.

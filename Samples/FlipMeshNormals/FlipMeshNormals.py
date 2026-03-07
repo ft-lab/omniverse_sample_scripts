@@ -6,7 +6,7 @@ stage = omni.usd.get_context().get_stage()
 # ------------------------------------------------------------.
 # Flip mesh normals.
 # ------------------------------------------------------------.
-def FlipMeshNormals (prim):
+def FlipMeshNormals(prim):
     if prim.GetTypeName() == 'Mesh':
         m = UsdGeom.Mesh(prim)
 

@@ -21,7 +21,7 @@ class WidgetsExtension(omni.ext.IExt):
     # ------------------------------------.
     # Update event.
     # ------------------------------------.
-    def on_update (self, e: carb.events.IEvent):
+    def on_update(self, e: carb.events.IEvent):
         # Processing every 0.2 seconds.
         curTimeV = time.time()
         if curTimeV - self._timeV > 0.2:
@@ -37,7 +37,7 @@ class WidgetsExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self):
+    def init_window(self):
         self._progressStart = True
         self._timeV = time.time()
 
@@ -45,7 +45,7 @@ class WidgetsExtension(omni.ext.IExt):
         self._window = omni.ui.Window("Widgets Window(ProgressBar)", width=300, height=100)
 
         # Callback when button is clicked.
-        def onButtonClicked (self):
+        def onButtonClicked(self):
             if self._progressStart:
                 self._progressStart = False
             else:
@@ -86,7 +86,7 @@ class WidgetsExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
-    def term_window (self):
+    def term_window(self):
         if self._subs != None:
             self._subs = None
 

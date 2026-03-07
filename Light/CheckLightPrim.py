@@ -8,7 +8,7 @@ selection = omni.usd.get_context().get_selection()
 paths = selection.get_selected_prim_paths()
 
 # Check if prim is Light.
-def checkLight (prim : Usd.Prim):
+def checkLight(prim : Usd.Prim):
     typeName = prim.GetTypeName()
 
     if typeName == "DistantLight" or typeName == "CylinderLight" or \

@@ -23,7 +23,7 @@ in_save_folder_path = "K:\\Modeling\\PLATEAU\\Tokyo_23ku\\13100_tokyo23-ku_2020_
 # --------------------------------------.
 # Load image and divide (10 x 10).
 # --------------------------------------.
-def load_divideImage (filePath : str, savePath : str):
+def load_divideImage(filePath : str, savePath : str):
     fName = os.path.basename(filePath)
 
     # Remove extension.
@@ -63,7 +63,7 @@ def load_divideImage (filePath : str, savePath : str):
 # --------------------------------------.
 # Divide GeoTiff images.
 # --------------------------------------.
-def divide_geoTiff (savePath : str):
+def divide_geoTiff(savePath : str):
     if os.path.exists(in_plateau_obj_path) == False:
         return
 

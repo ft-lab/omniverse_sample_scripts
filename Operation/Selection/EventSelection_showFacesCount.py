@@ -15,7 +15,7 @@ window = omni.ui.Window('Viewport')
 # ---------------------------------------------.
 # Get the number of faces in the mesh.
 # ---------------------------------------------.
-def GetFacesCount (prim):
+def GetFacesCount(prim):
     if prim.IsValid() == None:
         return 0
     typeName = prim.GetTypeName()

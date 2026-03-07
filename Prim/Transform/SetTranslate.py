@@ -12,7 +12,7 @@ paths = selection.get_selected_prim_paths()
 # --------------------------------------------------.
 # Set translate.
 # --------------------------------------------------.
-def _setTranslate (prim : Usd.Prim, tV : Gf.Vec3f):
+def _setTranslate(prim : Usd.Prim, tV : Gf.Vec3f):
     if prim == None:
         return
 

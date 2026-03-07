@@ -13,7 +13,7 @@ with my_window.frame:
         return True
 
     # Called at Drop event.
-    def drop (uiField, event):
+    def drop(uiField, event):
         # prim path.
         vPath = event.mime_data
 

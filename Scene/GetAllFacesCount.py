@@ -3,7 +3,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 # ---------------------------------------.
 # Get the number of faces used by PointInstancer.
 # ---------------------------------------.
-def TraversePointInstancer (prim):
+def TraversePointInstancer(prim):
     typeName = prim.GetTypeName()
 
     allCou = 0
@@ -25,7 +25,7 @@ def TraversePointInstancer (prim):
 # ---------------------------------------.
 # traverse the hierarchy.
 # ---------------------------------------.
-def TraverseHierarchy_number (depth, prim):
+def TraverseHierarchy_number(depth, prim):
     if prim.IsValid() == None:
         return 0
     typeName = prim.GetTypeName()

@@ -29,7 +29,7 @@ class SceneDraw (sc.Manipulator):
     # -------------------------------------------.
     # Repaint.
     # -------------------------------------------.
-    def on_build (self):
+    def on_build(self):
         stage = omni.usd.get_context().get_stage()
 
         # Get selection.
@@ -75,7 +75,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     # Update when selection shape changes.
     # Update when the active viewport is switched.
     # ------------------------------------------------.
-    def on_update (self, e: carb.events.IEvent):
+    def on_update(self, e: carb.events.IEvent):
         # Check every 0.2 seconds.
         curTime = time.time()
         diffTime = curTime - self._time
@@ -104,7 +104,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self, ext_id : str):
+    def init_window(self, ext_id : str):
         self._ext_id = ext_id
 
         # Get current stage.
@@ -134,7 +134,7 @@ class UISceneShowPrimNameExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
-    def term_window (self):
+    def term_window(self):
         if self._scene_view:
             # Empty the SceneView of any elements it may have
             self._scene_view.scene.clear()

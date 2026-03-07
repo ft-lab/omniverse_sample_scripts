@@ -18,7 +18,7 @@ rootPath = '/World'
 # @param[in] divCou   分割数。len(vList)よりも大きい値のこと.
 # @return 再分割されたGf.Vec3fの配列.
 # --------------------------------------------------------.
-def curveInterpolation (vList, divCou : int):
+def curveInterpolation(vList, divCou : int):
     # XYZを配列に分離.
     xList = []
     yList = []
@@ -43,7 +43,7 @@ def curveInterpolation (vList, divCou : int):
 # 選択Primの子で球の座標を配列に格納.
 # @return Gf.Vec3fの配列, 半径(cm), マテリアル.
 # --------------------------------------------------------.
-def getSelectedSpheresPoint ():
+def getSelectedSpheresPoint():
     selection = omni.usd.get_context().get_selection()
     paths = selection.get_selected_prim_paths()
     if len(paths) == 0:
@@ -88,7 +88,7 @@ def getSelectedSpheresPoint ():
 # --------------------------------------------------------.
 # 外積の計算.
 # --------------------------------------------------------.
-def calcCross (v1 : Gf.Vec3f, v2 : Gf.Vec3f):
+def calcCross(v1 : Gf.Vec3f, v2 : Gf.Vec3f):
     v1_2 = Gf.Vec4f(v1[0], v1[1], v1[2], 1.0)
     v2_2 = Gf.Vec4f(v2[0], v2[1], v2[2], 1.0)
 
@@ -100,7 +100,7 @@ def calcCross (v1 : Gf.Vec3f, v2 : Gf.Vec3f):
 # @param[in]  vDir   進行方向のベクトル.
 # @return 4x4行列.
 # --------------------------------------------------------.
-def calcDirToMatrix (vDir : Gf.Vec3f):
+def calcDirToMatrix(vDir : Gf.Vec3f):
     vDir0 = vDir.GetNormalized()
 
     m  = Gf.Matrix4f()
@@ -137,7 +137,7 @@ def calcDirToMatrix (vDir : Gf.Vec3f):
 # @param[in] divVCou  進行方向での分割数.
 # @param[in] material 割り当てるマテリアル.
 # --------------------------------------------------------.
-def createTubeMesh (name : str, vList, radiusV : float, divUCou : int, divVCou : int, material : UsdShade.Material):
+def createTubeMesh(name : str, vList, radiusV : float, divUCou : int, divVCou : int, material : UsdShade.Material):
     pathStr = rootPath + '/cables'
 
     prim = stage.GetPrimAtPath(pathStr)

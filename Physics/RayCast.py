@@ -20,7 +20,7 @@ scene.CreateGravityMagnitudeAttr().Set(981.0)
 # --------------------------------------------.
 # Create cube.
 # --------------------------------------------.
-def CreateCube (name : str, pos : Gf.Vec3f, scale : Gf.Vec3f):
+def CreateCube(name : str, pos : Gf.Vec3f, scale : Gf.Vec3f):
     path = defaultPrimPath + '/cubes'
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == False:
@@ -48,7 +48,7 @@ def CreateCube (name : str, pos : Gf.Vec3f, scale : Gf.Vec3f):
 # --------------------------------------------.
 # Create red sphere.
 # --------------------------------------------.
-def CreateRedSphere (name : str, pos : Gf.Vec3f, radius : float):
+def CreateRedSphere(name : str, pos : Gf.Vec3f, radius : float):
     path = defaultPrimPath + '/spheres'
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == False:
@@ -90,7 +90,7 @@ if prim.IsValid():
 # Callback for Rayhit.
 # rayhit works during animation playback.
 sphereIndex = 0
-def ray_hit (hit):
+def ray_hit(hit):
     global sphereIndex
     print("distance : " + str(hit.distance))
     print("Hit position : " + str(hit.position))

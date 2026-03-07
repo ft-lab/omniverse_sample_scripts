@@ -28,7 +28,7 @@ class LoadImageRGBA:
     def __init__(self):
         pass
 
-    def Open (self, path : str):
+    def Open(self, path : str):
         try:
             # Load image (RGBA).
             im = Image.open(path).convert('RGBA')
@@ -55,13 +55,13 @@ class LoadImageRGBA:
 
         return True
     
-    def GetWidth (self):
+    def GetWidth(self):
         return self._width
 
-    def GetHeight (self):
+    def GetHeight(self):
         return self._height
 
-    def GetByteProvider (self):
+    def GetByteProvider(self):
         return self._byte_provider
 
 # Image data.

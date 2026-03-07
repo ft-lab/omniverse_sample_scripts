@@ -5,7 +5,7 @@ xformCache = UsdGeom.XformCache(0)
 # ---------------------------------------.
 # Dump sphere data.
 # ---------------------------------------.
-def DumpSphereData (prim):
+def DumpSphereData(prim):
     typeName = prim.GetTypeName()
 
     if typeName == 'Sphere':
@@ -44,7 +44,7 @@ def DumpSphereData (prim):
 # ---------------------------------------.
 # Traverse the hierarchy.
 # ---------------------------------------.
-def TraverseHierarchy (prim):
+def TraverseHierarchy(prim):
     DumpSphereData(prim)
 
     # Recursively traverse the hierarchy.

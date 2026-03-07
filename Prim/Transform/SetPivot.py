@@ -12,7 +12,7 @@ paths = selection.get_selected_prim_paths()
 # --------------------------------------------------.
 # Set pivot.
 # --------------------------------------------------.
-def _setPivot (prim : Usd.Prim, pV : Gf.Vec3f):
+def _setPivot(prim : Usd.Prim, pV : Gf.Vec3f):
     pivot = prim.GetAttribute("xformOp:translate:pivot").Get()
 
     if pivot != None:

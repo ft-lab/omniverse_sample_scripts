@@ -54,7 +54,7 @@ class UISceneDrawExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self):
+    def init_window(self):
         imagesPath = Path(__file__).parent.joinpath("images")
 
         # Create new window.
@@ -79,7 +79,7 @@ class UISceneDrawExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
-    def term_window (self):
+    def term_window(self):
         if self._window != None:
             self._window = None
 

@@ -18,12 +18,12 @@ class MenuExtension(omni.ext.IExt):
     # ------------------------------------------.
     # Initialize menu.
     # ------------------------------------------.
-    def init_menu (self):
+    def init_menu(self):
         async def _rebuild_menus():
             await omni.kit.app.get_app().next_update_async()
             omni.kit.menu.utils.rebuild_menus()
 
-        def menu_select (mode):
+        def menu_select(mode):
             if mode == 0:
                 print("Select MenuItem 1.")
             if mode == 1:
@@ -56,7 +56,7 @@ class MenuExtension(omni.ext.IExt):
     # Term menu.
     # It seems that the additional items in the top menu will not be removed.
     # ------------------------------------------.
-    def term_menu (self):
+    def term_menu(self):
         async def _rebuild_menus():
             await omni.kit.app.get_app().next_update_async()
             omni.kit.menu.utils.rebuild_menus()

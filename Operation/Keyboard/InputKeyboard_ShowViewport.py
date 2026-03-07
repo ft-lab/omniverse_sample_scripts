@@ -21,7 +21,7 @@ class InputKeyboard:
         pass
 
     # Keyboard event.
-    def _keyboard_event (self, event):
+    def _keyboard_event(self, event):
         if event.type == carb.input.KeyboardEventType.KEY_PRESS:
             self._keyboard_input_value = event.input
             print("KEY_PRESS : " + str(event.input))
@@ -30,7 +30,7 @@ class InputKeyboard:
         return True
 
     # UI Update event.
-    def _on_update (self, e: carb.events.IEvent):
+    def _on_update(self, e: carb.events.IEvent):
         with self._window.frame:
             with omni.ui.VStack(height=0):
                 with omni.ui.Placer(offset_x=20, offset_y=50):
@@ -39,7 +39,7 @@ class InputKeyboard:
                     f.visible = True
                     f.set_style({"color": 0xff00ffff, "font_size": 20})
 
-    def startup (self):
+    def startup(self):
         # Assign keyboard event.
         appwindow = omni.appwindow.get_default_app_window()
         self._keyboard = appwindow.get_keyboard()
@@ -52,7 +52,7 @@ class InputKeyboard:
         # Assing update event.
         self._update_subs = omni.kit.app.get_app().get_update_event_stream().create_subscription_to_pop(self._on_update, name="update")
 
-    def shutdown (self):
+    def shutdown(self):
         # Release update event.
         if self._update_subs != None:
             self._update_subs.unsubscribe()

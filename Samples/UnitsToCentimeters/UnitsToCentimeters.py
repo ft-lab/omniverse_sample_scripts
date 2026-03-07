@@ -9,7 +9,7 @@ metersPerUnit = UsdGeom.GetStageMetersPerUnit(stage)
 # ----------------------------------------------------------------------.
 # Convert the scale of Mesh and Xform so that metersPerUnit is 0.01.
 # ----------------------------------------------------------------------.
-def ConvPrimScale (_metersPerUnit, path):
+def ConvPrimScale(_metersPerUnit, path):
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == False:
         return False

@@ -26,7 +26,7 @@ class WidgetsExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Init window.
     # ------------------------------------------------.
-    def init_window (self):
+    def init_window(self):
         imagesPath = Path(__file__).parent.joinpath("images")
 
         # Create new window.
@@ -38,35 +38,35 @@ class WidgetsExtension(omni.ext.IExt):
             ":checked": {"image_url": f"{imagesPath}/radio_on.svg"},
         }
 
-        def onButtonClicked (uiFieldModel, uiLabel):
+        def onButtonClicked(uiFieldModel, uiLabel):
             if not uiFieldModel or not uiLabel:
                 return
 
             v = uiFieldModel.model.get_value_as_string()
             uiLabel.text = "Input : " + v
 
-        def onRadioValueChanged (uiFieldModel, uiLabel):
+        def onRadioValueChanged(uiFieldModel, uiLabel):
             if not uiFieldModel or not uiLabel:
                 return
 
             v = uiFieldModel.get_value_as_int()
             uiLabel.text = "Select Radio : " + str(v)
 
-        def onCheckBoxValueChanged (uiFieldModel, uiLabel):
+        def onCheckBoxValueChanged(uiFieldModel, uiLabel):
             if not uiFieldModel or not uiLabel:
                 return
 
             b = uiFieldModel.get_value_as_bool()
             uiLabel.text = "CheckBox : " + str(b)
 
-        def onComboBoxValueChanged (uiFieldModel, uiLabel):
+        def onComboBoxValueChanged(uiFieldModel, uiLabel):
             if not uiFieldModel or not uiLabel:
                 return
 
             v = uiFieldModel.get_value_as_int()
             uiLabel.text = "ComboBox : " + str(v)
 
-        def onSliderValueChanged (uiFieldModel, uiLabel):
+        def onSliderValueChanged(uiFieldModel, uiLabel):
             if not uiFieldModel or not uiLabel:
                 return
 
@@ -216,7 +216,7 @@ class WidgetsExtension(omni.ext.IExt):
     # ------------------------------------------------.
     # Term window.
     # ------------------------------------------------.
-    def term_window (self):
+    def term_window(self):
         if self._window != None:
             self._window = None
 

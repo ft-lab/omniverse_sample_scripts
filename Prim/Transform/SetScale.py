@@ -12,7 +12,7 @@ paths = selection.get_selected_prim_paths()
 # --------------------------------------------------.
 # Set scale.
 # --------------------------------------------------.
-def _setScale (prim : Usd.Prim, sV : Gf.Vec3f):
+def _setScale(prim : Usd.Prim, sV : Gf.Vec3f):
     if prim == None:
         return
 

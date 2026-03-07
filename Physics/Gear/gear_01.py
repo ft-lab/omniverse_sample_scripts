@@ -15,7 +15,7 @@ xformCache = UsdGeom.XformCache(0)
 # -------------------------------------------------------.
 # Calculate normal.
 # -------------------------------------------------------.
-def calcTriangleNormal (v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
+def calcTriangleNormal(v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
     e1 = v2 - v1
     e2 = v3 - v2
     e1 = Gf.Vec4f(e1[0], e1[1], e1[2],1.0)
@@ -30,7 +30,7 @@ def calcTriangleNormal (v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
 # @param[in] primPath    Target Prim path.
 # @param[in] thickness   Thickness.
 # -------------------------------------------------------.
-def AttachThickness (primPath : str, thickness : float):
+def AttachThickness(primPath : str, thickness : float):
     prim = g_stage.GetPrimAtPath(primPath)
     if prim.IsValid() == False:
         return
@@ -174,7 +174,7 @@ def AttachThickness (primPath : str, thickness : float):
 # @param[in] gearWidth     Gear width.
 # @param[in] position      position.
 # -------------------------------------------------------.
-def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : float, gearWidth : float, position : Gf.Vec3f):
+def CreateGear(name : str, gearR : float, filletCount : int, filletHeight : float, gearWidth : float, position : Gf.Vec3f):
     angle = 360.0 / filletCount  # Angle of one tooth.
 
     # Calculate the length of one tooth on the circumference.
@@ -295,7 +295,7 @@ def CreateGear (name : str, gearR : float, filletCount : int, filletHeight : flo
 # @param[in] primPath   Prim path.
 # @return  position(Gf.Vec3f)
 # ------------------------------------------
-def GetPrimCenter (primPath : str):
+def GetPrimCenter(primPath : str):
     prim = g_stage.GetPrimAtPath(primPath)
     if prim.IsValid() == False:
         return
@@ -308,7 +308,7 @@ def GetPrimCenter (primPath : str):
 # ------------------------------------------
 # Set RigidBody on gear.
 # ------------------------------------------
-def SetRigidBodyOnGear (primPath : str, index : int):
+def SetRigidBodyOnGear(primPath : str, index : int):
     prim = g_stage.GetPrimAtPath(primPath)
     if prim.IsValid() == False:
         return

@@ -19,7 +19,7 @@ async def _ocl_existPath (path : str):
         return False
     return True
 
-def ocl_existPath (path : str):
+def ocl_existPath(path : str):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(_ocl_existPath(path))
 

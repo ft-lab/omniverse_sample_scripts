@@ -16,7 +16,7 @@ if defaultPrim.IsValid():
 # @param[in] path            Prim path.
 # @param[in] interpolation   "vertex" or "faceVarying".
 # ------------------------------------------------.
-def createTestMesh (path : str, interpolation : str = "vertex", pos : Gf.Vec3f = Gf.Vec3f(0, 0, 0)):
+def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = Gf.Vec3f(0, 0, 0)):
     if interpolation != "vertex" and interpolation != "faceVarying":
         return
 

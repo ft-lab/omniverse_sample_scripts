@@ -11,7 +11,7 @@ _debugDraw = _debugDraw.acquire_debug_draw_interface()
 # --------------------------------------------.
 # Draw arrow.
 # --------------------------------------------.
-def drawArrow (p1, p2, color):
+def drawArrow(p1, p2, color):
     _debugDraw.draw_line(carb.Float3(p1[0], p1[1], p1[2]), color, carb.Float3(p2[0], p2[1], p2[2]), color)
     P1 = Gf.Vec3f(p1[0], p1[1], p1[2])
     P2 = Gf.Vec3f(p2[0], p2[1], p2[2])
