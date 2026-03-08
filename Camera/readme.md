@@ -3,9 +3,9 @@
 カメラ操作を行います。    
 カメラはUsdGeom.Camera ( https://graphics.pixar.com/usd/release/api/class_usd_geom_camera.html ) を使用します。      
 
-Omniverse Kit.102では「omni.kit.viewport」を使っていましたが、kit.103では「omni.kit.viewport_legacy」となりました（とりあえずの変更）。       
 
-kit.104では「omni.kit.viewport_legacy」は廃止になっています。      
+Omniverse上では以下のようにしてアクティブカメラを取得します。  
+
 ```python
 import omni.kit.viewport.utility
 
@@ -17,7 +17,7 @@ viewport_api = active_vp_window.viewport_api
 cameraPath = viewport_api.camera_path.pathString
 ```
 としてviewport_apiからカメラのPrimパスを取得します。      
-kit.104は"Viewport 2.0"となっており、複数のViewportを持つことができます。     
+kit.104以降は"Viewport 2.0"となっており、複数のViewportを持つことができます。     
 そのため、アクティブなビューポートを"omni.kit.viewport.utility.get_active_viewport_window()"から取得してきています。      
 
 

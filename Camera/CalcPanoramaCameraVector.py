@@ -1,13 +1,8 @@
-from pxr import Usd, UsdGeom, CameraUtil, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, Gf
 import omni.kit
 
 # IPD (cm).
 ipdValue = 6.4
-
-# Get viewport.
-# Kit103 : changed from omni.kit.viewport to omni.kit.viewport_legacy
-#viewport = omni.kit.viewport_legacy.get_viewport_interface()
-#viewportWindow = viewport.get_viewport_window()
 
 # Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
 import omni.kit.viewport.utility
@@ -28,7 +23,7 @@ time_code = Usd.TimeCode.Default()
 # ---------------------------------.
 # Create new camera.
 # ---------------------------------.
-def createNewCamera(orgCamera : Gf.Camera, pathName : str, position : Gf.Vec3f, direction : Gf.Vec3f):
+def createNewCamera(orgCamera : Gf.Camera, pathName : str, position : Gf.Vec3d, direction : Gf.Vec3d):
     cameraGeom = UsdGeom.Camera.Define(stage, pathName)
 
     cameraGeom.CreateFocusDistanceAttr(orgCamera.GetFocusDistanceAttr().Get())
@@ -39,7 +34,7 @@ def createNewCamera(orgCamera : Gf.Camera, pathName : str, position : Gf.Vec3f, 
     UsdGeom.XformCommonAPI(cameraGeom).SetTranslate((position[0], position[1], position[2]))
 
     # Set rotation(Y-Up (0, 1, 0)).
-    m = Gf.Matrix4f().SetLookAt(Gf.Vec3f(0, 0, 0), direction, Gf.Vec3f(0, 1, 0))
+    m = Gf.Matrix4d().SetLookAt(Gf.Vec3d(0, 0, 0), direction, Gf.Vec3d(0, 1, 0))
     rV = -m.ExtractRotation().Decompose(Gf.Vec3d(1, 0, 0), Gf.Vec3d(0, 1, 0), Gf.Vec3d(0, 0, 1))
     UsdGeom.XformCommonAPI(cameraGeom).SetRotate((rV[0], rV[1], rV[2]), UsdGeom.XformCommonAPI.RotationOrderXYZ)
 
@@ -58,23 +53,23 @@ if cameraPrim.IsValid():
 
     # Two camera positions in the view.
     ipdH = ipdValue * 0.5
-    leftVPos  = Gf.Vec3f(-ipdH, 0, 0)
-    rightVPos = Gf.Vec3f( ipdH, 0, 0)
+    leftVPos  = Gf.Vec3d(-ipdH, 0, 0)
+    rightVPos = Gf.Vec3d( ipdH, 0, 0)
 
     # Camera vector(World).
     viewInv = viewMatrix.GetInverse()
-    vVector = viewInv.TransformDir(Gf.Vec3f(0, 0, -1))
+    vVector = viewInv.TransformDir(Gf.Vec3d(0, 0, -1))
 
     # Convert to camera position in world coordinates.
     leftWPos  = viewInv.Transform(leftVPos)
     rightWPos = viewInv.Transform(rightVPos)
 
     # Create camera.
-    pathStr = '/World'
-    leftPathStr = pathStr + '/camera_left'
+    pathStr = "/World"
+    leftPathStr = f"{pathStr}/camera_left"
     createNewCamera(camera, leftPathStr, leftWPos, vVector)
 
-    rightPathStr = pathStr + '/camera_right'
+    rightPathStr = f"{pathStr}/camera_right"
     createNewCamera(camera, rightPathStr, rightWPos, vVector)
     
 

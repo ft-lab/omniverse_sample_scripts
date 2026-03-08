@@ -1,11 +1,6 @@
 from pxr import Usd, UsdGeom, CameraUtil, UsdShade, Sdf, Gf, Tf
 import omni.kit
 
-# Get viewport.
-# Kit103 : changed from omni.kit.viewport to omni.kit.viewport_legacy
-#viewport = omni.kit.viewport_legacy.get_viewport_interface()
-#viewportWindow = viewport.get_viewport_window()
-
 # Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
 import omni.kit.viewport.utility
 

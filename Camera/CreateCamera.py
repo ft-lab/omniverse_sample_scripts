@@ -1,10 +1,10 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdGeom
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
 
 # Create camera.
-pathName = '/World/camera'
+pathName = "/World/camera"
 cameraGeom = UsdGeom.Camera.Define(stage, pathName)
 
 cameraGeom.CreateFocalLengthAttr(24.0)
@@ -20,11 +20,6 @@ UsdGeom.XformCommonAPI(cameraGeom).SetRotate((-20, 15.0, 0.0), UsdGeom.XformComm
 
 # Set scale.
 UsdGeom.XformCommonAPI(cameraGeom).SetScale((1, 1, 1))
-
-# Change active camera.
-# Kit103 : changed from omni.kit.viewport to omni.kit.viewport_legacy
-#viewport = omni.kit.viewport_legacy.get_viewport_interface()
-#viewport.get_viewport_window().set_active_camera(pathName)
 
 # Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
 import omni.kit.viewport.utility
