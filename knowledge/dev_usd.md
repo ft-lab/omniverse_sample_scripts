@@ -1,12 +1,13 @@
-# USDについての情報
+# OpenUSDについての情報
 
-USD(Universal Scene Description )はPixar社が提供している3Dのシーンを管理するファイルフォーマット/プラットフォームです。     
-オープンソースとして公開されています。     
+USD(Universal Scene Description)はPixar社が提供している3Dのシーンを管理するファイルフォーマット/プラットフォームです。     
+オープンソースとして公開されています。  
+正式には"OpenUSD"と呼ばれます。  
 
-https://graphics.pixar.com/usd/release/index.html
+https://openusd.org/release/index.html
 
 API Documentation :     
-https://graphics.pixar.com/usd/release/api/index.html    
+https://openusd.org/release/api/index.html    
 
 DCCツール間で3Dモデルやシーンをやりとりする中間ファイルとしての使用、大規模シーンの管理に向いています。      
 PythonやC++のAPIやビュワー（usdview）、usdファイル変換を行うコマンドラインツールなどが用意されており、アプリケーションに組み込むための機能が豊富にあります。     
@@ -78,7 +79,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 stage = omni.usd.get_context().get_stage()
 
 # Create sphere.
-pathName = '/World/xxx'
+pathName = "/World/xxx"
 sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
 
 # Create Cube.
@@ -101,4 +102,32 @@ Prim名は記載ルールがあります。
 C/Pythonプログラムでの変数名のような命名ルールです。     
 そのため、これに沿っていない形状名をusdに渡したい場合は、Prim名をあらかじめ変更して格納する必要があります。     
 Omniverseにこれらのルールに沿わない文字を無理やり入れた場合は、無効な文字は「_」（アンダーバー）に置き換えられます。      
+
+### UTF-8のprim名
+
+OpenUSD 24.03以降はUTF-8の文字列をprim名に指定することができるようになりました。 
+
+```python
+from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+
+# Get stage.
+stage = omni.usd.get_context().get_stage()
+
+# Create sphere.
+pathName = "/World/半径10cmの球"
+sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
+
+# Create Cube.
+cubeGeom = UsdGeom.Cube.Define(stage, pathName)
+
+# Set cube size.
+cubeGeom.CreateSizeAttr(10.0)
+```
+
+![knowledge_dev_utf8_prim_name](./images/knowledge_dev_utf8_prim_name.jpg)  
+
+ただし、以下のルールは依然として存在します。  
+
+* 先頭の文字は、数値を指定できません。
+* 同一階層に同一Prim名を指定できません。
 

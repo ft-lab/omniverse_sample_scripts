@@ -58,7 +58,7 @@ line2.
 
 デバッグ用のメッセージはprintで記載します。     
 ```python
-print('Hello Omniverse !')
+print("Hello Omniverse !")
 ```
 
 ## 学習のための知識
@@ -66,6 +66,8 @@ print('Hello Omniverse !')
 * [Omniverseでの開発手段](./knowledge/dev_method.md)
 * [Omniverseのスクリプトの学習手順](./knowledge/dev_info.md)
 * [USDについての情報](./knowledge/dev_usd.md)
+
+その他の知識は [Knowledge](./knowledge/) に蓄えていく予定です。  
 
 ## Pythonの基礎的なこと
 

@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdLux, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, UsdLux, Gf
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -15,10 +15,3 @@ light.CreateColorAttr(Gf.Vec3f(1.0, 0.5, 0.2))
 
 # Set Exposure.
 light.CreateExposureAttr(0.0)
-
-# Compute extent.
-boundable = UsdGeom.Boundable(light.GetPrim())
-extent = boundable.ComputeExtent(Usd.TimeCode(0))
-
-# Set Extent.
-light.CreateExtentAttr(extent)
