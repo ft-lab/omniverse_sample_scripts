@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, CameraUtil, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, Gf
 import omni.kit
 
 # Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
@@ -28,6 +28,10 @@ if cameraPrim.IsValid():
     print(f"fov(H) : {cameraV.GetFieldOfView(Gf.Camera.FOVHorizontal)}")
     print(f"fov(V) : {cameraV.GetFieldOfView(Gf.Camera.FOVVertical)}")
     print(f"FocalLength : {cameraV.focalLength}")
+    print(f"fStop : {cameraV.fStop}")
+    print(f"focusDistance : {cameraV.focusDistance}")
+    print(f"clippingRange : {cameraV.clippingRange.GetMin()} - {cameraV.clippingRange.GetMax()}")
+    print(f"sensorSize : {cameraV.horizontalAperture} x {cameraV.verticalAperture}")
     print(f"World to camera matrix : {cameraV.transform}")
 
     viewMatrix = cameraV.frustum.ComputeViewMatrix()
@@ -45,6 +49,3 @@ if cameraPrim.IsValid():
 
     projectionMatrix = cameraV.frustum.ComputeProjectionMatrix()
     print(f"Projection matrix : {projectionMatrix}")
-
-    #cv = CameraUtil.ScreenWindowParameters(cameraV)
-    #print(cv.screenWindow)
