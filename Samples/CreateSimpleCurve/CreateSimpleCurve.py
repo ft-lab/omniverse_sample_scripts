@@ -89,11 +89,7 @@ def getSelectedSpheresPoint():
 # 外積の計算.
 # --------------------------------------------------------.
 def calcCross(v1 : Gf.Vec3f, v2 : Gf.Vec3f):
-    v1_2 = Gf.Vec4f(v1[0], v1[1], v1[2], 1.0)
-    v2_2 = Gf.Vec4f(v2[0], v2[1], v2[2], 1.0)
-
-    v3 = Gf.HomogeneousCross(v1_2, v2_2)
-    return Gf.Vec3f(v3[0], v3[1], v3[2])
+    return Gf.Cross(v1, v2)
 
 # --------------------------------------------------------.
 # 進行方向からベクトルを計算.

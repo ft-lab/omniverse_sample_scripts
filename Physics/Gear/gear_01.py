@@ -18,11 +18,7 @@ xformCache = UsdGeom.XformCache(0)
 def calcTriangleNormal(v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
     e1 = v2 - v1
     e2 = v3 - v2
-    e1 = Gf.Vec4f(e1[0], e1[1], e1[2],1.0)
-    e2 = Gf.Vec4f(e2[0], e2[1], e2[2],1.0)
-    e3 = Gf.HomogeneousCross(e1, e2)
-
-    n = Gf.Vec3d(e3[0], e3[1], e3[2])
+    n = Gf.Cross(e1, e2)
     return n.GetNormalized()
 
 # -------------------------------------------------------.

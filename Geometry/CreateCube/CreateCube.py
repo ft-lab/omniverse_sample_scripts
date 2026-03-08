@@ -4,7 +4,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 stage = omni.usd.get_context().get_stage()
 
 # Create cube.
-pathName = '/World/cube'
+pathName = "/World/cube"
 cubeGeom = UsdGeom.Cube.Define(stage, pathName)
 
 # Set cube size.

@@ -19,11 +19,9 @@ def drawArrow(p1, p2, color):
     lenV = vDir.GetLength()
     vDir /= lenV
 
-    v1_2 = Gf.Vec4f(vDir[0], vDir[1], vDir[2], 1.0)
-    v2_2 = Gf.Vec4f(0, 1, 0, 1.0)
-    v3_2 = Gf.HomogeneousCross(v1_2, v2_2)
+    n = Gf.Cross(vDir, Gf.Vec3f(0, 1, 0))
 
-    vDirX = Gf.Vec3f(v3_2[0], v3_2[1], v3_2[2]).GetNormalized()
+    vDirX = n.GetNormalized()
     vD1 = (vDir + vDirX).GetNormalized() * (lenV * 0.1)
     vD2 = (vDir - vDirX).GetNormalized() * (lenV * 0.1)
 

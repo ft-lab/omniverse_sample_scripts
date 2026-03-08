@@ -11,12 +11,8 @@ stage = omni.usd.get_context().get_stage()
 def calcTriangleNormal(v1 : Gf.Vec3d, v2 : Gf.Vec3d, v3 : Gf.Vec3d):
     e1 = v2 - v1
     e2 = v3 - v2
-    e1 = Gf.Vec4f(e1[0], e1[1], e1[2],1.0)
-    e2 = Gf.Vec4f(e2[0], e2[1], e2[2],1.0)
-    e3 = Gf.HomogeneousCross(e1, e2)
-
-    n = Gf.Vec3d(e3[0], e3[1], e3[2])
-    return n.GetNormalized()
+    cross = Gf.Cross(e1, e2)
+    return cross.GetNormalized()
 
 # -------------------------------------------------------.
 # Attach thickness.
@@ -28,7 +24,7 @@ def AttachThickness(primPath : str, thickness : float):
     if prim.IsValid() == False:
         return
     
-    if prim.GetTypeName() != 'Mesh':
+    if not prim.IsA(UsdGeom.Mesh):
         return
 
     m = UsdGeom.Mesh(prim)
@@ -238,18 +234,18 @@ def CreateGear(name : str, gearR : float, filletCount : int, filletHeight : floa
         rootPath = defaultPrim.GetPath().pathString
 
     # Create mesh.
-    pathName = rootPath + '/gears'
+    pathName = f"{rootPath}/gears"
     prim = stage.GetPrimAtPath(pathName)
     if prim.IsValid() == False:
         UsdGeom.Xform.Define(stage, pathName)
 
-    pathMeshName0 = pathName + '/' + name
+    pathMeshName0 = f"{pathName}/{name}"
     pathMeshName = pathMeshName0
     index = 0
     while True:
         pathMeshName = pathMeshName0
         if index > 0:
-            pathMeshName += '_' + str(index)
+            pathMeshName += f"_{index}"
         prim = stage.GetPrimAtPath(pathMeshName)
         if prim.IsValid() == False:
             break
@@ -296,8 +292,8 @@ def CreateGear(name : str, gearR : float, filletCount : int, filletHeight : floa
 # Clicked button event.
 def onButtonClick(hNameStringField, hRadiusFloatField, hFilletCouIntField, hFilletHeightFloatField, hGearWidthFloatField):
     name = hNameStringField.model.get_value_as_string()
-    if name == '':
-        name = 'gear'
+    if name == "":
+        name = "gear"
 
     radius = hRadiusFloatField.model.get_value_as_float() 
     if radius < 0.00001:
