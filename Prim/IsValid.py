@@ -9,4 +9,4 @@ path = "/World"
 prim = stage.GetPrimAtPath(path)
 
 # Use IsValid to check if the specified Prim exists.
-print(path + " : " + str(prim.IsValid()))
+print(f"{path} : {prim.IsValid()}")

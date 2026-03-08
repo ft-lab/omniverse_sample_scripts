@@ -16,7 +16,7 @@ viewport_api = active_vp_window.viewport_api
 # Get camera path ("/OmniverseKit_Persp" etc).
 cameraPath = viewport_api.camera_path.pathString
 
-print("Active camera path : " + cameraPath)
+print(f"Active camera path : {cameraPath}")
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -29,14 +29,14 @@ cameraPrim = stage.GetPrimAtPath(cameraPath)
 if cameraPrim.IsValid():
     camera  = UsdGeom.Camera(cameraPrim)        # UsdGeom.Camera
     cameraV = camera.GetCamera(time_code)       # Gf.Camera
-    print("Aspect : " + str(cameraV.aspectRatio))
-    print("fov(H) : " + str(cameraV.GetFieldOfView(Gf.Camera.FOVHorizontal)))
-    print("fov(V) : " + str(cameraV.GetFieldOfView(Gf.Camera.FOVVertical)))
-    print("FocalLength : " + str(cameraV.focalLength))
-    print("World to camera matrix : " + str(cameraV.transform))
+    print(f"Aspect : {cameraV.aspectRatio}")
+    print(f"fov(H) : {cameraV.GetFieldOfView(Gf.Camera.FOVHorizontal)}")
+    print(f"fov(V) : {cameraV.GetFieldOfView(Gf.Camera.FOVVertical)}")
+    print(f"FocalLength : {cameraV.focalLength}")
+    print(f"World to camera matrix : {cameraV.transform}")
 
     viewMatrix = cameraV.frustum.ComputeViewMatrix()
-    print("View matrix : {viewMatrix}")
+    print(f"View matrix : {viewMatrix}")
 
     viewInv = viewMatrix.GetInverse()
 

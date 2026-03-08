@@ -10,7 +10,7 @@ cameraGeom = UsdGeom.Camera.Define(stage, pathName)
 cameraGeom.CreateFocalLengthAttr(24.0)
 cameraGeom.CreateFocusDistanceAttr(400.0)
 cameraGeom.CreateFStopAttr(0.0)
-cameraGeom.CreateProjectionAttr('perspective')
+cameraGeom.CreateProjectionAttr("perspective")
 
 # Set position.
 UsdGeom.XformCommonAPI(cameraGeom).SetTranslate((0.0, 20.0, 40.0))

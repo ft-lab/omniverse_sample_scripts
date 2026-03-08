@@ -10,7 +10,7 @@ paths = selection.get_selected_prim_paths()
 for path in paths:
     # Get prim.
     prim = stage.GetPrimAtPath(path)
-    if prim.IsValid() == False:
+    if not prim.IsValid():
         continue
     
     try:
@@ -18,7 +18,7 @@ for path in paths:
         if singleSidedAttr != None and singleSidedAttr.IsValid():
             # Get singleSided (True/False).
             if singleSidedAttr.Get() != None:
-                print("[" + prim.GetName() + "] singleSided : " + str(singleSidedAttr.Get()))
+                print(f"[{prim.GetName()}] singleSided : {singleSidedAttr.Get()}")
 
         # Set singleSided.
         #if prim.GetTypeName() == 'Mesh':
