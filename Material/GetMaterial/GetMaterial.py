@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdShade
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -13,9 +13,9 @@ for path in paths:
     rel = UsdShade.MaterialBindingAPI(prim).GetDirectBindingRel()
     pathList = rel.GetTargets()
 
-    print('[ ' + prim.GetName() + ' ]')
+    print(f"[ {prim.GetName()} ]")
     for mTargetPath in pathList:
-        print('  material : ' + mTargetPath.pathString)
+        print(f"  material : {mTargetPath.pathString}")
 
         material = UsdShade.Material(stage.GetPrimAtPath(mTargetPath))
         print(material)

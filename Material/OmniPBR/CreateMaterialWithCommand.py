@@ -5,8 +5,8 @@ import omni.kit.commands
 stage = omni.usd.get_context().get_stage()
 
 # Create new material.
-omni.kit.commands.execute('CreateAndBindMdlMaterialFromLibrary', mdl_name='OmniPBR.mdl',
-	mtl_name='OmniPBR', mtl_created_list=['/World/Looks/OmniPBR'])
+omni.kit.commands.execute("CreateAndBindMdlMaterialFromLibrary", mdl_name="OmniPBR.mdl",
+	mtl_name="OmniPBR", mtl_created_list=["/World/Looks/OmniPBR"])
 
 # Get selection.
 selection = omni.usd.get_context().get_selection()

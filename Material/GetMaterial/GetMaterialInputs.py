@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdShade
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -8,24 +8,24 @@ paths = selection.get_selected_prim_paths()
 
 for path in paths:
     prim = stage.GetPrimAtPath(path)
-    if prim.GetTypeName() != "Material":
+    if not prim.IsA(UsdShade.Material):
         continue
 
-    print("[" + prim.GetPath().pathString + "]")
+    print(f"[ {prim.GetPath().pathString} ]")
 
     # Get Shader of Material and input parameters.
     pChildren = prim.GetChildren()
     for cPrim in pChildren:
-        if cPrim.GetTypeName() == "Shader":
+        if cPrim.IsA(UsdShade.Shader):
             shaderPrim = UsdShade.Shader(cPrim)
 
             mInputs = shaderPrim.GetInputs()
             for inputV in mInputs:
                 baseName = inputV.GetBaseName()
                 typeName = inputV.GetTypeName()
-                print("    [" + baseName + "] (" + str(typeName) + ")")
+                print(f"    [{baseName}] ({typeName})")
 
                 v = inputV.Get()
-                print("      " + str(type(v)) + " ==> " + str(v))
+                print(f"      {type(v)} ==> {v}")
 
 

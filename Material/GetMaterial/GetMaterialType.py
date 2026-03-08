@@ -9,13 +9,13 @@ paths = selection.get_selected_prim_paths()
 # Get material type (UsdPreviewSurface/OmniPBR/CustomMDL etc.)
 def GetMaterialType(path : str):
     prim = stage.GetPrimAtPath(path)
-    if prim.GetTypeName() != "Material":
+    if not prim.IsA(UsdShade.Material):
         return ""
     
     materialTypeName = ""
     pChildren = prim.GetChildren()
     for cPrim in pChildren:
-        if cPrim.GetTypeName() == "Shader":
+        if cPrim.IsA(UsdShade.Shader):
             shaderPrim = UsdShade.Shader(cPrim)
 
             # In the case of UsdPreviewSurface, ImplementationSource is "id".

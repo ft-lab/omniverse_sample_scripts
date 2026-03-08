@@ -1,3 +1,4 @@
+import omni.usd
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 
 # Get stage.
@@ -25,21 +26,21 @@ if scopePrim.IsValid() == False:
 # Create material (UsdPreviewSurface).
 materialPath = "/World/Materials/mat1"
 material = UsdShade.Material.Define(stage, materialPath)
-pbrShader = UsdShade.Shader.Define(stage, materialPath + "/PBRShader")
+pbrShader = UsdShade.Shader.Define(stage, f"{materialPath}/PBRShader")
 pbrShader.CreateIdAttr("UsdPreviewSurface")
 pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set((1.0, 0.2, 0.0))
 pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.4)
 pbrShader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
 
 # Set diffuse texture.
-stReader = UsdShade.Shader.Define(stage, materialPath + "/stReader")
+stReader = UsdShade.Shader.Define(stage, f"{materialPath}/stReader")
 stReader.CreateIdAttr("UsdPrimvarReader_float2")
 
-diffuseTextureSampler = UsdShade.Shader.Define(stage, materialPath + "/diffuseTexture")
+diffuseTextureSampler = UsdShade.Shader.Define(stage, f"{materialPath}/diffuseTexture")
 diffuseTextureSampler.CreateIdAttr("UsdUVTexture")
 
 # Note : Texture files should be specified in the path where they exist.
-#diffuseTextureFilePath = '../textures/stone_01_diffuse.png'
+#diffuseTextureFilePath = "../textures/stone_01_diffuse.png"
 diffuseTextureFilePath = "https://ft-lab.github.io/usd/omniverse/textures/stone_01_diffuse.png"
 diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(diffuseTextureFilePath)
 
@@ -48,11 +49,11 @@ diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
 pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(diffuseTextureSampler.ConnectableAPI(), "rgb")
 
 # Set normal texture.
-normalTextureSampler = UsdShade.Shader.Define(stage, materialPath + "/normalTexture")
+normalTextureSampler = UsdShade.Shader.Define(stage, f"{materialPath}/normalTexture")
 normalTextureSampler.CreateIdAttr("UsdUVTexture")
 
 # Note : Texture files should be specified in the path where they exist.
-#normalTextureFilePath = '../textures/stone_01_normal.png'
+#normalTextureFilePath = "../textures/stone_01_normal.png"
 normalTextureFilePath = "https://ft-lab.github.io/usd/omniverse/textures/stone_01_normal.png"
 normalTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(normalTextureFilePath)
 
