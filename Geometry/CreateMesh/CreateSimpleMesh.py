@@ -7,7 +7,7 @@ stage = omni.usd.get_context().get_stage()
 defaultPrim = stage.GetDefaultPrim()
 
 # Get root path.
-rootPath = '/'
+rootPath = "/"
 if defaultPrim.IsValid():
     rootPath = defaultPrim.GetPath().pathString
 
@@ -19,7 +19,7 @@ meshGeom.CreatePointsAttr([(-10, 0, -10), (-10, 0, 10), (10, 0, 10), (10, 0, -10
 
 # Set normals.
 meshGeom.CreateNormalsAttr([(0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)])
-meshGeom.SetNormalsInterpolation("vertex")
+meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.vertex)
 
 # Set face vertex count.
 meshGeom.CreateFaceVertexCountsAttr([4])
@@ -41,7 +41,7 @@ extent = boundable.ComputeExtent(Usd.TimeCode(0))
 meshGeom.CreateExtentAttr(extent)
 
 # Subdivision is set to none.
-meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+meshGeom.CreateSubdivisionSchemeAttr().Set(UsdGeom.Tokens.none)
 
 # Set position.
 UsdGeom.XformCommonAPI(meshGeom).SetTranslate((0.0, 0.0, 0.0))

@@ -15,10 +15,10 @@ for path in paths:
 
     # Get visibility.
     primImageable = UsdGeom.Imageable(prim)
-    showF = (primImageable.ComputeVisibility() != 'invisible')
+    showF = (primImageable.ComputeVisibility() != UsdGeom.Tokens.invisible)
 
-    if primImageable.GetVisibilityAttr().Get() == 'inherited':
-        print('[ ' + prim.GetName() + ' ] inherited  visible = ' + str(showF))
+    if primImageable.GetVisibilityAttr().Get() == UsdGeom.Tokens.inherited:
+        print(f'[ {prim.GetName()} ] inherited  visible = {showF}')
     else:
-        print('[ ' + prim.GetName() + ' ] invisible  visible = ' + str(showF))
+        print(f'[ {prim.GetName()} ] invisible  visible = {showF}')
 

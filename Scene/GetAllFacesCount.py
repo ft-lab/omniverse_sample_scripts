@@ -4,14 +4,12 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 # Get the number of faces used by PointInstancer.
 # ---------------------------------------.
 def TraversePointInstancer(prim):
-    typeName = prim.GetTypeName()
-
     allCou = 0
-    if typeName == 'Mesh':
+    if prim.IsA(UsdGeom.Mesh):
         m = UsdGeom.Mesh(prim)
 
         # If it is displayed.
-        if m.ComputeVisibility() == 'inherited':
+        if m.ComputeVisibility() == UsdGeom.Tokens.inherited:
             # Get the number of faces of Mesh.
             allCou += len(m.GetFaceVertexCountsAttr().Get())
 
@@ -31,11 +29,11 @@ def TraverseHierarchy_number(depth, prim):
     typeName = prim.GetTypeName()
 
     allCou = 0
-    if typeName == 'PointInstancer':
+    if prim.IsA(UsdGeom.PointInstancer):
         m = UsdGeom.PointInstancer(prim)
 
         # If it is displayed.
-        if m.ComputeVisibility() == 'inherited':
+        if m.ComputeVisibility() == UsdGeom.Tokens.inherited:
             # Get the number of faces used by PointInstancer.
             facesCou = TraversePointInstancer(prim)
 
@@ -47,11 +45,11 @@ def TraverseHierarchy_number(depth, prim):
             allCou += facesCou * piCou
             return allCou
 
-    if typeName == 'Mesh':
+    if prim.IsA(UsdGeom.Mesh):
         m = UsdGeom.Mesh(prim)
 
         # If it is displayed.
-        if m.ComputeVisibility() == 'inherited':
+        if m.ComputeVisibility() == UsdGeom.Tokens.inherited:
             # Get the number of faces of Mesh.
             allCou += len(m.GetFaceVertexCountsAttr().Get())
 
@@ -71,12 +69,12 @@ stage = omni.usd.get_context().get_stage()
 defaultPrim = stage.GetDefaultPrim()
 
 # Get root path.
-rootPath = '/'
+rootPath = "/"
 if defaultPrim.IsValid():
     rootPath = defaultPrim.GetPath().pathString
 
 # traverse the hierarchy.
 tPrim = stage.GetPrimAtPath(rootPath)
 allFacesCou = TraverseHierarchy_number(0, tPrim)
-print("Number of all faces : " + str(allFacesCou))
+print(f"Number of all faces : {allFacesCou}")
 

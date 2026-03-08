@@ -16,8 +16,8 @@ if defaultPrim.IsValid():
 # @param[in] path            Prim path.
 # @param[in] interpolation   "vertex" or "faceVarying".
 # ------------------------------------------------.
-def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = Gf.Vec3f(0, 0, 0)):
-    if interpolation != "vertex" and interpolation != "faceVarying":
+def createTestMesh(path : str, interpolation : str = UsdGeom.Tokens.vertex, pos : Gf.Vec3f = Gf.Vec3f(0, 0, 0)):
+    if interpolation != UsdGeom.Tokens.vertex and interpolation != UsdGeom.Tokens.faceVarying:
         return
 
     # Create mesh.
@@ -32,12 +32,12 @@ def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = 
     # Set face vertex indices.
     meshGeom.CreateFaceVertexIndicesAttr([0, 3, 4, 1, 1, 4, 5, 2])
 
-    if interpolation == "vertex":
+    if interpolation == UsdGeom.Tokens.vertex:
         # Set normals and UVs for each vertex.
 
         # Set normals.
         meshGeom.CreateNormalsAttr([(0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)])
-        meshGeom.SetNormalsInterpolation("vertex")
+        meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.vertex)
 
         # Set uvs.
         # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
@@ -53,7 +53,7 @@ def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = 
         for i in range(2):
             normalList.extend([(0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)])
         meshGeom.CreateNormalsAttr(normalList)
-        meshGeom.SetNormalsInterpolation("faceVarying")
+        meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.faceVarying)
 
         # Set uvs.
         primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
@@ -65,7 +65,7 @@ def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = 
         attr.Set(uvsList)
 
     # Subdivision is set to none.
-    meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+    meshGeom.CreateSubdivisionSchemeAttr().Set(UsdGeom.Tokens.none)
 
     # Set position.
     UsdGeom.XformCommonAPI(meshGeom).SetTranslate((pos[0], pos[1], pos[2]))
@@ -77,6 +77,6 @@ def createTestMesh(path : str, interpolation : str = "vertex", pos : Gf.Vec3f = 
     UsdGeom.XformCommonAPI(meshGeom).SetScale((1.0, 1.0, 1.0))
 
 # -----------------------------------------------.
-createTestMesh(rootPath + "/mesh_vertex", "vertex", Gf.Vec3f(0, 0, 0))
-createTestMesh(rootPath + "/mesh_faceVarying", "faceVarying", Gf.Vec3f(0, 0, 20))
+createTestMesh(f"{rootPath}/mesh_vertex", UsdGeom.Tokens.vertex, Gf.Vec3f(0, 0, 0))
+createTestMesh(f"{rootPath}/mesh_faceVarying", UsdGeom.Tokens.faceVarying, Gf.Vec3f(0, 0, 20))
 

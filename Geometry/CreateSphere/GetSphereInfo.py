@@ -6,9 +6,7 @@ xformCache = UsdGeom.XformCache(0)
 # Dump sphere data.
 # ---------------------------------------.
 def DumpSphereData(prim):
-    typeName = prim.GetTypeName()
-
-    if typeName == 'Sphere':
+    if prim.IsA(UsdGeom.Sphere):
         sphereGeom = UsdGeom.Sphere(prim)
 
         # Get prim name.
@@ -18,7 +16,7 @@ def DumpSphereData(prim):
         path = prim.GetPath().pathString
 
         # Get show/hide.
-        showF = (sphereGeom.ComputeVisibility() == 'inherited')
+        showF = (sphereGeom.ComputeVisibility() == UsdGeom.Tokens.inherited)
 
         # Decompose transform.
         globalPose = xformCache.GetLocalToWorldTransform(prim)

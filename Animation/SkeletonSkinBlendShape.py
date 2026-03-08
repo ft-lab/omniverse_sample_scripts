@@ -25,7 +25,7 @@ def createPlaneMesh(meshPath : str, planeSize : float = 20.0):
     # Set normals.
     normalList = [(0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)]
     meshGeom.CreateNormalsAttr(normalList)
-    meshGeom.SetNormalsInterpolation("faceVarying")
+    meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.faceVarying)
 
     # Set uvs.
     primvarV = UsdGeom.PrimvarsAPI(meshGeom).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.faceVarying)
@@ -35,7 +35,7 @@ def createPlaneMesh(meshPath : str, planeSize : float = 20.0):
     attr.Set(uvsList)
 
     # Subdivision is set to none.
-    meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+    meshGeom.CreateSubdivisionSchemeAttr().Set(UsdGeom.Tokens.none)
 
     # Set position.
     UsdGeom.XformCommonAPI(meshGeom).SetTranslate((0.0, 0.0, 0.0))

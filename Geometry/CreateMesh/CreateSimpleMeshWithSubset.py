@@ -7,7 +7,7 @@ stage = omni.usd.get_context().get_stage()
 defaultPrim = stage.GetDefaultPrim()
 
 # Get root path.
-rootPath = '/'
+rootPath = "/"
 if defaultPrim.IsValid():
     rootPath = defaultPrim.GetPath().pathString
 
@@ -19,17 +19,17 @@ if defaultPrim.IsValid():
 def createMaterialOmniPBR(materialPrimPath : str, diffuseColor : Gf.Vec3f):
     material = UsdShade.Material.Define(stage, materialPrimPath)
 
-    shaderPath = materialPrimPath + '/Shader'
+    shaderPath = f"{materialPrimPath}/Shader"
     shader = UsdShade.Shader.Define(stage, shaderPath)
-    shader.SetSourceAsset('OmniPBR.mdl', 'mdl')
-    shader.GetPrim().CreateAttribute('info:mdl:sourceAsset:subIdentifier', Sdf.ValueTypeNames.Token, False, Sdf.VariabilityUniform).Set('OmniPBR')
+    shader.SetSourceAsset("OmniPBR.mdl", "mdl")
+    shader.GetPrim().CreateAttribute("info:mdl:sourceAsset:subIdentifier", Sdf.ValueTypeNames.Token, False, Sdf.VariabilityUniform).Set("OmniPBR")
 
     # Set Diffuse color.
-    shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set(diffuseColor)
+    shader.CreateInput("diffuse_color_constant", Sdf.ValueTypeNames.Color3f).Set(diffuseColor)
 
     # Connecting Material to Shader.
-    mdlOutput = material.CreateSurfaceOutput('mdl')
-    mdlOutput.ConnectToSource(shader.ConnectableAPI(), 'out')
+    mdlOutput = material.CreateSurfaceOutput("mdl")
+    mdlOutput.ConnectToSource(shader.ConnectableAPI(), "out")
 
     return materialPrimPath
 
@@ -56,7 +56,7 @@ def createMesh(meshPath : str):
     for i in range(2):
         normalList.extend([(0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)])
     meshGeom.CreateNormalsAttr(normalList)
-    meshGeom.SetNormalsInterpolation("faceVarying")
+    meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.faceVarying)
 
     # Set uvs.
     # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
@@ -69,7 +69,7 @@ def createMesh(meshPath : str):
     attr.Set(uvsList)
 
     # Subdivision is set to none.
-    meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+    meshGeom.CreateSubdivisionSchemeAttr().Set(UsdGeom.Tokens.none)
 
     # Set position.
     UsdGeom.XformCommonAPI(meshGeom).SetTranslate((0.0, 0.0, 0.0))
@@ -81,7 +81,7 @@ def createMesh(meshPath : str):
     UsdGeom.XformCommonAPI(meshGeom).SetScale((1.0, 1.0, 1.0))
 
     # Create subset 1.
-    subsetPath = meshPath + "/submesh_1"
+    subsetPath = f"{meshPath}/submesh_1"
     geomSubset1 = UsdGeom.Subset.Define(stage, subsetPath)
 
     geomSubset1.CreateFamilyNameAttr("materialBind")
@@ -89,12 +89,12 @@ def createMesh(meshPath : str):
     geomSubset1.CreateIndicesAttr([0])  # Set the index on the face.
 
     # Bind material.
-    matPrim = stage.GetPrimAtPath(rootPath + "/Looks/mat1")
+    matPrim = stage.GetPrimAtPath(f"{rootPath}/Looks/mat1")
     if matPrim.IsValid():
         UsdShade.MaterialBindingAPI(geomSubset1).Bind(UsdShade.Material(matPrim))
 
     # Create subset 2.
-    subsetPath = meshPath + "/submesh_2"
+    subsetPath = f"{meshPath}/submesh_2"
     geomSubset2 = UsdGeom.Subset.Define(stage, subsetPath)
 
     geomSubset2.CreateFamilyNameAttr("materialBind")
@@ -102,20 +102,20 @@ def createMesh(meshPath : str):
     geomSubset2.CreateIndicesAttr([1])  # Set the index on the face.
 
     # Bind material.
-    matPrim = stage.GetPrimAtPath(rootPath + "/Looks/mat2")
+    matPrim = stage.GetPrimAtPath(f"{rootPath}/Looks/mat2")
     if matPrim.IsValid():
         UsdShade.MaterialBindingAPI(geomSubset2).Bind(UsdShade.Material(matPrim))
 
 # -----------------------------------------------------------.
 # Create scope.
-looksScopePath = rootPath + "/Looks"
+looksScopePath = f"{rootPath}/Looks"
 scopePrim = stage.GetPrimAtPath(looksScopePath)
-if scopePrim.IsValid() == False:
+if not scopePrim.IsValid():
     UsdGeom.Scope.Define(stage, looksScopePath)
 
 # Create material.
-createMaterialOmniPBR(rootPath + "/Looks/mat1", Gf.Vec3f(1.0, 0.0, 0.0))
-createMaterialOmniPBR(rootPath + "/Looks/mat2", Gf.Vec3f(0.0, 1.0, 0.0))
+createMaterialOmniPBR(f"{rootPath}/Looks/mat1", Gf.Vec3f(1.0, 0.0, 0.0))
+createMaterialOmniPBR(f"{rootPath}/Looks/mat2", Gf.Vec3f(0.0, 1.0, 0.0))
 
 # Create mesh.
-createMesh(rootPath + "/mesh")
+createMesh(f"{rootPath}/mesh")

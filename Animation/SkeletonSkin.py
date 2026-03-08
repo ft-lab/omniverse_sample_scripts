@@ -27,7 +27,7 @@ def createMesh(primPath : str, height : float = 100.0, divCou : int = 8):
         normalsA.append((0.0, 0.0, 1.0))
         normalsA.append((0.0, 0.0, 1.0))
     meshGeom.CreateNormalsAttr(normalsA)
-    meshGeom.SetNormalsInterpolation("vertex")
+    meshGeom.SetNormalsInterpolation(UsdGeom.Tokens.vertex)
 
     meshGeom.CreateFaceVertexCountsAttr([4] * divCou)
 
@@ -57,7 +57,7 @@ def createMesh(primPath : str, height : float = 100.0, divCou : int = 8):
     extent = boundable.ComputeExtent(Usd.TimeCode(0))
 
     meshGeom.CreateExtentAttr(extent)
-    meshGeom.CreateSubdivisionSchemeAttr().Set("none")
+    meshGeom.CreateSubdivisionSchemeAttr().Set(UsdGeom.Tokens.none)
 
     return meshGeom
 

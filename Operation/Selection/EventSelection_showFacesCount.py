@@ -10,22 +10,21 @@ context = omni.usd.get_context()
 stage = context.get_stage()
 
 # Get main window viewport.
-window = omni.ui.Window('Viewport')
+window = omni.ui.Window("Viewport")
 
 # ---------------------------------------------.
 # Get the number of faces in the mesh.
 # ---------------------------------------------.
 def GetFacesCount(prim):
-    if prim.IsValid() == None:
+    if not prim.IsValid():
         return 0
-    typeName = prim.GetTypeName()
 
     allCou = 0
-    if typeName == 'Mesh':
+    if prim.IsA(UsdGeom.Mesh):
         m = UsdGeom.Mesh(prim)
 
         # If it is displayed.
-        if m.ComputeVisibility() == 'inherited':
+        if m.ComputeVisibility() == UsdGeom.Tokens.inherited:
             # Get the number of faces of Mesh.
             allCou += len(m.GetFaceVertexCountsAttr().Get())
 
@@ -61,10 +60,10 @@ def UpdateViewportUI(paths):
             # Show selection shape name.
             for path in paths:
                 prim = stage.GetPrimAtPath(path)
-                if prim.IsValid() == True:
+                if prim.IsValid():
                     facesCou = GetFacesCount(prim)
                     with omni.ui.Placer(offset_x=28, offset_y=0):
-                        f2 = omni.ui.Label('[ ' + prim.GetName() + ' ] faces ' + str(facesCou))
+                        f2 = omni.ui.Label(f'[ {prim.GetName()} ] faces {facesCou}')
                         f2.visible = True
                         f2.set_style({"color": 0xff00ff00, "font_size": 32})
 

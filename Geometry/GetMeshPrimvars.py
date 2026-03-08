@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdGeom
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -10,7 +10,7 @@ paths = selection.get_selected_prim_paths()
 for path in paths:
     # Get prim.
     prim = stage.GetPrimAtPath(path)
-    if prim.GetTypeName() != "Mesh": 
+    if not prim.IsA(UsdGeom.Mesh):
         continue
 
     # USD 22.11 : The specification has been changed to use UsdGeom.PrimvarsAPI.
@@ -18,11 +18,10 @@ for path in paths:
 
     primvars = 	primvarsAPI.GetPrimvars()
     if len(primvars) > 0:
-        print("[" + prim.GetPath().pathString + "]")
+        print(f"[{prim.GetPath().pathString}]")
         for primvar in primvars:
             primName = primvar.GetPrimvarName()
             typeName = primvar.GetTypeName()
             val      = primvar.Get()
 
-            print("  " + primName + " (" + str(typeName) + ") : " + str(val))
-
+            print(f"  {primName} ({typeName}) : {val}")

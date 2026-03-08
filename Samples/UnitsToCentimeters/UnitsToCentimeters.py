@@ -15,23 +15,23 @@ def ConvPrimScale(_metersPerUnit, path):
         return False
 
     # Set xformOpOrder (Xform/Mesh).
-    transformOrder = prim.GetAttribute('xformOpOrder')
+    transformOrder = prim.GetAttribute("xformOpOrder")
     typeName = prim.GetTypeName()
-    if typeName == 'Xform' or typeName == 'Mesh':
-        tV = prim.GetAttribute('xformOp:scale')
+    if prim.IsA(UsdGeom.Xform) or prim.IsA(UsdGeom.Mesh):
+        tV = prim.GetAttribute("xformOp:scale")
         if tV.IsValid() == False:
-            if prim.GetAttribute('xformOp:translate').IsValid() == False:
+            if prim.GetAttribute("xformOp:translate").IsValid() == False:
                 prim.CreateAttribute("xformOp:translate", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(0, 0, 0))
-            if prim.GetAttribute('xformOp:scale').IsValid() == False:
+            if prim.GetAttribute("xformOp:scale").IsValid() == False:
                 prim.CreateAttribute("xformOp:scale", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(1, 1, 1))
-            if prim.GetAttribute('xformOp:rotateXYZ').IsValid() == False:
+            if prim.GetAttribute("xformOp:rotateXYZ").IsValid() == False:
                 prim.CreateAttribute("xformOp:rotateXYZ", Sdf.ValueTypeNames.Float3, False).Set(Gf.Vec3f(0, 0, 0))
 
             transformOrder = prim.CreateAttribute("xformOpOrder", Sdf.ValueTypeNames.String, False)
             transformOrder.Set(["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"])
 
     if transformOrder.IsValid() and transformOrder.Get() != None:
-        tV = prim.GetAttribute('xformOp:scale')
+        tV = prim.GetAttribute("xformOp:scale")
         if tV.IsValid():
             scaleV = tV.Get()
             scale = _metersPerUnit / 0.01
@@ -46,7 +46,7 @@ if abs(metersPerUnit - 0.01) < 1e-5:
 else:
     # Get default prim.
     defaultPrim = stage.GetDefaultPrim()
-    if defaultPrim == None or defaultPrim.IsValid() == False:
+    if not defaultPrim:
         print("DefaultPrim does not exist.")
     else:
         path = defaultPrim.GetPath().pathString

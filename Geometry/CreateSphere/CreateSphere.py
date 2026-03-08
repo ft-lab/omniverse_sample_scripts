@@ -4,7 +4,7 @@ from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 stage = omni.usd.get_context().get_stage()
 
 # Create sphere.
-pathName = '/World/sphere'
+pathName = "/World/sphere"
 sphereGeom = UsdGeom.Sphere.Define(stage, pathName)
 
 # Set radius.
