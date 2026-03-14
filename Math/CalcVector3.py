@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Gf
 
 # float vector.
 print("\nfloat vector ----\n")
@@ -22,7 +22,7 @@ v1d = Gf.Vec3d(1.0, 2.0, -5.0)
 v2d = Gf.Vec3d(2.5, 14.0, 12.0)
 
 v = v1d + v2d
-print("v.x = " + str(v1d[0]) + " type = " + str(type(v1d[0])))
+print(f"v.x = {v1d[0]} type = {type(v1d[0])}")
 
 v = v1d / 2
 print(f"{v1d} / 2 = {v}")

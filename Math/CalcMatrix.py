@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Gf
 
 # Identity matrix.
 m = Gf.Matrix4f()

@@ -1,5 +1,8 @@
 from pxr import Usd, UsdGeom, UsdSkel, UsdPhysics, UsdShade, Sdf, Gf, Tf
 
+# --------------------------------------------------.
+# Use Gf.Matrix4d.
+# --------------------------------------------------.
 # Dump matrix.
 def DumpMatrix(m : Gf.Matrix4d):
     print("---------------------")
@@ -16,11 +19,11 @@ mm = Gf.Matrix4d().SetScale(scale) * Gf.Matrix4d(rotation, Gf.Vec3d(0)) * Gf.Mat
 DumpMatrix(mm)
 
 # Decompose matrix.
-mm2 = mm.RemoveScaleShear()
-rTrans = mm2.ExtractTranslation()
-rRot = mm2.ExtractRotation()
-mm3 = mm * mm2.GetInverse() 
-rScale = Gf.Vec3d(mm3[0][0], mm3[1][1], mm3[2][2])
+mTransRotate = mm.RemoveScaleShear()
+rTrans = mTransRotate.ExtractTranslation()
+rRot = mTransRotate.ExtractRotation()
+mScale = mm * mTransRotate.GetInverse() 
+rScale = Gf.Vec3d(mScale[0][0], mScale[1][1], mScale[2][2])
 
 rAxisX = Gf.Vec3d(1, 0, 0)
 rAxisY = Gf.Vec3d(0, 1, 0)

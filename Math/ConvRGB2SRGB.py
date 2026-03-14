@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Gf
 import math
 
 def rgb_to_srgb(v : float, quantum_max : float = 1.0):
