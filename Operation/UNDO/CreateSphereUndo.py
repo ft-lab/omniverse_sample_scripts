@@ -28,7 +28,7 @@ class MyCreateSphere (omni.kit.commands.Command):
         stage.RemovePrim(self._path)
 
 # Create sphere.
-pathName = '/World/sphere'
+pathName = "/World/sphere"
 
 # Register a Class and run it.
 omni.kit.commands.register(MyCreateSphere)

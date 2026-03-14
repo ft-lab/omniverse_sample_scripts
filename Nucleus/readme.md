@@ -1,12 +1,13 @@
 # Nucleus
 
+※ Nucleusについては2026年3月現在はインストール手段がないため、これはログとして残しています。
+
 OmniverseではUSDからの保存はNucleusの指定のパス(omniverse://localhost/xxx/yyy.usd)に出力できます。    
 別途、Nucleus上でファイル操作を行う「omni.client」が用意されています。     
 
-
 ## 参考
 
-https://docs.omniverse.nvidia.com/py/kit/source/extensions/omni.client/docs/index.html
+https://docs.omniverse.nvidia.com/nucleus/latest/index.html
 
 ## サンプル
 

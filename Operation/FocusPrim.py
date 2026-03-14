@@ -1,9 +1,6 @@
-# "omni.kit.viewport_legacy" is no longer available in kit104.
-#import omni.kit.viewport_legacy
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import omni.kit.commands
 
-# Kit104 : changed from omni.kit.viewport_legacy to omni.kit.viewport.utility.get_active_viewport_window
 import omni.kit.viewport.utility
 
 # Get active viewport window.
@@ -12,6 +9,7 @@ viewport_api = active_vp_window.viewport_api
 
 # Get camera path ("/OmniverseKit_Persp" etc).
 cameraPath = viewport_api.camera_path.pathString
+print(f"Current camera path : {cameraPath}")
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()

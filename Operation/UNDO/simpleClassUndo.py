@@ -8,7 +8,7 @@ class MyOrange (omni.kit.commands.Command):
         self._bar = bar
 
     def do(self):
-        self._bar.append('orange')
+        self._bar.append("orange")
 
     def undo(self):
         del self._bar[-1]

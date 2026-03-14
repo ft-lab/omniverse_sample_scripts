@@ -1,36 +1,51 @@
 # Omniverse sample scripts
 
 ここでは、NVIDIA Omniverse ( https://www.nvidia.com/ja-jp/omniverse/ ) のスクリプトのサンプルを貯めていってます。       
-Omniverseは、データ構造としてUSDを使用してます。     
+Omniverseは、データ構造として[OpenUSD](https://openusd.org/release/index.html)を使用してます。     
 3Dモデルやシーンのファイルへの保存、読み込みでUSDが使用されるだけでなく、    
-Omniverse CreateやOmniverse ViewなどのOmniverseアプリのビュー上の制御もUSDを介して行われます（形状の表示/非表示の切り替えや移動など）。      
+Omniverse Kitをベースとしてアプリ(USD ComposerやIsaac Sim)のビュー上の制御もUSDを介して行われます。  
+形状の表示/非表示の切り替えや移動など、これらはUSDの汎用的な操作を介して行います。  
 
-ここでは、OmniverseアプリであるOmniverse CreateのScript Editorで試せるスクリプトのサンプルを用途別に列挙します。     
-Omniverse Create ~~2021.3.8~~ ~~2022.1.4~~ 2022.3.1(Kit.104)で確認しました。     
+ここでは、OmniverseアプリであるOmniverse USD ComposerのScript Editorで試せるスクリプトのサンプルを用途別に列挙します。     
+Omniverse Kit 110.0.0で確認(WIP: 検証中、、、)しました。  
 
 ## 開発の参考サイト
 
-Omniverseの情報は、Omniverse Launcherがポータルになっています。      
-ここのLEARNにチュートリアル動画やドキュメントなどが列挙されています。     
+Omniverse開発環境は [kit-app-template](https://github.com/NVIDIA-Omniverse/kit-app-template) を使います。  
+このGitHubのリポジトリの手順に従ってOmniverse Kit環境を構築することができます。 
+kit-app-templateは、Omniverse Kitをベースとしてひな型アプリを作成することができます。  
+検証にはこのkit-app-templateからビルドできる"USD Composer"がよく使用されます。  
 
-### NVIDIA Omniverse Developer Resource Center     
+シミュレーション環境に特化した `Isaac Sim` (5.1.0)は以下のURLをご参照くださいませ。  
 
-https://developer.nvidia.com/nvidia-omniverse-developer-resource-center
+https://docs.isaacsim.omniverse.nvidia.com/5.1.0/index.html
+
+Isaac SimもOmniverse Kitをベースに開発されています。
+
+### Omniverse Developer Overview
+
+https://docs.omniverse.nvidia.com/dev-overview/latest/index.html
 
 Omniverse開発の入口となるサイトです。     
 全体的に何ができて何が重要か、というのは俯瞰して見ることができます。      
 
-### Omniverse Kit
+### Learn OpenUSD
 
-https://docs.omniverse.nvidia.com/prod_kit/prod_kit/overview.html     
+OpenUSDを学ぶサイトです。  
 
-Omniverse Kitのトップページです。     
-"Search API"のようなAPIからの検索もあるため、ある程度理解が進んだ方はこちらから進めるのがよいかもしれません。      
+https://docs.nvidia.com/learn-openusd/latest/index.html
+
+
+### kit-app-template
+
+https://docs.omniverse.nvidia.com/kit/docs/kit-app-template/latest/docs/intro.html 
+
+Omniverse Kit SDKのトップページです。   
 
 
 ## はじめに
 
-Omniverse Createで、メインメニューの [Window] - [Script Editor]を選択して、Script Editorを起動します。     
+Omniverse USD Composerで、メインメニューの [Developer] - [Script Editor]を選択して、Script Editorを起動します。     
 
 ![omniverse_script_editor_01.png](./images/omniverse_script_editor_01.png)    
 

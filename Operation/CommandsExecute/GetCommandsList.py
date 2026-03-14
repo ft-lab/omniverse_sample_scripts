@@ -4,4 +4,5 @@ import omni.kit
 listA = omni.kit.commands.get_commands()
 keys = listA.keys()
 
-print(str(keys))
+for key in keys:
+    print(str(key))

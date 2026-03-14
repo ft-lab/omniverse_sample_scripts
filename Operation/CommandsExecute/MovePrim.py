@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdGeom
 import omni.kit
 
 # Get stage.
@@ -9,7 +9,7 @@ defaultPrim = stage.GetDefaultPrim()
 
 # Create empty node(Xform).
 defaultPrimPath = defaultPrim.GetPath().pathString
-xformPath = defaultPrimPath + '/Xform'
+xformPath = f"{defaultPrimPath}/Xform"
 UsdGeom.Xform.Define(stage, xformPath)
 
 # Get selection.
@@ -19,10 +19,10 @@ selectedPaths = selection.get_selected_prim_paths()
 for path in selectedPaths:
     # Get prim.
     prim = stage.GetPrimAtPath(path)
-    if prim.IsValid() == False:
+    if not prim.IsValid():
         continue
 
-    pathTo = xformPath + "/" + str(prim.GetName())
+    pathTo = f"{xformPath}/{prim.GetName()}"
 
     # Change Prim's path.
     # path_from : Path of the original Prim.

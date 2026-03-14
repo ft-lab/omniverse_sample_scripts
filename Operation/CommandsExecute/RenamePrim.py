@@ -14,7 +14,7 @@ for path in selectedPaths:
     if prim.IsValid() == False:
         continue
 
-    newPathName = path + "_rename"
+    newPathName = f"{path}_rename"
 
     # Rename Prim name.
     omni.kit.commands.execute("MovePrim", path_from=path, path_to=newPathName)
