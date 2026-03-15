@@ -42,7 +42,6 @@ https://docs.omniverse.nvidia.com/kit/docs/kit-app-template/latest/docs/intro.ht
 
 Omniverse Kit SDKのトップページです。   
 
-
 ## はじめに
 
 Omniverse USD Composerで、メインメニューの [Developer] - [Script Editor]を選択して、Script Editorを起動します。     
@@ -81,6 +80,7 @@ print("Hello Omniverse !")
 * [Omniverseでの開発手段](./knowledge/dev_method.md)
 * [Omniverseのスクリプトの学習手順](./knowledge/dev_info.md)
 * [USDについての情報](./knowledge/dev_usd.md)
+* [kit-app-template](./knowledge/kit-app-template.md)
 
 その他の知識は [Knowledge](./knowledge/) に蓄えていく予定です。  
 

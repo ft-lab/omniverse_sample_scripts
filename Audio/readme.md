@@ -4,8 +4,7 @@ Audioファイルを読み込んで再生します。
 Audio自身はUSDでPrimとして指定することができます。      
 
 UsdAudio Proposal       
-https://graphics.pixar.com/usd/release/wp_usdaudio.html
-
+https://openusd.org/release/wp_usdaudio.html
 
 また、OmniverseでもUIとしてAudioのStageへのインポートができます。      
 

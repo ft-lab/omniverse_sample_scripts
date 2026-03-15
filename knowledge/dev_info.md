@@ -24,7 +24,7 @@ print(v3)
 
 ## USDへのアクセス
 
-Omniverseは、データ構造として「USD」( https://graphics.pixar.com/usd/release/index.html )を採用しています。      
+Omniverseは、データ構造として「OpenUSD」( https://openusd.org/release/index.html )を採用しています。      
 Omniverseでも、USD SDKのPython使用時と同じように「from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf」としてインポートして使用します。    
 
 ```python
