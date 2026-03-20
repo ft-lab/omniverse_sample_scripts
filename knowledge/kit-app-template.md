@@ -45,6 +45,7 @@ ApplicationとしてUSD Exchange(Omniverse Kitの標準的な開発環境)をビ
 
 新しいKitをGitHubリポジトリから取得して再度同じアプリ名でビルドを行いたい場合、
 "source/extensions"から"[組織名].[アプリ名]_setup_extension"のディレクトリを削除してください。  
+その後、再度"repo template new"を実行してください。  
 
 ## ビルド
 
@@ -60,7 +61,7 @@ Ubuntu
 
 このビルドは時間がかかります。  
 
-成功すると、"_build/windows-x86_64/release"(Linuxは"_build/linux-x86_64/release")に実行に必要な構成が出力されています。  
+成功すると、"_build/windows-x86_64/release"(Linuxは"_build/linux-x86_64/release")に実行に必要な構成が出力されているのを確認できます。  
 
 ## 起動
 

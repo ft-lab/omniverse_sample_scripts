@@ -3,9 +3,9 @@ from pxr import Usd, UsdGeom, UsdSkel, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import carb
 import carb.input
 import omni.kit.app
-import omni.ext
 
-# Reference : kit/exts/omni.kit.debug.input
+# Reference:
+# https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/carb.input.html
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -23,7 +23,7 @@ def moveSelectedPrim(mV : Gf.Vec3f):
         Gf.Vec3f(0, 0, 0)
         if prim.IsValid() == True:
             # Get translate.
-            transformOrder = prim.GetAttribute('xformOpOrder')
+            transformOrder = prim.GetAttribute("xformOpOrder")
             if transformOrder.IsValid():
                 tV = prim.GetAttribute("xformOp:translate")
                 if tV.IsValid():
@@ -34,7 +34,7 @@ def moveSelectedPrim(mV : Gf.Vec3f):
                     tV.Set(pos)
 
 # ------------------------------------------.
-# Gamepad discription.
+# Gamepad description.
 # ------------------------------------------.
 class GamepadDesc:
     def _cleanup(self):
@@ -84,8 +84,8 @@ class InputGamePad:
             gamepad_desc.input_device = event.device
             self._gamepads.append(gamepad_desc)
             print("carb.input.GamepadConnectionEventType.CREATED")
-            print("name : " + str(gamepad_desc.name))
-            print("guid : " + str(gamepad_desc.guid))
+            print(f"name : {gamepad_desc.name}")
+            print(f"guid : {gamepad_desc.guid}")
 
         # Gamepad destroyed.
         elif event.type == carb.input.GamepadConnectionEventType.DESTROYED:
@@ -106,13 +106,19 @@ class InputGamePad:
 
     # gamepad update event.
     def _update_gamepads_data(self, event):
-        gamepad_descD = None
+        # Sanity checks
+        if self._input is None or not self._gamepads or not self._gamepad_inputs:
+            return
+
+        last_desc = None
         for gamepad_desc in self._gamepads:
-            gamepad_descD = gamepad_desc
-            for gamepad_input in self._gamepad_inputs:
-                # Store value.
-                val = self._input.get_gamepad_value(gamepad_descD.gamepad_device, gamepad_input)
-                gamepad_descD.input_val[gamepad_input] = float(val)
+            last_desc = gamepad_desc
+            for gamepad_input in list(self._gamepad_inputs.keys()):
+                try:
+                    val = self._input.get_gamepad_value(gamepad_desc.gamepad_device, gamepad_input)
+                    gamepad_desc.input_val[gamepad_input] = float(val)
+                except Exception:
+                    gamepad_desc.input_val[gamepad_input] = 0.0
 
                 # gamepad_input : DPAD (0.0 or 1.0).
                 #   carb.input.GamepadInput.DPAD_DOWN
@@ -150,21 +156,22 @@ class InputGamePad:
                 #   carb.input.GamepadInput.LEFT_SHOULDER 
                 #   carb.input.GamepadInput.RIGHT_SHOULDER 
 
-        if gamepad_descD == None:
+        if last_desc is None:
             return
-            
+
         # Move the selected Prim.
         mV = Gf.Vec3f(0, 0, 0)
         scaleV = 2.0
         minV = 0.3
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_DOWN] > minV:
-            mV[2] += scaleV * gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_DOWN]
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_UP] > minV:
-            mV[2] -= scaleV * gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_UP]
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_LEFT] > minV:
-            mV[0] -= scaleV * gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_LEFT]
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_RIGHT] > minV:
-            mV[0] += scaleV * gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK_RIGHT]
+        val_get = last_desc.input_val.get
+        if val_get(carb.input.GamepadInput.LEFT_STICK_DOWN, 0.0) > minV:
+            mV[2] += scaleV * val_get(carb.input.GamepadInput.LEFT_STICK_DOWN, 0.0)
+        if val_get(carb.input.GamepadInput.LEFT_STICK_UP, 0.0) > minV:
+            mV[2] -= scaleV * val_get(carb.input.GamepadInput.LEFT_STICK_UP, 0.0)
+        if val_get(carb.input.GamepadInput.LEFT_STICK_LEFT, 0.0) > minV:
+            mV[0] -= scaleV * val_get(carb.input.GamepadInput.LEFT_STICK_LEFT, 0.0)
+        if val_get(carb.input.GamepadInput.LEFT_STICK_RIGHT, 0.0) > minV:
+            mV[0] += scaleV * val_get(carb.input.GamepadInput.LEFT_STICK_RIGHT, 0.0)
 
         moveSelectedPrim(mV)
 
@@ -172,12 +179,16 @@ class InputGamePad:
         self._gamepads = []
         self._input = carb.input.acquire_input_interface()
         self._input_provider = carb.input.acquire_input_provider()
-        self._gamepad_connection_subs = self._input.subscribe_to_gamepad_connection_events(self._gamepad_connection_event)
+        try:
+            self._gamepad_connection_subs = self._input.subscribe_to_gamepad_connection_events(self._gamepad_connection_event)
+        except Exception:
+            self._gamepad_connection_subs = None
 
         # Creating a dict of processed GamepadInput enumeration for convenience
         def filter_gamepad_input_attribs(attr):
             return not callable(getattr(carb.input.GamepadInput, attr)) and not attr.startswith("__") and attr != "name" and attr != "COUNT"
         self._gamepad_inputs = dict((getattr(carb.input.GamepadInput, attr), attr) for attr in dir(carb.input.GamepadInput) if filter_gamepad_input_attribs(attr))
+        self._gamepad_input_keys = list(self._gamepad_inputs.keys())
 
         self._app = omni.kit.app.get_app()
         self._pre_update_sub = self._app.get_pre_update_event_stream().create_subscription_to_pop(
@@ -185,10 +196,15 @@ class InputGamePad:
         )
 
     def shutdown(self):
-        self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
+        try:
+            if self._input is not None and self._gamepad_connection_subs is not None:
+                self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
+        except Exception:
+            pass
 
         self._gamepad_connection_subs = None
         self._gamepad_inputs = None
+        self._gamepad_input_keys = None
         self._gamepads = None
 
         self._app = None

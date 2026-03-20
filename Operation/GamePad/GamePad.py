@@ -3,9 +3,9 @@ from pxr import Usd, UsdGeom, UsdSkel, UsdPhysics, UsdShade, Sdf, Gf, Tf
 import carb
 import carb.input
 import omni.kit.app
-import omni.ext
 
-# Reference : kit/exts/omni.kit.debug.input
+# Reference:
+# https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/carb.input.html
 
 # ------------------------------------------.
 # Gamepad discription.
@@ -58,8 +58,8 @@ class InputGamePad:
             gamepad_desc.input_device = event.device
             self._gamepads.append(gamepad_desc)
             print("carb.input.GamepadConnectionEventType.CREATED")
-            print("name : " + str(gamepad_desc.name))
-            print("guid : " + str(gamepad_desc.guid))
+            print(f"name : {gamepad_desc.name}")
+            print(f"guid : {gamepad_desc.guid}")
 
         # Gamepad destroyed.
         elif event.type == carb.input.GamepadConnectionEventType.DESTROYED:
@@ -80,13 +80,21 @@ class InputGamePad:
 
     # gamepad update event.
     def _update_gamepads_data(self, event):
-        gamepad_descD = None
+        # Sanity checks
+        if self._input is None or not self._gamepads or not self._gamepad_inputs:
+            return
+
+        last_desc = None
+        # Update values for every connected gamepad
         for gamepad_desc in self._gamepads:
-            gamepad_descD = gamepad_desc
-            for gamepad_input in self._gamepad_inputs:
-                # Store value.
-                val = self._input.get_gamepad_value(gamepad_descD.gamepad_device, gamepad_input)
-                gamepad_descD.input_val[gamepad_input] = float(val)
+            last_desc = gamepad_desc
+            for gamepad_input in list(self._gamepad_inputs.keys()):
+                try:
+                    val = self._input.get_gamepad_value(gamepad_desc.gamepad_device, gamepad_input)
+                    gamepad_desc.input_val[gamepad_input] = float(val)
+                except Exception:
+                    # If we fail to read a value, default to 0.0
+                    gamepad_desc.input_val[gamepad_input] = 0.0
 
                 # gamepad_input : DPAD (0.0 or 1.0).
                 #   carb.input.GamepadInput.DPAD_DOWN
@@ -124,50 +132,58 @@ class InputGamePad:
                 #   carb.input.GamepadInput.LEFT_SHOULDER 
                 #   carb.input.GamepadInput.RIGHT_SHOULDER 
 
-        if gamepad_descD == None:
+        if last_desc is None:
             return
 
-        if gamepad_desc.input_val[carb.input.GamepadInput.A] != 0.0:
+        # Use .get to avoid KeyError for inputs that may be missing
+        val_get = last_desc.input_val.get
+        if val_get(carb.input.GamepadInput.A, 0.0) != 0.0:
             print("A")
-        if gamepad_desc.input_val[carb.input.GamepadInput.B] != 0.0:
+        if val_get(carb.input.GamepadInput.B, 0.0) != 0.0:
             print("B")
-        if gamepad_desc.input_val[carb.input.GamepadInput.X] != 0.0:
+        if val_get(carb.input.GamepadInput.X, 0.0) != 0.0:
             print("X")
-        if gamepad_desc.input_val[carb.input.GamepadInput.Y] != 0.0:
+        if val_get(carb.input.GamepadInput.Y, 0.0) != 0.0:
             print("Y")
-        if gamepad_desc.input_val[carb.input.GamepadInput.MENU1] != 0.0:
+        if val_get(carb.input.GamepadInput.MENU1, 0.0) != 0.0:
             print("Back")
-        if gamepad_desc.input_val[carb.input.GamepadInput.MENU2] != 0.0:
+        if val_get(carb.input.GamepadInput.MENU2, 0.0) != 0.0:
             print("Start")
 
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_SHOULDER] != 0.0:
+        if val_get(carb.input.GamepadInput.LEFT_SHOULDER, 0.0) != 0.0:
             print("Left shoulder")
-        if gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_SHOULDER] != 0.0:
+        if val_get(carb.input.GamepadInput.RIGHT_SHOULDER, 0.0) != 0.0:
             print("Right shoulder")
 
-        if gamepad_desc.input_val[carb.input.GamepadInput.LEFT_STICK] != 0.0:
+        if val_get(carb.input.GamepadInput.LEFT_STICK, 0.0) != 0.0:
             print("Push Left stick")
-        if gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_STICK] != 0.0:
+        if val_get(carb.input.GamepadInput.RIGHT_STICK, 0.0) != 0.0:
             print("Push Right stick")
 
-        v = gamepad_desc.input_val[carb.input.GamepadInput.LEFT_TRIGGER]
+        v = val_get(carb.input.GamepadInput.LEFT_TRIGGER, 0.0)
         if v != 0.0:
-            print("Left trigger : " + str(v))
+            print(f"Left trigger : {v}")
 
-        v = gamepad_desc.input_val[carb.input.GamepadInput.RIGHT_TRIGGER]
+        v = val_get(carb.input.GamepadInput.RIGHT_TRIGGER, 0.0)
         if v != 0.0:
-            print("Right trigger : " + str(v))
+            print(f"Right trigger : {v}")
 
     def startup(self):
         self._gamepads = []
         self._input = carb.input.acquire_input_interface()
         self._input_provider = carb.input.acquire_input_provider()
-        self._gamepad_connection_subs = self._input.subscribe_to_gamepad_connection_events(self._gamepad_connection_event)
+        # Subscribe to gamepad connection events (returns a subscription handle)
+        try:
+            self._gamepad_connection_subs = self._input.subscribe_to_gamepad_connection_events(self._gamepad_connection_event)
+        except Exception:
+            self._gamepad_connection_subs = None
 
         # Creating a dict of processed GamepadInput enumeration for convenience
         def filter_gamepad_input_attribs(attr):
             return not callable(getattr(carb.input.GamepadInput, attr)) and not attr.startswith("__") and attr != "name" and attr != "COUNT"
         self._gamepad_inputs = dict((getattr(carb.input.GamepadInput, attr), attr) for attr in dir(carb.input.GamepadInput) if filter_gamepad_input_attribs(attr))
+        # Keep a list of input keys for iteration
+        self._gamepad_input_keys = list(self._gamepad_inputs.keys())
 
         self._app = omni.kit.app.get_app()
         self._pre_update_sub = self._app.get_pre_update_event_stream().create_subscription_to_pop(
@@ -175,10 +191,16 @@ class InputGamePad:
         )
 
     def shutdown(self):
-        self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
+        # Unsubscribe safely
+        try:
+            if self._input is not None and self._gamepad_connection_subs is not None:
+                self._input.unsubscribe_to_gamepad_connection_events(self._gamepad_connection_subs)
+        except Exception:
+            pass
 
         self._gamepad_connection_subs = None
         self._gamepad_inputs = None
+        self._gamepad_input_keys = None
         self._gamepads = None
 
         self._app = None
