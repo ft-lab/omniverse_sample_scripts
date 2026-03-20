@@ -17,8 +17,8 @@ def onStageEvent(evt):
         
         for path in paths:
             prim = stage.GetPrimAtPath(path)
-            if prim.IsValid() == True:
-                print('Selected [ ' + prim.GetName() + ' ]')
+            if prim.IsValid():
+                print(f"Selected [ {prim.GetName()} ]")
 
 # ------------------------------------------------.
 # Register for stage events.

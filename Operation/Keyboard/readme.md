@@ -2,6 +2,11 @@
 
 キーボードの入力を取得します。      
 
+キーボードの入力は"carb.input"を使用します。  
+
+https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/carb.input.html
+
+
 ## サンプル
 
 |ファイル|説明|     

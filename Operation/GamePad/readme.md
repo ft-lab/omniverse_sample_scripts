@@ -4,7 +4,7 @@ GamePadでの操作を取得します。
 XBOX Controllerの場合は以下のような入力になります。     
 ![gamepad_image_01.jpg](./images/gamepad_image_01.jpg)    
 
-ゲームパッドの移動は"carb.input"を使用します。  
+ゲームパッドの入力は"carb.input"を使用します。  
 
 https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/carb.input.html
 
