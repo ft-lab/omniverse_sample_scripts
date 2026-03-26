@@ -32,7 +32,7 @@ if cameraPrim.IsValid():
     prim = stage.GetPrimAtPath(targetPrimPath)
     if prim.IsValid():
         # Set focus.
-        omni.kit.commands.execute('FramePrimsCommand',
+        omni.kit.commands.execute("FramePrimsCommand",
             prim_to_move=Sdf.Path(cameraPath),
             prims_to_frame=[targetPrimPath],
             time_code=time_code,

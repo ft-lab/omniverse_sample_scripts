@@ -6,7 +6,7 @@ import omni.kit.undo
 stage = omni.usd.get_context().get_stage()
 
 # Process to create a sphere.
-class MyCreateSphere (omni.kit.commands.Command):
+class MyCreateSphere(omni.kit.commands.Command):
     _path = ""
 
     def __init__(self, path : str):

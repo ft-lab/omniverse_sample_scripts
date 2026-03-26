@@ -1,4 +1,5 @@
 from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.usd
 
 # ---------------------------------------.
 # traverse the hierarchy.

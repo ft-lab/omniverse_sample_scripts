@@ -1,3 +1,3 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Usd
 print(Usd.GetVersion())
 

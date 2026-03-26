@@ -3,7 +3,7 @@ import omni.kit.commands
 import omni.kit.undo
 
 # Class for UNDO processing.
-class MyOrange (omni.kit.commands.Command):
+class MyOrange(omni.kit.commands.Command):
     def __init__(self, bar: list):
         self._bar = bar
 

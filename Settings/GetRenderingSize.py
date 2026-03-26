@@ -1,14 +1,8 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
-import carb.settings
+from omni.kit.viewport.utility import get_active_viewport
 
 # Get rendering size.
-# If Render Resolution is "Viewport", -1 will be set.
-settings = carb.settings.get_settings()
-width  = settings.get('/app/renderer/resolution/width')
-height = settings.get('/app/renderer/resolution/height')
+activeViewport = get_active_viewport()
+width = activeViewport.resolution[0]
+height = activeViewport.resolution[1]
+print(f"Rendering size : {width} x {height}")
 
-print("Rendering size : " + str(width) + " x " + str(height))
-
-# Set rendering size.
-#settings.set('/app/renderer/resolution/width', 1280)
-#settings.set('/app/renderer/resolution/height', 720)

@@ -1,34 +1,54 @@
-import omni.kit
 import carb.settings
+import omni.kit
+
 import asyncio
 
-# Get Render Mode.
-settings = carb.settings.get_settings()
-renderMode = settings.get('/rtx/rendermode')
+def get_rendering_mode() -> str:
+    """
+    Get the current rendering mode from Omniverse settings.
 
-# rtx, iray
-activeRender = settings.get('/renderer/active')
+    Returns:
+        A string representing the current rendering mode.
+        "iray", "pxr", "PathTracing", "RealTimePathTracing" or other custom modes.
+    """
 
-if activeRender == 'iray':
-    print("Render Mode : Iray")
-else:
-    if renderMode == 'RaytracedLighting':
-        print("Render Mode : RTX Real-time")
+    # Get Render Mode.
+    settings = carb.settings.get_settings()
+    renderMode = settings.get("/rtx/rendermode")
+
+    # rtx, iray, pxr
+    activeRender = settings.get("/renderer/active")
+
+    if activeRender == "rtx":
+        # "PathTracing", "RealTimePathTracing"
+        return renderMode
     else:
-        if renderMode == 'PathTracing':
-            print("Render Mode : RTX Path-traced")
-        else:
-            print("Render Mode : " + renderMode)
+        return activeRender
 
-# Set Render mode.
-# It is safe to wait for one frame in the coroutine to change the RenderMode.
-async def SetRenderMode (modeName : str):
+async def set_rendering_mode(mode: str):
+    """
+    Set the rendering mode in Omniverse.
+
+    Args:
+        mode (RenderingMode): The rendering mode to set. Options include "iray", "pxr", "PathTracing", "RealTimePathTracing".
+    """
+    settings = carb.settings.get_settings()
     await omni.kit.app.get_app().next_update_async()
-    settings.set('/rtx/rendermode', modeName)
 
-# Set "RTX Real-time"
-asyncio.ensure_future(SetRenderMode('RaytracedLighting'))
+    if mode == "iray":
+        settings.set("/renderer/active", "iray")
+    elif mode == "pxr":
+        settings.set("/renderer/active", "pxr")
+    else:
+        settings.set("/renderer/active", "rtx")
+        settings.set("/rtx/rendermode", mode)
 
-# Set "RTX Path-traced"
-asyncio.ensure_future(SetRenderMode('PathTracing'))
+print(f"Current Render Mode: {get_rendering_mode()}")
+
+
+# Set "RTX-Real-Time 2.0"
+asyncio.ensure_future(set_rendering_mode("RealTimePathTracing"))
+
+# Set "RTX-Interactive"
+asyncio.ensure_future(set_rendering_mode("PathTracing"))
 

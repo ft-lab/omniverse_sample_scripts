@@ -32,5 +32,6 @@ Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利�
 |[PointInstancer](./PointInstancer)|アセット(USDで指定)を複数の位置/回転/スケールで複製配置(PointInstancer)|    
 |[Variant](./Variant)|Variantを使ったPrimの切り替え|    
 |[DisplayColor](./DisplayColor/)|PrimのDisplayColorを取得/設定|  
+|[Attribute](./Attribute)|Prim の属性 (Attribute) の作成・読み取り・更新・削除のサンプル|    
 
 
