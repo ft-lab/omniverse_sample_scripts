@@ -19,5 +19,12 @@
 
 |ファイル|説明|     
 |---|---|     
-|[GetRealPath.py](./Layers/GetRealPath.py)|読み込んだStageのパスを取得|     
-|[GetSublayers.py](./Layers/GetSublayers.py)|SubLayerのパスを取得|     
+|[Layers/get_real_path.py](./Layers/get_real_path.py)|Stageで参照されているレイヤの実パスを取得|     
+|[Layers/get_sublayers.py](./Layers/get_sublayers.py)|指定レイヤのSubLayer一覧を取得|     
+|[Layers/add_sublayer.py](./Layers/add_sublayer.py)|レイヤにサブレイヤを追加する|     
+|[Layers/add_sublayer_from_file.py](./Layers/add_sublayer_from_file.py)|既存の（または新規作成した）USDファイルをサブレイヤとして登録するサンプル。<br />ステージが保存されているディレクトリに`sublayer_from_file.usd`を作成して`rootLayer.subLayerPaths`へ追加します。<br />`CLEANUP`フラグで変更を破棄（既定: True）または保持（False）できます。|
+|[Layers/remove_sublayer.py](./Layers/remove_sublayer.py)|レイヤからサブレイヤを削除する|     
+|[Layers/set_sublayer_visibility.py](./Layers/set_sublayer_visibility.py)|サブレイヤの表示/非表示を切り替える<br />（Omniverse Kit のコマンドを `omni.kit.commands.execute` で呼び出します）|     
+|[Layers/flatten_sublayers.py](./Layers/flatten_sublayers.py)|サブレイヤをフラット化して統合する<br />（Omniverse Kit のコマンドを `omni.kit.commands.execute` で呼び出します）|     
+|[Layers/switch_editing_layer.py](./Layers/switch_editing_layer.py)|編集対象の編集レイヤを切り替える|     
+|[Layers/layer_create_edit_revert.py](./Layers/layer_create_edit_revert.py)|レイヤの作成・編集・リバート操作を行う|     

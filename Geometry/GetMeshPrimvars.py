@@ -1,3 +1,4 @@
+import omni.usd
 from pxr import UsdGeom
 
 # Get stage.
@@ -22,6 +23,29 @@ for path in paths:
         for primvar in primvars:
             primName = primvar.GetPrimvarName()
             typeName = primvar.GetTypeName()
-            val      = primvar.Get()
+
+            try:
+                v = primvar.Get()
+                val = str(v)
+                if len(val) > 80:
+                    val = val[:80] + "..."
+            except Exception:
+                val = "<unreadable>"
 
             print(f"  {primName} ({typeName}) : {val}")
+
+    # Try to get 'st' primvar as an example.
+    primvar = primvarsAPI.GetPrimvar("st")
+    if primvar and primvar.IsDefined():
+        primName = primvar.GetPrimvarName()
+        typeName = primvar.GetTypeName()
+
+        try:
+            v = primvar.Get()
+            val = str(v)
+            if len(val) > 80:
+                val = val[:80] + "..."
+        except Exception:
+            val = "<unreadable>"
+
+        print(f"GetPrimvar: {primName} ({typeName}) : {val}")

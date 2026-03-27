@@ -1,4 +1,5 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.usd
+from pxr import Usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -10,4 +11,4 @@ rootLayer = stage.GetRootLayer()
 sublayerPaths = rootLayer.subLayerPaths
 
 for path in sublayerPaths:
-    print("  " + path)
+    print(f"  {path}")
