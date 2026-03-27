@@ -1,4 +1,5 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import UsdGeom
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -7,7 +8,7 @@ stage = omni.usd.get_context().get_stage()
 defaultPrim = stage.GetDefaultPrim()
 
 defaultPrimPath = defaultPrim.GetPath().pathString
-path = defaultPrimPath + '/xform'
+path = f"{defaultPrimPath}/xform"
 
 # Create empty node(Xform).
 UsdGeom.Xform.Define(stage, path)

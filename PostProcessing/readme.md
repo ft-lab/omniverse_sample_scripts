@@ -1,5 +1,9 @@
 # Post Processing
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 Post Processingの変更を行います。      
 
 Post ProcessingはOmniverse Createの「Post Processings」ウィンドウでパラメータにマウスを合わせたときのツールチップにパスが表示されています。      

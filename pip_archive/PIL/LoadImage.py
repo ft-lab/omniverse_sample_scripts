@@ -10,13 +10,13 @@ try:
     # Get image size.
     wid = im.size[0]
     hei = im.size[1]
-    print("Image size : " + str(wid) + " x " + str(hei))
+    print(f"Image size : {wid} x {hei}")
 
     # Get format (PNG, JPEG, etc).
-    print("Format : " + str(im.format))
+    print(f"Format : {im.format}")
 
     # Get mode (RGB, RGBA, etc.).
-    print("Mode : " + str(im.mode))
+    print(f"Mode : {im.mode}")
 
 except Exception as e:
     print(e)

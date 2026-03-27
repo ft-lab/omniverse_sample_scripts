@@ -1,5 +1,9 @@
 # ft_lab.sample.hello
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 "ft_lab.sample.hello" はExtensionの簡単なサンプルです。    
 "omni.example.hello"を参考にしました。    
 

@@ -1,11 +1,15 @@
 # Window
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 ウィンドウを作成。    
 
 |ファイル|説明|     
 |---|---|     
 |[CreateNewWindow.py](./CreateNewWindow.py)|新しいウィンドウを作成。<br>![CreateNewWindow.png](./images/CreateNewWindow.png)|     
-|[ImageWindow.py](./ImageWindow.py)|イメージをウィンドウ内に表示。<br>![ImageWindow.png](./images/ImageWindow.png)|     
+|[ImageWindow.py](./ImageWindow.py)|イメージをウィンドウ内に表示。<br>![ImageWindow.png](./images/ImageWindow.png)|      
 
 イメージは「kit」をカレントパスとして指定します。     
 Extensionで絶対パスを指定する場合は、以下のように指定します。      

@@ -1,5 +1,9 @@
 # Geometry
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 ジオメトリを作成するためのサンプルです。     
 
 ## primvarの仕様変更

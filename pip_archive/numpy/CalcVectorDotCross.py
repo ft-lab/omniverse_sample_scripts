@@ -5,8 +5,8 @@ v2 = numpy.array([1.2, 1.5, 2.3])
 
 # Calculating the Inner Product.
 v = numpy.dot(v1, v2)
-print("Inner product : " + str(v))
+print(f"Inner product : {v}")
 
 # Calculating the Outer Product.
 v = numpy.cross(v1, v2)
-print("Outer product : " + str(v))
+print(f"Outer product : {v}")

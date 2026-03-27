@@ -1,5 +1,9 @@
 # Operation
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 Ominverseの操作/イベント処理を行います。    
 
 |ファイル|説明|     

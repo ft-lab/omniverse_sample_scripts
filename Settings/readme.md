@@ -1,5 +1,9 @@
 # Settings
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 carb.settingsより、設定を取得します。     
 これは"/kit/config/kit-core.json"の情報を読み取ります。     
 

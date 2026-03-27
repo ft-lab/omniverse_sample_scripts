@@ -1,5 +1,6 @@
 from pxr import UsdGeom
 import omni.kit
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()

@@ -1,5 +1,9 @@
 # ft_lab.sample.loadStage
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 "ft_lab.sample.loadStage" は、あらかじめ用意したusdファイルを開くだけのExtensionです。    
 
 ## Extensionの構成

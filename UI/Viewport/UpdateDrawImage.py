@@ -12,7 +12,7 @@ import os.path
 from PIL import Image, ImageDraw, ImageFont
 
 # Get main window viewport.
-window = omni.ui.Window('Viewport')
+window = omni.ui.Window("Viewport")
 
 countV = 0
 timeV = time.time()

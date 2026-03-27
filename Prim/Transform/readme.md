@@ -1,5 +1,9 @@
 # Transform
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 Transform(scale/rotate/translate)情報の取得/設定。    
 
 |ファイル|説明|    

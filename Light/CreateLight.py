@@ -1,4 +1,5 @@
-from pxr import Usd, UsdGeom, UsdLux, Gf
+from pxr import UsdLux, Gf
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()

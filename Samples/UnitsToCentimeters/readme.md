@@ -1,5 +1,9 @@
 # UnitsToCentimeters
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 Stageの単位をセンチメートルに統一します。     
 [UnitsToCentimeters.py](./UnitsToCentimeters.py) は、
 metersPerUnitを0.01に変換するスクリプトです。     

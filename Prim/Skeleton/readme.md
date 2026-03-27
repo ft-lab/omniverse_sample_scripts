@@ -1,5 +1,9 @@
 # Skeleton
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 Skeletonでの情報を取得。    
 
 |ファイル|説明|    

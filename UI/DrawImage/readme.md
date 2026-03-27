@@ -1,3 +1,7 @@
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 # DrawImage
 
 ビューポートに画像をオーバレイ表示します。     

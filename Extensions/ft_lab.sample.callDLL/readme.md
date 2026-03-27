@@ -1,5 +1,9 @@
 # ft_lab.sample.callDLL
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 "ft_lab.sample.hello" はExtensionからC言語のDLLを呼び出す簡単なサンプルです。    
 
 ## Extensionの構成

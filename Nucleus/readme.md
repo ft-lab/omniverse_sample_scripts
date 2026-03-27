@@ -1,5 +1,9 @@
 # Nucleus
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|-|v.110.0.0|v.25.11|  
+
 ※ Nucleusについては2026年3月現在はインストール手段がないため、これはログとして残しています。
 
 OmniverseではUSDからの保存はNucleusの指定のパス(omniverse://localhost/xxx/yyy.usd)に出力できます。    

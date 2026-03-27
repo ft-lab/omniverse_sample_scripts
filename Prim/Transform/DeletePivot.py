@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Usd
 import omni.usd
 import omni.kit.commands
 
@@ -16,8 +16,8 @@ def _deletePivot(prim : Usd.Prim):
     if prim == None:
         return
 
-    path = prim.GetPath().pathString + ".xformOp:translate:pivot"
-    omni.kit.commands.execute('RemoveProperty', prop_path=path)
+    path = f"{prim.GetPath().pathString}.xformOp:translate:pivot"
+    omni.kit.commands.execute("RemoveProperty", prop_path=path)
 
     transformOrder = prim.GetAttribute("xformOpOrder").Get()
     if transformOrder != None:
@@ -34,7 +34,7 @@ for path in paths:
     prim = stage.GetPrimAtPath(path)
     if prim.IsValid() == True:
         # Print prim name.
-        print('[ ' + prim.GetName() + ' ]')
+        print(f'[ {prim.GetName()} ]')
 
         # Delete pivot.
         _deletePivot(prim)

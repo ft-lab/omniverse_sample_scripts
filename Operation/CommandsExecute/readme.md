@@ -1,6 +1,10 @@
 # Execute
 
-omni.kit.commandsを使用して、Omniverseのコマンドを実行します。    
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
+`omni.kit.commands`を使用して、Omniverseのコマンドを実行します。    
 
 ## サンプル
 

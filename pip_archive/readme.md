@@ -1,5 +1,9 @@
 # omni.kit.pip_archive
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 Pythonでよく使用するモジュールは、"pip_archive"として用意されています。     
 これは"omni.kit.pip_archive"のExtensionとして提供されていますが、Pythonのこれらを使ったモジュールと同じ使い方ができます。     
 いくつか使用してみました。        

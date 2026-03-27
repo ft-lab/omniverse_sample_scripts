@@ -1,6 +1,6 @@
 # --------------------------------------------------.
 # obj to usd conversion.
-# See : https://docs.omniverse.nvidia.com/app_create/prod_extensions/ext_asset-converter.html
+# See : https://docs.omniverse.nvidia.com/extensions/latest/ext_asset-converter.html
 # --------------------------------------------------.
 import carb
 import omni

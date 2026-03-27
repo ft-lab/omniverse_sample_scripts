@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -10,8 +10,8 @@ prim = stage.GetPrimAtPath(orgPath)
 if prim.IsValid():
     # Get Prim name.
     name = prim.GetName()
-    print("Name : " + str(name))
+    print(f"Name : {name}")
 
     # Get Prim path.
     path = prim.GetPath()
-    print("Path : " + str(path))
+    print(f"Path : {path}")

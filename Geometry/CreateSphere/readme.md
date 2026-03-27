@@ -1,5 +1,8 @@
 # CreateSphere
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
 
 球を作成します。    
 

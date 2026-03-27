@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -9,4 +9,4 @@ defaultPrim = stage.GetDefaultPrim()
 # Default prim path.
 defaultPrimPath = defaultPrim.GetPath().pathString
 
-print("DefaultPrim : " + defaultPrimPath)
+print(f"DefaultPrim : {defaultPrimPath}")

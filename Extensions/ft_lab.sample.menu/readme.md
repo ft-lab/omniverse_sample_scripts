@@ -1,5 +1,9 @@
 # ft_lab.sample.menu
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 "ft_lab.sample.menu" はメニューを追加する簡単なサンプルExtensionです。    
 
 ## Extensionの構成

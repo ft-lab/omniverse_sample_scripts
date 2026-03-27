@@ -1,5 +1,9 @@
 # DisplayColor
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 PrimのDisplayColorを取得/設定。  
 DisplayColorはジオメトリに対してオブジェクトごとの色を指定できます。  
 また、メッシュの場合は面/頂点ごとの色も指定可能です。  

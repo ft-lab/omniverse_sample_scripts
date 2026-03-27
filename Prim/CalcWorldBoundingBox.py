@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+from pxr import Usd, UsdGeom, Gf
 import omni.usd
 
 # Get stage.
@@ -27,11 +27,11 @@ for path in paths:
     if prim.IsValid() == False:
         continue
 
-    print("[ " + str(prim.GetName()) + "] ")
+    print(f"[ {prim.GetName()} ] : {prim.GetTypeName()}")
     bbMin, bbMax = _calcWorldBoundingBox(prim)
-    print("  BoundingBox : " + str(bbMin) + " - " + str(bbMax))
+    print(f"  BoundingBox : {bbMin} - {bbMax}")
 
     sx = bbMax[0] - bbMin[0]
     sy = bbMax[1] - bbMin[1]
     sz = bbMax[2] - bbMin[2]
-    print("  BoundingBoxSize : " + str(sx) + " x " + str(sy) + " x " + str(sz))
+    print(f"  BoundingBoxSize : {sx} x {sy} x {sz}")

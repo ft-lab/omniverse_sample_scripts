@@ -1,5 +1,9 @@
 # Scene
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 シーン(Stage)の情報を取得/操作します。     
 
 |ファイル|説明|     
@@ -16,6 +20,10 @@
 |[GetResolvedPath.py](./GetResolvedPath.py)|カレントStageで指定されている相対パス（テクスチャやReferenceとして参照しているusdファイルなど）を絶対パスに変換。<br>存在しないパスを指定した場合は空文字が返る。|     
 
 ## レイヤ関連
+
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
 
 |ファイル|説明|     
 |---|---|     

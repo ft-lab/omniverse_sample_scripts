@@ -1,5 +1,9 @@
 # Physics
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 Physicsのサンプルです。     
 Physicsの計算はGPU上で行われます。    
 

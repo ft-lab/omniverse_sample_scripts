@@ -1,5 +1,9 @@
 # Keyboard
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 キーボードの入力を取得します。      
 
 キーボードの入力は"carb.input"を使用します。  

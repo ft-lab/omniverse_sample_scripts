@@ -1,5 +1,15 @@
 # Camera
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
+カメラ操作を行います。    
+カメラはUsdGeom.Camera ( https://graphics.pixar.com/usd/release/api/class_usd_geom_camera.html ) を使用します。      
+
+Omniverse上では以下のようにしてアクティブカメラを取得します。  
+# Camera
+
 カメラ操作を行います。    
 カメラはUsdGeom.Camera ( https://graphics.pixar.com/usd/release/api/class_usd_geom_camera.html ) を使用します。      
 

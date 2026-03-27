@@ -1,3 +1,7 @@
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 # Variant
 
 PrimのGetVariant( https://openusd.org/release/api/class_usd_prim.html#a607da249e11bc4f5f3b4bf0db99861ab )を使用して、1つのPrim内で複数のPrimを「VariantSet」として登録します。    
@@ -10,6 +14,6 @@ PrimのGetVariant( https://openusd.org/release/api/class_usd_prim.html#a607da249
 |---|---|    
 |[Variant_01.py](./Variant_01.py)|Variantを使ったPrimの切り替えのテスト|    
 |[GetVariant.py](./GetVariant.py)|選択primでのVariantSet名、Variant名、Variantの選択状態を取得する|    
-|[RemoveVariantSet.py](./RemoveVariantSet.py)|指定のprimの指定のVariantSetを削除|
-|[RemoveVariantInVariantSet.py](./RemoveVariantInVariantSet.py)|指定のprimの指定のVariantSet内のVariantを削除|
+|[RemoveVariantSet.py](./RemoveVariantSet.py)|指定のprimの指定のVariantSetを削除|    
+|[RemoveVariantInVariantSet.py](./RemoveVariantInVariantSet.py)|指定のprimの指定のVariantSet内のVariantを削除|    
 

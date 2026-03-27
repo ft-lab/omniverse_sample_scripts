@@ -1,4 +1,4 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -16,7 +16,7 @@ for path in paths:
     # Get children.
     pChildren = prim.GetChildren()
     if len(pChildren) >= 1:
-        print("[ " + prim.GetPath().pathString + " ]")
+        print(f"[ {prim.GetPath().pathString} ]")
         for cPrim in pChildren:
-            print("   " + cPrim.GetPath().pathString)
+            print(f"   {cPrim.GetPath().pathString}")
    

@@ -1,5 +1,9 @@
 # DragAndDrop
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 UI間のドラッグ＆ドロップ。    
 
 |ファイル|説明|     

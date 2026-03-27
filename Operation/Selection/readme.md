@@ -1,5 +1,9 @@
 # Selection
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 StageウィンドウでのPrimの選択を取得。      
 
 |ファイル|説明|     

@@ -10,7 +10,7 @@ import itertools
 from PIL import Image, ImageDraw, ImageFont
 
 # Get main window viewport.
-window = omni.ui.Window('Viewport')
+window = omni.ui.Window("Viewport")
 
 # ref : omni.kit.window.images  extension.py
 

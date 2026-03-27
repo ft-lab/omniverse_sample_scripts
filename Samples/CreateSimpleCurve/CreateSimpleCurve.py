@@ -1,16 +1,16 @@
 # ----------------------------------------------------------.
 # SplineのCurveを作成するスクリプト.
 # ----------------------------------------------------------.
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, UsdSkel, Sdf, Gf, Tf
-from scipy import interpolate
+from pxr import UsdGeom, UsdShade, UsdSkel, Gf
 import numpy as np
 import math
+import omni.usd
 import omni.ui
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
 
-rootPath = '/World'
+rootPath = "/World"
 
 # --------------------------------------------------------.
 # 3Dの頂点座標より、スプラインとして細分割した頂点を返す.
@@ -18,26 +18,67 @@ rootPath = '/World'
 # @param[in] divCou   分割数。len(vList)よりも大きい値のこと.
 # @return 再分割されたGf.Vec3fの配列.
 # --------------------------------------------------------.
-def curveInterpolation(vList, divCou : int):
-    # XYZを配列に分離.
-    xList = []
-    yList = []
-    zList = []
-    for p in vList:
-       xList.append(p[0])
-       yList.append(p[1])
-       zList.append(p[2])
+def curveInterpolation(vList, divCou: int):
+    pts = np.array([[p[0], p[1], p[2]] for p in vList], dtype=float)
+    n = len(pts)
+    if n == 0:
+        return []
+    if n == 1:
+        return [Gf.Vec3f(*pts[0])] * divCou
 
-    retVList = []
+    # 少ない点数は線形補間で扱う
+    if n < 4:
+        seg_lengths = np.linalg.norm(pts[1:] - pts[:-1], axis=1)
+        total = seg_lengths.sum()
+        if total == 0:
+            return [Gf.Vec3f(*pts[0])] * divCou
+        cum = np.concatenate(([0.0], np.cumsum(seg_lengths) / total))
+        t_vals = np.linspace(0.0, 1.0, divCou)
+        out = []
+        for t in t_vals:
+            i = np.searchsorted(cum, t, side='right') - 1
+            i = min(max(i, 0), n - 2)
+            local_denom = (cum[i+1] - cum[i]) if (cum[i+1] - cum[i]) > 0 else 1.0
+            local_t = (t - cum[i]) / local_denom
+            p = (1.0 - local_t) * pts[i] + local_t * pts[i+1]
+            out.append(Gf.Vec3f(p[0], p[1], p[2]))
+        return out
 
-    tck,u = interpolate.splprep([xList, yList, zList], k=3, s=0)
-    u = np.linspace(0, 1, num=divCou, endpoint=True) 
-    spline = interpolate.splev(u, tck)
+    # Catmull-Rom spline (各セグメントを均等分割してサンプル)
+    segments = n - 1
+    per_seg = int(np.ceil(divCou / segments))
+    out_pts = []
 
-    for i in range(divCou):
-        retVList.append(Gf.Vec3f(spline[0][i], spline[1][i], spline[2][i]))
+    for i in range(segments):
+        p0 = pts[i-1] if i-1 >= 0 else pts[0]
+        p1 = pts[i]
+        p2 = pts[i+1]
+        p3 = pts[i+2] if (i+2) < n else pts[-1]
 
-    return retVList
+        if i < segments - 1:
+            t = np.linspace(0.0, 1.0, per_seg, endpoint=False)
+        else:
+            t = np.linspace(0.0, 1.0, per_seg, endpoint=True)
+
+        t2 = t * t
+        t3 = t2 * t
+
+        a = 0.5 * (2.0 * p1)
+        b = 0.5 * (-p0 + p2)
+        c = 0.5 * (2.0*p0 - 5.0*p1 + 4.0*p2 - p3)
+        d = 0.5 * (-p0 + 3.0*p1 - 3.0*p2 + p3)
+
+        seg_points = a[None, :] + np.outer(t, b) + np.outer(t2, c) + np.outer(t3, d)
+        for rp in seg_points:
+            out_pts.append(Gf.Vec3f(float(rp[0]), float(rp[1]), float(rp[2])))
+
+    # 必要数に切り詰める／足りなければ最後の点で埋める
+    if len(out_pts) >= divCou:
+        return out_pts[:divCou]
+    else:
+        last = out_pts[-1]
+        out_pts.extend([last] * (divCou - len(out_pts)))
+        return out_pts
 
 # --------------------------------------------------------.
 # 選択Primの子で球の座標を配列に格納.
@@ -57,8 +98,7 @@ def getSelectedSpheresPoint():
     vPosList = []
     pChildren = prim.GetChildren()
     for cPrim in pChildren:
-        typeName = cPrim.GetTypeName()
-        if typeName == 'Sphere':
+        if cPrim.IsA(UsdGeom.Sphere):
             globalPose = xformCache.GetLocalToWorldTransform(cPrim)
 
             # Decompose transform.
@@ -134,10 +174,10 @@ def calcDirToMatrix(vDir : Gf.Vec3f):
 # @param[in] material 割り当てるマテリアル.
 # --------------------------------------------------------.
 def createTubeMesh(name : str, vList, radiusV : float, divUCou : int, divVCou : int, material : UsdShade.Material):
-    pathStr = rootPath + '/cables'
+    pathStr = f"{rootPath}/cables"
 
     prim = stage.GetPrimAtPath(pathStr)
-    if prim.IsValid() == False:
+    if not prim.IsValid():
         UsdGeom.Xform.Define(stage, pathStr)
         prim = stage.GetPrimAtPath(pathStr)
 
@@ -153,7 +193,7 @@ def createTubeMesh(name : str, vList, radiusV : float, divUCou : int, divVCou : 
                 name2 = cPrim.GetName()
                 if name2 == newName:
                     index += 1
-                    newName = name + '_' + str(index)
+                    newName = f"{name}_{index}"
                     chkF = True
                     break
             
@@ -162,11 +202,11 @@ def createTubeMesh(name : str, vList, radiusV : float, divUCou : int, divVCou : 
 
         name = newName
 
-    meshName = pathStr + '/' + name
+    meshName = f"{pathStr}/{name}"
     meshGeom = UsdGeom.Mesh.Define(stage, meshName)
 
     # Bind material.
-    if material != None:
+    if material:
         UsdShade.MaterialBindingAPI(meshGeom).Bind(material)
 
     # +Zを中心とした半径radiusVのポイントを計算.
@@ -259,7 +299,7 @@ def onButtonClick(hDivCouIntField):
 
     # 選択Primの子で球の座標を配列に格納.
     retV = getSelectedSpheresPoint()
-    if retV == None:
+    if retV is None:
         print("Select an XForm that contains spheres.")
     else:
         vPosList, retR, material = retV
@@ -268,7 +308,7 @@ def onButtonClick(hDivCouIntField):
         newVPosList = curveInterpolation(vPosList, hDivCou)
 
         # チューブ形状を作成.
-        createTubeMesh('cable', newVPosList, retR, 12, hDivCou, material)
+        createTubeMesh("cable", newVPosList, retR, 12, hDivCou, material)
 
 # --------------------------------------------------------.
 # メイン部.

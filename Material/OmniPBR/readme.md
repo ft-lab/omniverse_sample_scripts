@@ -1,5 +1,9 @@
 # OmniPBR
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 OmniPBRのマテリアルを割り当て。    
 
 |ファイル|説明|     

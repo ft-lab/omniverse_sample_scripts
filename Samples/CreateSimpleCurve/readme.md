@@ -1,6 +1,11 @@
 # CreateSimpleCurve
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 Xform内の複数のSphereを使用し、Spbereをスプライン補間したチューブ形状を作成します。     
+
 
 ## 使い方
 

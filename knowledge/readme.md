@@ -1,5 +1,9 @@
 # Knowledge
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 OpenUSDまたはOmniverseに関する情報です。  
 
 * [Omniverseでの開発手段](./dev_method.md)

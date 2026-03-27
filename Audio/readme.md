@@ -1,5 +1,10 @@
 # Audio
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
+
 Audioファイルを読み込んで再生します。      
 Audio自身はUSDでPrimとして指定することができます。      
 

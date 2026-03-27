@@ -1,5 +1,9 @@
 # Extension
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 簡単なサンプルのExtensionです。      
 Extensionはモジュール的にOmniverse(Kit)を使ったアプリを拡張します。      
 ExtensionはベースはPythonとして記載し、別途C言語(動的ライブラリとして関数呼び出し)で外部機能を実装することができます。      

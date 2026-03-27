@@ -1,5 +1,9 @@
 # Prim
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|not yet|v.110.0.0|v.25.11|  
+
 USDのPrim(ノード相当)を操作します。     
 
 Primの操作は「[CommandsExecute](../Operation/CommandsExecute)」も便利に使用できます。     

@@ -1,4 +1,5 @@
-from pxr import Usd, UsdGeom, UsdPhysics, UsdShade, Sdf, Gf, Tf
+import omni.kit
+import omni.usd
 
 # Get stage.
 stage = omni.usd.get_context().get_stage()
@@ -13,5 +14,5 @@ for path in paths:
     if prim.IsValid() == False:
         continue
 
-    print('[ ' + prim.GetName() + ' ] TypeName = ' + prim.GetTypeName())
+    print(f'[ {prim.GetName()} ] TypeName = {prim.GetTypeName()}')
 

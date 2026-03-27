@@ -1,5 +1,9 @@
 # GamePad
 
+|検証|Omniverse Kit|OpenUSD|  
+|---|---|---|   
+|OK|v.110.0.0|v.25.11|  
+
 GamePadでの操作を取得します。      
 XBOX Controllerの場合は以下のような入力になります。     
 ![gamepad_image_01.jpg](./images/gamepad_image_01.jpg)    
